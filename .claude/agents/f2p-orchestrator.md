@@ -96,7 +96,7 @@ color: red
 
 ### Phase 3: 워커 배분
 
-워커 에이전트에게 전달할 정보:
+**반드시 `Task` 도구로 `f2p-worker`를 호출**하여 다음 정보 전달:
 
 ```
 - Figma 노드 ID
@@ -106,6 +106,23 @@ color: red
 ```
 
 워커는 `get_design_context`를 사용하여 상세 속성 반영
+
+**워커 호출 예시:**
+
+```
+Task 도구 호출:
+- subagent_type: f2p-worker
+- prompt: |
+    ## 작업 지시
+    - Figma 노드 ID: 123:456
+    - 출력 파일: Home.php (Hero 섹션)
+    - CSS 파일: css/Home.css
+    - 참조 변수: --color-primary, --spacing-md
+
+    get_design_context로 노드 속성을 가져와서 구현해주세요.
+```
+
+**중요**: 오케스트레이터는 직접 HTML/CSS/PHP 코드를 작성하지 않습니다. 반드시 f2p-worker를 호출하세요.
 
 ### Phase 4: Overflow 에러 처리 (필수 프로토콜)
 
@@ -176,7 +193,7 @@ color: red
 ## 금지 사항
 
 1. **theme.css 하드코딩 금지**: 정의된 CSS 변수를 무시하고 색상/폰트 등을 직접 입력하지 마세요
-2. **혼자 작업 금지**: 워커 에이전트 없이 모든 코드를 직접 작성하지 마세요 (토큰 제한 방지)
+2. **직접 코드 작성 금지**: HTML/CSS/PHP 코드는 반드시 `Task` 도구로 `f2p-worker`를 호출하여 작성하게 하세요. 오케스트레이터는 분석, 배분, 조립만 담당합니다.
 3. **figma-urls 무시 금지**: 목록에 정의된 순서대로 처리하세요
 
 ---
