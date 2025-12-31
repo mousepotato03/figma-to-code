@@ -120,14 +120,29 @@ Create a markdown file at `.claude/checklist/[page-name].md` with the following 
 
 1. Receive the Figma URL from the user
 2. Call `get_metadata` with the provided URL
-3. Parse the response to extract the frame/page name
-   - **숫자 prefix 제거**: "2-1. About NIBEC > OVERVIEW" → "About NIBEC > OVERVIEW"
-   - Sanitize for filesystem (replace `>`, `/`, `\`, `:`, `*`, `?`, `"`, `<`, `|`, spaces with `_`)
-   - 예: "About NIBEC > OVERVIEW" → "About_NIBEC_OVERVIEW.md"
+3. **파일명 생성 (필수 규칙 - 반드시 준수)**:
+   - `get_metadata` 응답의 **루트 노드 name 속성**에서 full name을 추출
+   - **절대 금지**: node-id, URL 파라미터, 임의 문자열을 파일명으로 사용 금지
+   - **숫자 prefix 제거**: 정규식 `^[\d\-\.]+\s*` 적용
+     - 예: "2-1. About NIBEC > OVERVIEW" → "About NIBEC > OVERVIEW"
+     - 예: "1. Home" → "Home"
+     - 예: "3-2-1. Contact" → "Contact"
+   - **파일시스템 안전화**: `>`, `/`, `\`, `:`, `*`, `?`, `"`, `<`, `|`, 공백 → `_`로 치환
+   - **최종 예시**: "2-1. About NIBEC > OVERVIEW" → `About_NIBEC_OVERVIEW.md`
 4. Analyze each element and classify accordingly
 5. Create the `.claude/checklist/` directory if it doesn't exist
 6. Write the analysis to `.claude/checklist/[sanitized-name].md`
 7. Report completion with a summary of findings
+
+**⚠️ 파일명 오류 예시 (이렇게 하면 안 됨)**:
+- ❌ `checklist_2413-12132.md` (node-id 사용)
+- ❌ `page_analysis.md` (임의 이름)
+- ❌ `2-1_About_NIBEC_OVERVIEW.md` (숫자 prefix 미제거)
+
+**✅ 올바른 파일명 예시**:
+- ✅ `About_NIBEC_OVERVIEW.md`
+- ✅ `Home.md`
+- ✅ `Contact_Us.md`
 
 ### 6. Quality Standards
 
