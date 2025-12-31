@@ -1,0 +1,161 @@
+:root {
+  /* ===== Colors ===== */
+  --color-newlogogreen: #006241;
+  --color-logogreen: #006241;
+  --color-logocolor2: #006241;
+  --color-darkgreen: #14483C;
+  --color-gray: #283C36;
+  --color-lightgray: #F6F5F2;
+  --color-offwhite: #F9F3E2;
+  --color-white: #FFFFFF;
+  --color-bluegreen: #3B8686;
+  --color-te-papa-green: #1C4B42;
+  --color-scheme-1-background: #ffffff;
+  --color-scheme-1-text: #000000;
+  --color-neutral-darkest: #000000;
+
+  /* ===== Layout ===== */
+  --page-padding-padding-global: 64px;
+  --section-padding-padding-section-medium: 80px;
+  --container-container-large: 1280px;
+  --radius-large: 0px;
+  --stroke-border-width: 1px;
+  --stroke-divider-width: 1px;
+  --stroke-weight-0-01: 0.011533202603459358px;
+  --stroke-weight-1: 1px;
+  --opacity-100: 100;
+  --text-sizes-text-medium: 18px;
+
+  /* ===== Font: title/h1 ===== */
+  --font-title-h1-family: "Paperlogy";
+  --font-title-h1-size: 60px;
+  --font-title-h1-weight: 800;
+  --font-title-h1-line-height: 1.2;
+  --font-title-h1-letter-spacing: -1px;
+
+  /* ===== Font: title/h3 ===== */
+  --font-title-h3-family: "Paperlogy";
+  --font-title-h3-size: 60px;
+  --font-title-h3-weight: 700;
+  --font-title-h3-line-height: 1.2;
+  --font-title-h3-letter-spacing: 0px;
+
+  /* ===== Font: title/h5 ===== */
+  --font-title-h5-family: "Paperlogy";
+  --font-title-h5-size: 42px;
+  --font-title-h5-weight: 700;
+  --font-title-h5-line-height: 1.3;
+  --font-title-h5-letter-spacing: 0px;
+
+  /* ===== Font: title/h6 ===== */
+  --font-title-h6-family: "Paperlogy";
+  --font-title-h6-size: 34px;
+  --font-title-h6-weight: 700;
+  --font-title-h6-line-height: 1.3;
+  --font-title-h6-letter-spacing: 0px;
+
+  /* ===== Font: title/h7 ===== */
+  --font-title-h7-family: "Pretendard";
+  --font-title-h7-size: 30px;
+  --font-title-h7-weight: 600;
+  --font-title-h7-line-height: 1.4;
+  --font-title-h7-letter-spacing: -2px;
+
+  /* ===== Font: title/h8 ===== */
+  --font-title-h8-family: "Pretendard";
+  --font-title-h8-size: 22px;
+  --font-title-h8-weight: 600;
+  --font-title-h8-line-height: 1.4;
+  --font-title-h8-letter-spacing: -2px;
+
+  /* ===== Font: title/enh3 ===== */
+  --font-title-enh3-family: "Paperlogy";
+  --font-title-enh3-size: 48px;
+  --font-title-enh3-weight: 700;
+  --font-title-enh3-line-height: 1.4;
+  --font-title-enh3-letter-spacing: -2px;
+
+  /* ===== Font: title/enh5 ===== */
+  --font-title-enh5-family: "Paperlogy";
+  --font-title-enh5-size: 40px;
+  --font-title-enh5-weight: 700;
+  --font-title-enh5-line-height: 1.3;
+  --font-title-enh5-letter-spacing: -2px;
+
+  /* ===== Font: title/enh6 ===== */
+  --font-title-enh6-family: "Paperlogy";
+  --font-title-enh6-size: 30px;
+  --font-title-enh6-weight: 700;
+  --font-title-enh6-line-height: 100;
+  --font-title-enh6-letter-spacing: 0px;
+
+  /* ===== Font: body/large ===== */
+  --font-body-large-family: "Pretendard";
+  --font-body-large-size: 20px;
+  --font-body-large-weight: 400;
+  --font-body-large-line-height: 1.6;
+  --font-body-large-letter-spacing: -2px;
+
+  /* ===== Font: body/midium ===== */
+  --font-body-midium-family: "Pretendard";
+  --font-body-midium-size: 17px;
+  --font-body-midium-weight: 400;
+  --font-body-midium-line-height: 1.6;
+  --font-body-midium-letter-spacing: 0px;
+
+  /* ===== Font: body/small ===== */
+  --font-body-small-family: "Pretendard";
+  --font-body-small-size: 15px;
+  --font-body-small-weight: 400;
+  --font-body-small-line-height: 1.5;
+  --font-body-small-letter-spacing: 0px;
+
+  /* ===== Font: body2 ===== */
+  --font-body2-family: "Work Sans";
+  --font-body2-size: 24px;
+  --font-body2-weight: 400;
+  --font-body2-line-height: 1.4;
+  --font-body2-letter-spacing: -2px;
+
+  /* ===== Font: display/midium ===== */
+  --font-display-midium-family: "Poppins";
+  --font-display-midium-size: 24px;
+  --font-display-midium-weight: 400;
+  --font-display-midium-line-height: 34px;
+  --font-display-midium-letter-spacing: 0px;
+
+  /* ===== Font: display/menu ===== */
+  --font-display-menu-family: "Poppins";
+  --font-display-menu-size: 20px;
+  --font-display-menu-weight: 500;
+  --font-display-menu-line-height: 100;
+  --font-display-menu-letter-spacing: 0px;
+
+  /* ===== Font: display/menu_strong ===== */
+  --font-display-menu-strong-family: "Poppins";
+  --font-display-menu-strong-size: 20px;
+  --font-display-menu-strong-weight: 600;
+  --font-display-menu-strong-line-height: 100;
+  --font-display-menu-strong-letter-spacing: -0.1px;
+
+  /* ===== Font: display/memu_select ===== */
+  --font-display-memu-select-family: "Poppins";
+  --font-display-memu-select-size: 22px;
+  --font-display-memu-select-weight: 700;
+  --font-display-memu-select-line-height: 100;
+  --font-display-memu-select-letter-spacing: -2px;
+
+  /* ===== Font: button ===== */
+  --font-button-family: "Poppins";
+  --font-button-size: 14px;
+  --font-button-weight: 500;
+  --font-button-line-height: 1.5;
+  --font-button-letter-spacing: 0px;
+
+  /* ===== Font: text/medium/normal ===== */
+  --font-text-medium-normal-family: "Roboto";
+  --font-text-medium-normal-size: 18px;
+  --font-text-medium-normal-weight: 400;
+  --font-text-medium-normal-line-height: 1.5;
+  --font-text-medium-normal-letter-spacing: 0px;
+}
