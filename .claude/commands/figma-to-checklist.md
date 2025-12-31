@@ -27,8 +27,11 @@ arguments:
 
 ## 3단계: 공통 컴포넌트 병합 (순차 실행)
 2단계의 모든 체크리스트가 생성된 후에,
-common-component-merger 에이전트 1개를 실행하여
-`.claude/checklist/` 폴더의 모든 체크리스트에서 공통 컴포넌트를 추출해줘.
+아래 파이썬 스크립트를 실행하여 공통 컴포넌트를 추출해줘:
+
+```bash
+python .claude/scripts/merge_common_components.py
+```
 
 **중요**: 이 단계는 반드시 2단계가 완료된 후에 실행
 
