@@ -3,7 +3,10 @@
 공통 컴포넌트 병합 스크립트
 
 체크리스트 파일들에서 공통 컴포넌트 섹션을 추출하여
-common_component.md로 통합하고, 원본에서 해당 섹션을 삭제합니다.
+common_component.md로 통합합니다.
+
+원본 파일에서는 섹션을 삭제하지 않고 참조 형태로 변환하여
+메타데이터(위치, 크기)를 보존합니다.
 """
 
 import re
@@ -20,12 +23,12 @@ def find_checklist_files(checklist_dir: Path) -> list[Path]:
     return sorted(files)
 
 
-def extract_common_section(content: str) -> tuple[str | None, str]:
+def extract_common_section(content: str) -> tuple[str | None, int, int]:
     """
     마크다운에서 공통 컴포넌트 섹션 추출
 
     Returns:
-        (섹션 내용, 섹션 제거된 원본)
+        (섹션 내용, 시작 위치, 끝 위치)
     """
     # 패턴: ## 🔄 공통 컴포넌트 또는 ## 공통 컴포넌트
     pattern = r'^(## (?:🔄 )?공통 컴포넌트.*?)(?=^## |\Z)'
@@ -33,56 +36,107 @@ def extract_common_section(content: str) -> tuple[str | None, str]:
     match = re.search(pattern, content, re.MULTILINE | re.DOTALL)
 
     if not match:
-        return None, content
+        return None, -1, -1
 
     section = match.group(1).strip()
-    # 원본에서 섹션 제거
-    cleaned = re.sub(pattern, '', content, count=1, flags=re.MULTILINE | re.DOTALL)
-    # 연속된 빈 줄 정리
-    cleaned = re.sub(r'\n{3,}', '\n\n', cleaned)
-
-    return section, cleaned.strip()
+    return section, match.start(), match.end()
 
 
-def parse_components(section_text: str) -> list[dict]:
-    """섹션에서 개별 컴포넌트 파싱"""
+def parse_components_with_metadata(section_text: str) -> list[dict]:
+    """
+    섹션에서 개별 컴포넌트와 메타데이터 파싱
+
+    Returns:
+        [{'name': 이름, 'content': 전체내용, 'metadata': 메타데이터만}]
+    """
     components = []
 
-    # ### 컴포넌트명 [ ] 패턴으로 분리
-    pattern = r'^### (.+?)(?:\s*\[.\])?[\s\S]*?(?=^### |\Z)'
-    matches = re.findall(pattern, section_text, re.MULTILINE)
-
     # 각 컴포넌트 블록 추출
-    blocks = re.split(r'^### ', section_text, flags=re.MULTILINE)[1:]  # 첫 번째는 헤더 부분
+    blocks = re.split(r'^### ', section_text, flags=re.MULTILINE)[1:]
 
     for block in blocks:
         lines = block.strip().split('\n')
         if not lines:
             continue
 
-        # 첫 줄에서 컴포넌트 이름 추출
+        # 첫 줄에서 컴포넌트 이름 추출 (대괄호 내용 포함해서 추출)
         name_match = re.match(r'^(.+?)(?:\s*\[.\])?\s*$', lines[0])
         if name_match:
             name = name_match.group(1).strip()
-            # 나머지 내용
-            content = '\n'.join(lines[1:]).strip()
+            content_lines = lines[1:]
+            content = '\n'.join(content_lines).strip()
+
+            # 메타데이터 추출 (위치, 크기 정보)
+            metadata = extract_metadata(content_lines)
+
             components.append({
                 'name': name,
-                'content': content
+                'content': content,
+                'metadata': metadata
             })
 
     return components
 
 
+def extract_metadata(lines: list[str]) -> dict:
+    """컴포넌트 내용에서 메타데이터(위치, 크기) 추출"""
+    metadata = {}
+
+    for line in lines:
+        line = line.strip()
+        # 위치 정보
+        if '위치' in line or 'y:' in line.lower():
+            metadata['position'] = line.lstrip('- ').strip()
+        # 크기 정보
+        elif '크기' in line or 'x' in line.lower():
+            if re.search(r'\d+\s*x\s*\d+', line, re.IGNORECASE):
+                metadata['size'] = line.lstrip('- ').strip()
+
+    return metadata
+
+
+def transform_to_reference(content: str, section_start: int, section_end: int, section_text: str) -> str:
+    """
+    공통 컴포넌트 섹션을 참조 형태로 변환
+    - 섹션 헤더에 참조 표시 추가
+    - 각 컴포넌트에 [공통] 태그와 참조 링크 추가
+    """
+    # 섹션 헤더 변환
+    new_section = section_text
+
+    # 헤더 변환: ## 공통 컴포넌트 → ## 공통 컴포넌트 (→ common_component.md 참조)
+    new_section = re.sub(
+        r'^(## (?:🔄 )?공통 컴포넌트)(\s*)$',
+        r'\1 (→ common_component.md 참조)\2',
+        new_section,
+        count=1,
+        flags=re.MULTILINE
+    )
+
+    # 각 컴포넌트의 체크박스를 [공통]으로 변경
+    new_section = re.sub(
+        r'^(### .+?)\s*\[\s*\]\s*$',
+        r'\1 [공통]',
+        new_section,
+        flags=re.MULTILINE
+    )
+
+    # 원본 내용에서 섹션 교체
+    before = content[:section_start]
+    after = content[section_end:]
+
+    return before + new_section + after
+
+
 def merge_components(all_data: list[dict]) -> dict:
     """
-    여러 페이지의 컴포넌트 병합
+    여러 페이지의 컴포넌트 병합 (출처별 메타데이터 보존)
 
     Args:
-        all_data: [{'page': 페이지명, 'components': [컴포넌트들]}]
+        all_data: [{'page': 페이지명, 'filepath': 파일경로, 'components': [컴포넌트들]}]
 
     Returns:
-        {컴포넌트명: {'pages': [페이지들], 'content': 첫 번째 내용}}
+        {컴포넌트명: {'pages': [{'name': 페이지명, 'metadata': {...}}], 'content': 첫번째 내용}}
     """
     merged = {}
 
@@ -95,13 +149,16 @@ def merge_components(all_data: list[dict]) -> dict:
                     'pages': [],
                     'content': comp['content']
                 }
-            merged[name]['pages'].append(page_name)
+            merged[name]['pages'].append({
+                'name': page_name,
+                'metadata': comp.get('metadata', {})
+            })
 
     return merged
 
 
 def generate_output(merged: dict, page_count: int) -> str:
-    """common_component.md 내용 생성"""
+    """common_component.md 내용 생성 (출처별 메타데이터 포함)"""
     lines = [
         "# 공통 컴포넌트 목록",
         "",
@@ -116,11 +173,29 @@ def generate_output(merged: dict, page_count: int) -> str:
     ]
 
     for idx, (name, data) in enumerate(merged.items(), 1):
-        pages_str = ", ".join(data['pages'])
+        page_names = [p['name'] for p in data['pages']]
+        pages_str = ", ".join(page_names)
         pages_count = f"({len(data['pages'])}/{page_count})"
 
         lines.append(f"### {idx}. {name} [ ]")
-        lines.append(f"- **사용 페이지**: {pages_str} {pages_count}")
+
+        # 출처별 메타데이터 (사용 페이지 개수 포함)
+        has_metadata = any(p.get('metadata') for p in data['pages'])
+        if has_metadata:
+            lines.append(f"- **출처별 메타데이터** {pages_count}:")
+            for page_info in data['pages']:
+                meta = page_info.get('metadata', {})
+                if meta:
+                    meta_parts = []
+                    if 'position' in meta:
+                        meta_parts.append(meta['position'])
+                    if 'size' in meta:
+                        meta_parts.append(meta['size'])
+                    if meta_parts:
+                        lines.append(f"  - {page_info['name']}: {', '.join(meta_parts)}")
+        else:
+            # 메타데이터 없으면 사용 페이지 목록만 표시
+            lines.append(f"- **사용 페이지** {pages_count}: {pages_str}")
 
         # 원본 내용 추가 (있으면)
         if data['content']:
@@ -164,20 +239,22 @@ def main():
 
     for filepath in files:
         content = filepath.read_text(encoding='utf-8')
-        section, cleaned = extract_common_section(content)
+        section, start, end = extract_common_section(content)
 
         if section:
             page_name = get_page_name(filepath)
-            components = parse_components(section)
+            components = parse_components_with_metadata(section)
 
             if components:
                 all_data.append({
                     'page': page_name,
+                    'filepath': filepath,
                     'components': components
                 })
 
-                # 원본 파일 업데이트 (섹션 제거)
-                filepath.write_text(cleaned, encoding='utf-8')
+                # 원본 파일 업데이트 (참조 형태로 변환)
+                transformed = transform_to_reference(content, start, end, section)
+                filepath.write_text(transformed, encoding='utf-8')
                 modified_files.append(filepath.name)
 
     if not all_data:
