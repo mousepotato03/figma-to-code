@@ -59,6 +59,10 @@ Create a markdown file at `.claude/checklist/[page-name].md` with the following 
 - `[X]` : 실패/누락 (작업 실패 또는 누락됨)
 - `[O]` : 완료 (구현 완료)
 
+**⚠️ 중요**:
+- 공통 컴포넌트와 일회성 섹션 사이에 **반드시 `---` 구분선**을 넣어야 함
+- 모든 체크박스는 **`[ ]`로 초기화** (절대 `[공통]` 사용 금지)
+
 ```markdown
 # [Page Name] 구조 분석
 
@@ -69,7 +73,7 @@ Create a markdown file at `.claude/checklist/[page-name].md` with the following 
 
 [Brief description of the page purpose and overall layout]
 
-## 🔄 공통 컴포넌트 (Common Components)
+## 공통 컴포넌트 (Common Components)
 
 ### [Component Name 1] [ ]
 
@@ -81,7 +85,9 @@ Create a markdown file at `.claude/checklist/[page-name].md` with the following 
 
 ...
 
-## 📄 일회성 섹션 (Page-specific Sections)
+---
+
+## 일회성 섹션 (Page-specific Sections)
 
 ### [Section Name 1] [ ]
 

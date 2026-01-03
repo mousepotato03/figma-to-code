@@ -3,7 +3,7 @@
 공통 컴포넌트 병합 스크립트
 
 체크리스트 파일들에서 공통 컴포넌트 섹션을 추출하여
-common_component.md로 통합합니다.
+_common_component.md로 통합합니다.
 
 원본 파일에서는 섹션을 삭제하지 않고 참조 형태로 변환하여
 메타데이터(위치, 크기)를 보존합니다.
@@ -15,23 +15,24 @@ from pathlib import Path
 
 
 def find_checklist_files(checklist_dir: Path) -> list[Path]:
-    """체크리스트 파일 목록 반환 (common_component.md 제외)"""
+    """체크리스트 파일 목록 반환 (_common_component.md 제외)"""
     files = []
     for f in checklist_dir.glob("*.md"):
-        if f.name != "common_component.md":
+        if f.name != "_common_component.md":
             files.append(f)
     return sorted(files)
 
 
 def extract_common_section(content: str) -> tuple[str | None, int, int]:
     """
-    마크다운에서 공통 컴포넌트 섹션 추출
+    마크다운에서 공통 컴포넌트 섹션만 추출 (일회성 섹션 제외)
 
     Returns:
         (섹션 내용, 시작 위치, 끝 위치)
     """
-    # 패턴: ## 🔄 공통 컴포넌트 또는 ## 공통 컴포넌트
-    pattern = r'^(## (?:🔄 )?공통 컴포넌트.*?)(?=^## |\Z)'
+    # 패턴: ## 공통 컴포넌트 ~ 다음 ## 헤더 직전까지
+    # 일회성 섹션이 바로 붙어있어도 인식하도록 개선
+    pattern = r'^(## (?:🔄 )?공통 컴포넌트[^\n]*\n.*?)(?=\n## |## (?:📄 )?일회성|\Z)'
 
     match = re.search(pattern, content, re.MULTILINE | re.DOTALL)
 
@@ -104,10 +105,10 @@ def transform_to_reference(content: str, section_start: int, section_end: int, s
     # 섹션 헤더 변환
     new_section = section_text
 
-    # 헤더 변환: ## 공통 컴포넌트 → ## 공통 컴포넌트 (→ common_component.md 참조)
+    # 헤더 변환: ## 공통 컴포넌트 → ## 공통 컴포넌트 (→ _common_component.md 참조)
     new_section = re.sub(
         r'^(## (?:🔄 )?공통 컴포넌트)(\s*)$',
-        r'\1 (→ common_component.md 참조)\2',
+        r'\1 (→ _common_component.md 참조)\2',
         new_section,
         count=1,
         flags=re.MULTILINE
@@ -158,7 +159,7 @@ def merge_components(all_data: list[dict]) -> dict:
 
 
 def generate_output(merged: dict, page_count: int) -> str:
-    """common_component.md 내용 생성 (출처별 메타데이터 포함)"""
+    """_common_component.md 내용 생성 (출처별 메타데이터 포함)"""
     lines = [
         "# 공통 컴포넌트 목록",
         "",
@@ -266,11 +267,11 @@ def main():
 
     # 출력 파일 생성
     output_content = generate_output(merged, len(files))
-    output_path = checklist_dir / "common_component.md"
+    output_path = checklist_dir / "_common_component.md"
     output_path.write_text(output_content, encoding='utf-8')
 
     # 결과 출력
-    print(f"Done: common_component.md")
+    print(f"Done: _common_component.md")
     print(f"Components: {len(merged)} | Modified files: {len(modified_files)}")
 
 
