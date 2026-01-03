@@ -52,7 +52,7 @@ python .claude/scripts/merge_common_components.py
 
 **동작**:
 - 각 체크리스트의 공통 컴포넌트 섹션을 참조 형태로 변환 (메타데이터 보존)
-- `common_component.md`에 모든 공통 컴포넌트 수집
+- `_common_component.md`에 모든 공통 컴포넌트 수집
 
 **중요**: 이 단계는 반드시 2단계가 완료된 후에 실행
 
