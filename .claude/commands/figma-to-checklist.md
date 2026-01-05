@@ -16,7 +16,7 @@ arguments:
 ## 2단계: 페이지 분석 (백그라운드 병렬 실행)
 
 ### 2-1. 사전 준비
-1. Glob으로 `.claude/checklist/*.md` 파일 목록을 확인하고 **기존 파일 개수**를 기억
+1. Glob으로 `.claude/checklist/*.json` 파일 목록을 확인하고 **기존 파일 개수**를 기억
 2. 분석할 **URL 개수**를 기억
 
 ### 2-2. 백그라운드 실행
@@ -32,7 +32,7 @@ Task 도구 호출 시:
 **중요: TaskOutput을 호출하지 마세요!** (컨텍스트 절약)
 
 대신 파일 생성으로 완료 확인:
-1. `sleep 15` 후 Glob으로 `.claude/checklist/*.md` 파일 개수 체크
+1. `sleep 15` 후 Glob으로 `.claude/checklist/*.json` 파일 개수 체크
 2. 새로 생성된 파일 개수 = (현재 파일 수 - 기존 파일 수)
 3. 새 파일 개수 >= URL 개수면 → 3단계 진행
 4. 아니면 15초 후 다시 체크 (최대 5분, 20회 반복)
@@ -51,8 +51,8 @@ python .claude/scripts/merge_common_components.py
 ```
 
 **동작**:
-- 각 체크리스트의 공통 컴포넌트 섹션을 참조 형태로 변환 (메타데이터 보존)
-- `_common_component.md`에 모든 공통 컴포넌트 수집
+- 각 체크리스트 JSON의 commonComponents를 참조 형태로 변환
+- `_common_component.json`에 모든 공통 컴포넌트 수집
 
 **중요**: 이 단계는 반드시 2단계가 완료된 후에 실행
 
@@ -69,6 +69,6 @@ Task 도구 호출 시:
 - 사용 페이지 목록과 출처별 메타데이터 병합
 
 ## 완료 보고
-- 생성된 체크리스트 파일 목록
-- 공통 컴포넌트 파일 경로
-- 최종 공통 컴포넌트 목록 (Navbar, Footer, Navbar_index)
+- 생성된 체크리스트 파일 목록 (*.json)
+- 공통 컴포넌트 파일 경로 (`_common_component.json`)
+- 최종 공통 컴포넌트 목록 (Navbar, Footer, Navbar_index 등)
