@@ -1,0 +1,199 @@
+{
+  "$schema": "checklist-v1",
+  "metadata": {
+    "pageName": "Medical Device Division > Product",
+    "figmaUrl": "https://www.figma.com/design/PbENz9XeDICQsut5z1DfiC/NIBEC_%EB%B3%B8%EC%9E%91%EC%97%85?node-id=2413-11456&t=Ko3ddEp3lRIO0Dcw-4",
+    "analyzedAt": "2026-01-06T00:00:00.000Z",
+    "fileKey": "PbENz9XeDICQsut5z1DfiC",
+    "nodeId": "2413:11456"
+  },
+  "overview": "NIBEC 의료기기 사업부의 제품 목록 페이지. 상단 히어로 영역과 제품별 아코디언 형태의 상세정보 모듈로 구성된 제품 카탈로그 페이지",
+  "commonComponents": [
+    {
+      "name": "Navbar",
+      "nodeId": "2413:11660",
+      "status": "common",
+      "position": "페이지 최상단 (고정 네비게이션)",
+      "size": {
+        "width": 1920,
+        "height": 130
+      },
+      "implementation": "Instance 컴포넌트로 재사용됨. 공통 헤더 컴포넌트로 구현 필요",
+      "children": [],
+      "reference": "_common_component.json"
+    },
+    {
+      "name": "Navbar_index (서브 네비게이션)",
+      "nodeId": "2413:11471",
+      "status": "common",
+      "position": "히어로 섹션 하단 (y: 760)",
+      "size": {
+        "width": 1920,
+        "height": 72
+      },
+      "implementation": "Instance 컴포넌트. 의료기기 사업부 내 페이지 간 네비게이션 역할",
+      "children": [],
+      "reference": "_common_component.json"
+    },
+    {
+      "name": "Footer",
+      "nodeId": "2508:11280",
+      "status": "common",
+      "position": "페이지 최하단",
+      "size": {
+        "width": 1920,
+        "height": 927
+      },
+      "implementation": "Instance 컴포넌트로 재사용됨. 공통 푸터 컴포넌트로 구현 필요",
+      "children": [],
+      "reference": "_common_component.json"
+    }
+  ],
+  "sections": [
+    {
+      "name": "Header (히어로 섹션)",
+      "nodeId": "2413:11459",
+      "status": "pending",
+      "order": 1,
+      "description": "페이지 타이틀과 배경 이미지가 포함된 히어로 영역. 의료기기 제품군 소개 헤드라인 표시",
+      "keyElements": [
+        "세로 악센트 바 (Rectangle 4)",
+        "헤드라인 텍스트",
+        "배경 이미지 영역"
+      ],
+      "implementationNotes": "파란색 세로 악센트 바와 헤드라인 텍스트 조합. 배경에 의료기기 관련 이미지 오버레이"
+    },
+    {
+      "name": "Layout / 145 (소개 텍스트 영역)",
+      "nodeId": "2413:11463",
+      "status": "pending",
+      "order": 2,
+      "description": "의료기기 제품군에 대한 설명 텍스트와 배경 이미지가 포함된 레이아웃 섹션",
+      "keyElements": [
+        "설명 텍스트 (펩타이드, 콜라겐 기반 바이오소재 설명)",
+        "배경 이미지 레이어들 (의료 주사기, 바이알 이미지)",
+        "좌측 컬러 오버레이 영역"
+      ],
+      "implementationNotes": "복수의 배경 이미지 레이어와 반투명 오버레이 적용. hidden 처리된 요소 확인 필요"
+    },
+    {
+      "name": "Breadcrumb Navigation",
+      "nodeId": "2413:11473",
+      "status": "pending",
+      "order": 3,
+      "description": "콘텐츠 영역 상단의 브레드크럼 네비게이션 링크",
+      "keyElements": [
+        "Home 링크",
+        "Medical Device Division 링크",
+        "Product 링크 (현재 페이지)"
+      ],
+      "implementationNotes": "5개의 링크 요소로 구성된 브레드크럼. 현재 위치 표시 스타일링 필요"
+    },
+    {
+      "name": "Product Module - OssGen-X 15",
+      "nodeId": "2413:11485",
+      "status": "pending",
+      "order": 4,
+      "description": "첫 번째 제품 모듈 (Instance). 아코디언 형태의 제품 상세 정보",
+      "keyElements": [
+        "제품명: OssGen-X 15",
+        "태그라인",
+        "펼침/접힘 버튼 (plus-sign)"
+      ],
+      "implementationNotes": "Instance 컴포넌트로 재사용 가능한 제품 모듈. 아코디언 UI 패턴 적용"
+    },
+    {
+      "name": "Product Module - MinoCure",
+      "nodeId": "2413:11514",
+      "status": "pending",
+      "order": 5,
+      "description": "MinoCure 제품 모듈. 접힌 상태의 아코디언",
+      "keyElements": [
+        "제품명: MinoCure",
+        "태그라인",
+        "핵심 성분, 제형, 주요 기능, 특장점, 승인 사항 정보 (hidden)"
+      ],
+      "implementationNotes": "펼쳐진 상태에서 제품 이미지와 상세 스펙 테이블 표시"
+    },
+    {
+      "name": "Product Module - OCS-B Xenomatrix",
+      "nodeId": "2413:11542",
+      "status": "pending",
+      "order": 6,
+      "description": "OCS-B Xenomatrix 제품 모듈",
+      "keyElements": [
+        "제품명: OCS-B Xenomatrix",
+        "태그라인",
+        "제품 상세 정보 영역"
+      ],
+      "implementationNotes": "골이식재 제품. 동일한 아코디언 패턴 적용"
+    },
+    {
+      "name": "Product Module - Equimatrix-collagen",
+      "nodeId": "2413:11570",
+      "status": "pending",
+      "order": 7,
+      "description": "Equimatrix-collagen 제품 모듈",
+      "keyElements": [
+        "제품명: Equimatrix-collagen",
+        "태그라인",
+        "제품 상세 정보 영역"
+      ],
+      "implementationNotes": "콜라겐 기반 제품. 동일한 아코디언 패턴 적용"
+    },
+    {
+      "name": "Product Module - GuidOss",
+      "nodeId": "2413:11598",
+      "status": "pending",
+      "order": 8,
+      "description": "GuidOss 제품 모듈",
+      "keyElements": [
+        "제품명: GuidOss",
+        "태그라인",
+        "제품 상세 정보 영역"
+      ],
+      "implementationNotes": "동일한 아코디언 패턴 적용"
+    },
+    {
+      "name": "Product Module - Dr. MyYou (펼쳐진 상태)",
+      "nodeId": "2413:11626",
+      "status": "pending",
+      "order": 9,
+      "description": "Dr. MyYou 제품 모듈. 펼쳐진 상태로 상세 정보 표시",
+      "keyElements": [
+        "제품명: Dr. MyYou",
+        "태그라인",
+        "제품 이미지",
+        "핵심 성분 (발효 마유, 펩타이드, 백색 꽃 추출물)",
+        "제형/용량 정보",
+        "주요 기능",
+        "특장점",
+        "상품 정보 제공 고시",
+        "More Details 버튼"
+      ],
+      "implementationNotes": "펼쳐진 상태의 레이아웃 구현. 좌측 제품 이미지, 우측 스펙 테이블 2컬럼 레이아웃. More Details 버튼으로 상세 페이지 연결"
+    }
+  ],
+  "recommendations": {
+    "layout": [
+      "전체 페이지 너비 1920px 기준, 콘텐츠 영역은 1280px 중앙 정렬",
+      "제품 모듈은 아코디언 패턴으로 구현하여 접힘/펼침 상태 관리",
+      "펼쳐진 상태에서 좌측 400px 이미지, 우측 800px 스펙 테이블 레이아웃"
+    ],
+    "responsive": [
+      "모바일에서 제품 모듈 세로 스택 레이아웃으로 변경",
+      "히어로 영역 배경 이미지 크롭/리사이즈 전략 필요",
+      "브레드크럼 네비게이션 모바일 대응 고려"
+    ],
+    "accessibility": [
+      "아코디언 버튼에 aria-expanded 속성 적용",
+      "제품 이미지에 적절한 alt 텍스트 제공",
+      "의료기기 관련 주의사항 텍스트 접근성 확보"
+    ],
+    "interactions": [
+      "아코디언 펼침/접힘 애니메이션 구현",
+      "More Details 버튼 호버 상태 구현",
+      "네비게이션 링크 호버/액티브 상태 스타일링"
+    ]
+  }
+}

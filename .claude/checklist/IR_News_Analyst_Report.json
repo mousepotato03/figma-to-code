@@ -1,0 +1,97 @@
+{
+  "$schema": "checklist-v1",
+  "metadata": {
+    "pageName": "IR & News / Analyst Report",
+    "figmaUrl": "https://www.figma.com/design/PbENz9XeDICQsut5z1DfiC/NIBEC_%EB%B3%B8%EC%9E%91%EC%97%85?node-id=2325-7750&t=fE4XGmNb9uAj5DyZ-4",
+    "analyzedAt": "2026-01-06T00:00:00.000Z",
+    "fileKey": "PbENz9XeDICQsut5z1DfiC",
+    "nodeId": "2325:7750"
+  },
+  "overview": "IR & News 섹션의 Analyst Report 페이지. 투자자를 위한 애널리스트 리포트 목록을 제공하며, PDF 다운로드 기능과 페이지네이션을 포함한 리스트 형태로 구성됨.",
+  "commonComponents": [
+    {
+      "name": "Navbar",
+      "nodeId": "2413:18476",
+      "status": "common",
+      "position": "상단 고정",
+      "size": {
+        "width": 1920,
+        "height": 130
+      },
+      "implementation": "전역 네비게이션 바. 인스턴스로 재사용됨.",
+      "children": [],
+      "reference": "_common_component.json"
+    },
+    {
+      "name": "Footer",
+      "nodeId": "2508:11802",
+      "status": "common",
+      "position": "하단",
+      "size": {
+        "width": 1920,
+        "height": 927
+      },
+      "implementation": "전역 푸터. 인스턴스로 재사용됨.",
+      "children": [],
+      "reference": "_common_component.json"
+    }
+  ],
+  "sections": [
+    {
+      "name": "Header",
+      "nodeId": "2325:7753",
+      "status": "pending",
+      "order": 1,
+      "description": "페이지 타이틀 영역. 좌측에 강조 바와 함께 헤드라인 텍스트 배치.",
+      "keyElements": [
+        "강조 바 (Rectangle 4, 10x67)",
+        "헤드라인 텍스트"
+      ],
+      "implementationNotes": "배경 이미지 또는 그라데이션 처리 필요. 강조 바는 브랜드 컬러 적용."
+    },
+    {
+      "name": "서브 네비게이션 및 소개",
+      "nodeId": "2325:7762",
+      "status": "pending",
+      "order": 2,
+      "description": "IR & News 섹션 소개 문구와 하위 메뉴 탭 네비게이션.",
+      "keyElements": [
+        "섹션 소개 텍스트",
+        "Navbar_index - 4개 탭 링크 (320px 균등 분할)"
+      ],
+      "implementationNotes": "탭 네비게이션은 현재 활성 상태 표시 필요. 각 탭은 IR & News 하위 페이지로 연결."
+    },
+    {
+      "name": "Analyst Report 리스트",
+      "nodeId": "2325:7827",
+      "status": "pending",
+      "order": 3,
+      "description": "애널리스트 리포트 목록 섹션. 각 항목에 제목, 날짜, PDF 다운로드 버튼 포함.",
+      "keyElements": [
+        "섹션 제목 (Heading)",
+        "리포트 항목 6개 (제목, 날짜, PDF Download 버튼)",
+        "페이지네이션 (이전/다음 버튼, 페이지 번호)"
+      ],
+      "implementationNotes": "리스트 아이템은 반복 컴포넌트로 구현. PDF 다운로드 버튼에 아이콘 포함. 페이지네이션은 1, 2, > 형태로 현재 페이지 강조."
+    }
+  ],
+  "recommendations": {
+    "layout": [
+      "전체 너비 1920px 기준, 콘텐츠 영역 1280px 중앙 정렬 (좌우 320px 마진)",
+      "리스트 아이템 높이 96px 균일 적용"
+    ],
+    "responsive": [
+      "모바일에서 탭 네비게이션 가로 스크롤 또는 드롭다운 변경 고려",
+      "PDF 다운로드 버튼 모바일에서 아이콘만 표시 고려"
+    ],
+    "accessibility": [
+      "PDF 다운로드 링크에 파일명 또는 설명 텍스트 제공",
+      "페이지네이션 버튼에 aria-label 적용"
+    ],
+    "interactions": [
+      "리스트 아이템 호버 시 배경색 변경",
+      "PDF 다운로드 버튼 클릭 시 새 탭에서 다운로드",
+      "페이지네이션 클릭 시 리스트 갱신"
+    ]
+  }
+}

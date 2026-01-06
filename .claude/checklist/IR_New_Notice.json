@@ -1,0 +1,116 @@
+{
+  "$schema": "checklist-v1",
+  "metadata": {
+    "pageName": "IR & New / Notice",
+    "figmaUrl": "https://www.figma.com/design/PbENz9XeDICQsut5z1DfiC/NIBEC_%EB%B3%B8%EC%9E%91%EC%97%85?node-id=2325-7973&t=fE4XGmNb9uAj5DyZ-4",
+    "analyzedAt": "2026-01-06T00:00:00.000Z",
+    "fileKey": "PbENz9XeDICQsut5z1DfiC",
+    "nodeId": "2325:7973"
+  },
+  "overview": "IR & News 섹션의 공지사항(Notice) 페이지. 투자 정보와 회사 소식을 공유하는 게시판 형태의 페이지로, 상단 헤더/네비게이션, 서브 네비게이션, 공지사항 리스트, 페이지네이션, 푸터로 구성됨.",
+  "commonComponents": [
+    {
+      "name": "Navbar",
+      "nodeId": "2413:18520",
+      "status": "common",
+      "position": "페이지 최상단",
+      "size": {
+        "width": 1920,
+        "height": 130
+      },
+      "implementation": "글로벌 네비게이션 바. Instance로 재사용되는 공통 컴포넌트.",
+      "children": [],
+      "reference": "_common_component.json"
+    },
+    {
+      "name": "Footer",
+      "nodeId": "2508:11889",
+      "status": "common",
+      "position": "페이지 최하단",
+      "size": {
+        "width": 1920,
+        "height": 927
+      },
+      "implementation": "글로벌 푸터. Instance로 재사용되는 공통 컴포넌트.",
+      "children": [],
+      "reference": "_common_component.json"
+    }
+  ],
+  "sections": [
+    {
+      "name": "Header",
+      "nodeId": "2325:7976",
+      "status": "pending",
+      "order": 1,
+      "description": "페이지 타이틀 영역. 좌측에 강조 바(Rectangle)와 함께 헤드라인 텍스트가 배치됨.",
+      "keyElements": [
+        "강조 바 (10x67px, 녹색 계열 추정)",
+        "헤드라인 텍스트 (Medium length hero headline)"
+      ],
+      "implementationNotes": "배경 이미지 또는 그라데이션 배경 위에 텍스트 배치. 좌측 강조 바는 브랜드 컬러 사용."
+    },
+    {
+      "name": "Layout / 145 / (서브 네비게이션 영역)",
+      "nodeId": "2325:7980",
+      "status": "pending",
+      "order": 2,
+      "description": "페이지 설명 텍스트와 서브 네비게이션(Navbar_index)을 포함하는 영역.",
+      "keyElements": [
+        "설명 텍스트 (투자자와 고객을 위한 정보 제공 안내)",
+        "서브 네비게이션 링크 4개 (각 320px 너비)"
+      ],
+      "implementationNotes": "배경 이미지 레이어와 오버레이 처리 필요. 서브 네비게이션은 4개의 동일 너비 링크로 구성."
+    },
+    {
+      "name": "News List (공지사항 목록)",
+      "nodeId": "2325:8059",
+      "status": "pending",
+      "order": 3,
+      "description": "공지사항 게시판 목록. 제목, 검색/필터 기능, 테이블 형태의 게시글 목록으로 구성.",
+      "keyElements": [
+        "섹션 제목 (Heading)",
+        "검색/필터 영역 (Input field 3개: 카테고리, 검색어, 검색버튼)",
+        "테이블 헤더 (번호, 제목, 카테고리, 날짜)",
+        "게시글 행 9개",
+        "페이지네이션"
+      ],
+      "implementationNotes": "테이블 레이아웃 또는 리스트 형태로 구현. 각 행은 96px 높이. 검색 필터는 상단 우측에 배치."
+    },
+    {
+      "name": "Pagination (페이지네이션)",
+      "nodeId": "2376:2349",
+      "status": "pending",
+      "order": 4,
+      "description": "게시판 페이지 이동을 위한 페이지네이션 컴포넌트.",
+      "keyElements": [
+        "이전 버튼 (<)",
+        "페이지 번호 (1, 2, 3, 4, ..., 40)",
+        "다음 버튼 (>)"
+      ],
+      "implementationNotes": "현재 페이지 강조 표시 필요. 중간 생략(...) 처리. 각 버튼 52x52px."
+    }
+  ],
+  "recommendations": {
+    "layout": [
+      "전체 너비 1920px 기준, 콘텐츠 영역은 1280px (좌우 320px 여백)",
+      "섹션별 수직 간격 일관성 유지",
+      "테이블 열 너비: 번호 90px, 제목 840px, 카테고리 200px, 날짜 150px"
+    ],
+    "responsive": [
+      "모바일에서 테이블 → 카드 형태로 변환 고려",
+      "서브 네비게이션 모바일에서 스크롤 또는 드롭다운으로 변환",
+      "검색 필터 영역 모바일에서 스택 레이아웃으로 변환"
+    ],
+    "accessibility": [
+      "테이블에 적절한 시맨틱 마크업 (thead, tbody, th, td) 적용",
+      "페이지네이션에 aria-label 추가",
+      "검색 입력 필드에 label 연결"
+    ],
+    "interactions": [
+      "게시글 행 hover 효과",
+      "페이지네이션 버튼 활성/비활성 상태",
+      "검색 버튼 클릭 시 로딩 상태",
+      "게시글 클릭 시 상세 페이지 이동"
+    ]
+  }
+}

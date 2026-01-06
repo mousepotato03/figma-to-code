@@ -1,0 +1,245 @@
+/* about-nibec-history.css - Auto-merged from 3 section files */
+/* Do not edit directly - regenerate with merge_section_css.py */
+
+/* ========== 01-header ========== */
+/* Header Section - about-nibec-history */
+.history-header {
+  width: 100%;
+  min-height: 400px;
+  background-color: var(--color-white);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding: 0 319px 40px 319px;
+  box-sizing: border-box;
+}
+
+.history-header__content {
+  display: flex;
+  align-items: center;
+  gap: 35px;
+  padding: 6px 0;
+  overflow: clip;
+}
+
+.history-header__indicator {
+  width: 10px;
+  height: 100%;
+  min-height: 72px;
+  background-color: var(--color-logogreen);
+  align-self: stretch;
+}
+
+.history-header__title-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.history-header__title {
+  font-family: var(--font-title-h3-family), sans-serif;
+  font-size: var(--font-title-h3-size);
+  font-weight: var(--font-title-h3-weight);
+  line-height: var(--font-title-h3-line-height);
+  letter-spacing: var(--font-title-h3-letter-spacing);
+  color: var(--color-logogreen);
+  text-transform: capitalize;
+  width: 961px;
+  margin: 0;
+}
+
+/* ========== 02-hero-banner ========== */
+/* Hero Banner Section */
+.hero-banner {
+  position: relative;
+  width: 100%;
+  height: 360px;
+  background-color: var(--color-newlogogreen);
+  overflow: hidden;
+}
+
+.hero-banner__bg {
+  position: absolute;
+  left: -302px;
+  top: -195px;
+  width: 2407px;
+  height: 1068px;
+}
+
+.hero-banner__bg-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 50%;
+  pointer-events: none;
+}
+
+.hero-banner__overlay {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1920px;
+  height: 400px;
+  background: linear-gradient(to right, rgba(25, 49, 21, 0.7) 2.691%, rgba(35, 172, 100, 0.7) 33.1%, rgba(212, 212, 212, 0.42) 70.994%);
+  filter: blur(50px);
+  mix-blend-mode: multiply;
+}
+
+.hero-banner__gradient {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1501px;
+  height: 400px;
+  background-image: linear-gradient(-81.45deg, rgba(22, 190, 76, 0) 42.304%, rgba(1, 142, 68, 0.4) 87.844%);
+  backdrop-filter: blur(10px);
+}
+
+.hero-banner__content {
+  position: absolute;
+  left: 328px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 822px;
+  font-family: var(--font-title-h8-family), sans-serif;
+  font-size: var(--font-title-h8-size);
+  font-weight: var(--font-title-h8-weight);
+  line-height: var(--font-title-h8-line-height);
+  letter-spacing: -0.44px;
+  color: var(--color-white);
+  text-transform: capitalize;
+}
+
+.hero-banner__content p {
+  margin: 0;
+}
+
+/* ========== 03-timeline-contents ========== */
+/* Timeline Contents Section */
+.timeline-contents {
+  width: 100%;
+  padding: 150px 320px;
+  background-color: var(--color-white);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.timeline-container {
+  width: 1280px;
+  display: flex;
+  gap: 60px;
+  align-items: flex-start;
+}
+
+.timeline-column {
+  width: 858px;
+  display: flex;
+  flex-direction: column;
+  gap: 100px;
+}
+
+/* Timeline Item */
+.timeline-item {
+  width: 100%;
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+  background-color: var(--color-white);
+  overflow: hidden;
+}
+
+/* Year */
+.timeline-year {
+  font-family: "Paperlogy", sans-serif;
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 1.4;
+  letter-spacing: -0.96px;
+  color: var(--color-darkgreen);
+  text-transform: capitalize;
+  flex-shrink: 0;
+}
+
+/* Marker (dot + line) */
+.timeline-marker {
+  width: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 15px;
+  align-self: stretch;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.timeline-dot {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: var(--color-darkgreen);
+  position: absolute;
+  top: 15px;
+  left: 0;
+}
+
+.timeline-line {
+  width: 1px;
+  flex: 1;
+  background-color: var(--color-darkgreen);
+  margin-top: 35px;
+}
+
+/* Content */
+.timeline-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  padding-top: 10px;
+  color: var(--color-darkgreen);
+}
+
+.timeline-content--compact {
+  gap: 20px;
+}
+
+.timeline-text {
+  font-family: "Pretendard", sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 1.6;
+  letter-spacing: -0.4px;
+  margin: 0;
+}
+
+.timeline-text.timeline-bold,
+.timeline-text strong {
+  font-family: "Pretendard", sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.4;
+  letter-spacing: -0.44px;
+}
+
+.timeline-text strong {
+  font-size: inherit;
+}
+
+/* Right side images */
+.timeline-images {
+  width: 362px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  flex-shrink: 0;
+}
+
+.timeline-image {
+  width: 362px;
+  height: 267px;
+  object-fit: cover;
+  background-color: #e0e0e0;
+}
+

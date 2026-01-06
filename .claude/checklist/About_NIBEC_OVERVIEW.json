@@ -1,0 +1,155 @@
+{
+  "$schema": "checklist-v1",
+  "metadata": {
+    "pageName": "About NIBEC > OVERVIEW",
+    "figmaUrl": "https://www.figma.com/design/PbENz9XeDICQsut5z1DfiC/NIBEC_%EB%B3%B8%EC%9E%91%EC%97%85?node-id=2413-12132&t=Ko3ddEp3lRIO0Dcw-4",
+    "analyzedAt": "2026-01-06T00:00:00.000Z",
+    "fileKey": "PbENz9XeDICQsut5z1DfiC",
+    "nodeId": "2413:12132"
+  },
+  "overview": "NIBEC 회사 소개 페이지로, 회사의 비전, 핵심 가치, 연혁, 혁신 기반 등을 소개하는 기업 개요 페이지입니다. 상단 Navbar와 하단 Footer를 포함하며, 중간에 여러 콘텐츠 섹션이 수직으로 배치되어 있습니다.",
+  "commonComponents": [
+    {
+      "name": "Navbar",
+      "nodeId": "2413:18106",
+      "status": "common",
+      "position": "페이지 최상단 (고정 네비게이션)",
+      "size": {
+        "width": 1920,
+        "height": 130
+      },
+      "implementation": "고정 위치 상단 네비게이션 바, 인스턴스 컴포넌트로 재사용됨",
+      "children": [],
+      "reference": "_common_component.json"
+    },
+    {
+      "name": "Navbar_index",
+      "nodeId": "2413:12144",
+      "status": "common",
+      "position": "헤더 섹션 하단 (서브 네비게이션)",
+      "size": {
+        "width": 1920,
+        "height": 72
+      },
+      "implementation": "페이지 내 섹션 네비게이션, 스크롤 시 상단 고정 고려",
+      "children": [],
+      "reference": "_common_component.json"
+    },
+    {
+      "name": "Footer",
+      "nodeId": "2508:10671",
+      "status": "common",
+      "position": "페이지 최하단",
+      "size": {
+        "width": 1920,
+        "height": 927
+      },
+      "implementation": "인스턴스 컴포넌트로 재사용, 회사 정보 및 링크 포함",
+      "children": [],
+      "reference": "_common_component.json"
+    }
+  ],
+  "sections": [
+    {
+      "name": "Header",
+      "nodeId": "2413:12134",
+      "status": "completed",
+      "order": 1,
+      "description": "페이지 상단 히어로 영역으로, 타이틀과 배경 이미지, 회사 소개 문구가 포함된 영역",
+      "keyElements": [
+        "헤드라인 텍스트 (Medium length hero headline)",
+        "배경 이미지 (geongang-han-saenghwal-bangsig)",
+        "회사 미션 설명 텍스트"
+      ],
+      "implementationNotes": "배경 이미지 위에 텍스트 오버레이, 반투명 오버레이 레이어 사용"
+    },
+    {
+      "name": "Vision",
+      "nodeId": "2413:12145",
+      "status": "completed",
+      "order": 2,
+      "description": "회사의 비전을 소개하는 섹션으로, 좌우 교차 레이아웃으로 이미지와 텍스트가 배치됨",
+      "keyElements": [
+        "섹션 타이틀 (인간 중심의 R&D 전문 기업 - NIBEC)",
+        "서브 설명 텍스트",
+        "이미지-텍스트 교차 레이아웃 2개 블록"
+      ],
+      "implementationNotes": "좌우 교차 레이아웃 구현, 반응형에서 세로 스택으로 전환 고려"
+    },
+    {
+      "name": "Core Values",
+      "nodeId": "2413:12173",
+      "status": "completed",
+      "order": 3,
+      "description": "회사의 핵심 가치 4가지를 아이콘과 함께 소개하는 섹션",
+      "keyElements": [
+        "섹션 타이틀 (가치로부터 시작되는 바이오 혁신)",
+        "4개의 가치 카드 (아이콘 + 제목 + 설명)",
+        "아이콘: microscope, knowledge, genetic-engineering, sheet"
+      ],
+      "implementationNotes": "4열 그리드 레이아웃, 반응형에서 2열 또는 1열로 전환"
+    },
+    {
+      "name": "Company History",
+      "nodeId": "2413:12236",
+      "status": "completed",
+      "order": 4,
+      "description": "회사 연혁 및 기술 기반을 소개하는 섹션",
+      "keyElements": [
+        "섹션 타이틀 (과학적 발견을 넘어, 치유의 확신으로)",
+        "회사 설립 스토리 텍스트",
+        "핵심 기술 3가지 리스트",
+        "NIBEC's History 버튼",
+        "우측 이미지"
+      ],
+      "implementationNotes": "좌측 텍스트 + 우측 이미지 레이아웃, CTA 버튼 포함"
+    },
+    {
+      "name": "Innovation Foundation",
+      "nodeId": "2413:12257",
+      "status": "completed",
+      "order": 5,
+      "description": "세 가지 혁신 기반을 카드 형태로 소개하는 섹션",
+      "keyElements": [
+        "섹션 타이틀 (우리를 증명하는 세 가지 혁신 기반)",
+        "3개의 이미지 카드 (이미지 + 제목 + 설명)"
+      ],
+      "implementationNotes": "3열 카드 그리드 레이아웃, 카드에 이미지 상단 배치"
+    },
+    {
+      "name": "Video Section",
+      "nodeId": "2413:12281",
+      "status": "completed",
+      "order": 6,
+      "description": "회사 비전 영상을 포함한 섹션",
+      "keyElements": [
+        "섹션 타이틀 (지속가능하고 건강한 내일을 향한 과학)",
+        "비디오 플레이어 (재생 컨트롤 포함)",
+        "하단 캡션 (NIBEC's Journey Toward a Better Life)"
+      ],
+      "implementationNotes": "비디오 플레이어 구현, 커스텀 컨트롤 UI, 반응형 비디오 비율 유지"
+    }
+  ],
+  "recommendations": {
+    "layout": [
+      "전체 페이지 너비 1920px 기준, 컨텐츠 영역 1280px 중앙 정렬",
+      "섹션 간 일관된 여백 (150px 상단 패딩) 유지",
+      "좌우 교차 레이아웃 섹션은 flex-direction: row-reverse로 구현"
+    ],
+    "responsive": [
+      "태블릿에서 2열 그리드를 1열로 전환",
+      "모바일에서 좌우 레이아웃을 세로 스택으로 변경",
+      "Navbar는 모바일에서 햄버거 메뉴로 전환 고려"
+    ],
+    "accessibility": [
+      "모든 이미지에 적절한 alt 텍스트 제공",
+      "비디오에 자막 및 스크립트 제공",
+      "충분한 색상 대비 확보"
+    ],
+    "interactions": [
+      "NIBEC's History 버튼 호버 효과",
+      "비디오 플레이어 재생/일시정지 기능",
+      "스크롤 시 Navbar 고정 효과"
+    ]
+  }
+}

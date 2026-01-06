@@ -1,0 +1,116 @@
+{
+  "$schema": "checklist-v1",
+  "metadata": {
+    "pageName": "About NIBEC > History",
+    "figmaUrl": "https://www.figma.com/design/PbENz9XeDICQsut5z1DfiC/NIBEC_%EB%B3%B8%EC%9E%91%EC%97%85?node-id=2413-12335&t=Ko3ddEp3lRIO0Dcw-4",
+    "analyzedAt": "2026-01-06T00:00:00.000Z",
+    "fileKey": "PbENz9XeDICQsut5z1DfiC",
+    "nodeId": "2413:12335"
+  },
+  "overview": "나이벡(NIBEC) 회사의 연혁 페이지. 2000년부터 2025년까지의 주요 이정표를 타임라인 형식으로 보여주는 페이지로, 수직 타임라인과 각 연도별 이미지 갤러리가 포함됨.",
+  "commonComponents": [
+    {
+      "name": "Navbar",
+      "nodeId": "2413:12669",
+      "status": "common",
+      "position": "페이지 최상단 고정",
+      "size": {
+        "width": 1920,
+        "height": 130
+      },
+      "implementation": "전역 네비게이션 바, 스크롤 시에도 상단 고정 필요",
+      "children": [],
+      "reference": "_common_component.json"
+    },
+    {
+      "name": "Navbar_index",
+      "nodeId": "2413:12348",
+      "status": "common",
+      "position": "헤더 섹션 하단 (y: 760)",
+      "size": {
+        "width": 1920,
+        "height": 72
+      },
+      "implementation": "서브 네비게이션 또는 탭 메뉴로 추정, About 섹션 내 페이지 전환용",
+      "children": [],
+      "reference": "_common_component.json"
+    },
+    {
+      "name": "Footer",
+      "nodeId": "2508:10758",
+      "status": "common",
+      "position": "페이지 최하단",
+      "size": {
+        "width": 1920,
+        "height": 927
+      },
+      "implementation": "전역 푸터 컴포넌트, 회사 정보 및 링크 포함",
+      "children": [],
+      "reference": "_common_component.json"
+    }
+  ],
+  "sections": [
+    {
+      "name": "Header",
+      "nodeId": "2413:12338",
+      "status": "completed",
+      "order": 1,
+      "description": "페이지 상단 헤더 영역, 'History' 타이틀과 브레드크럼 포함",
+      "keyElements": [
+        "좌측 수직 장식 바 (Rectangle 4)",
+        "페이지 제목 텍스트"
+      ],
+      "implementationNotes": "상단 400px 높이의 헤더 섹션, 좌측에 10px 너비의 강조 바 배치"
+    },
+    {
+      "name": "Hero Banner",
+      "nodeId": "2413:12343",
+      "status": "completed",
+      "order": 2,
+      "description": "배경 이미지와 함께 연혁 페이지 소개 텍스트가 포함된 히어로 배너",
+      "keyElements": [
+        "배경 이미지 (image 110)",
+        "반투명 오버레이 (Rectangle 11, Rectangle 10)",
+        "소개 텍스트: 2004년 설립 이래 나이벡의 펩타이드 기술 기반 혁신 소개"
+      ],
+      "implementationNotes": "1920x360 크기, 배경 이미지 위에 그라데이션 오버레이 적용 필요"
+    },
+    {
+      "name": "Timeline Contents",
+      "nodeId": "2413:12349",
+      "status": "completed",
+      "order": 3,
+      "description": "메인 연혁 타임라인 콘텐츠 영역, 2000년부터 2025년까지의 연혁을 수직 타임라인으로 표시",
+      "keyElements": [
+        "연도별 타임라인 아이템 (2025~2000년, 총 23개 연도)",
+        "각 연도별 주요 이벤트 목록",
+        "수직 연결선 (Vector 7)",
+        "연도 표시 원형 마커 (Ellipse 9)",
+        "우측 이미지 갤러리 (image 50~90)"
+      ],
+      "implementationNotes": "좌측에 타임라인(858px), 우측에 이미지 갤러리(362px) 배치. 각 연도는 연도 숫자, 수직선, 이벤트 목록으로 구성. 스크롤 시 이미지가 해당 연도와 동기화되도록 구현 권장"
+    }
+  ],
+  "recommendations": {
+    "layout": [
+      "전체 너비 1920px 기준, 콘텐츠는 1280px 내에 중앙 정렬",
+      "타임라인 섹션: 좌측 연도(126px) + 마커/라인(20px) + 이벤트 텍스트(632px) + 간격 + 이미지(362px)",
+      "수직 타임라인의 연결선은 CSS border 또는 pseudo-element로 구현"
+    ],
+    "responsive": [
+      "모바일에서는 이미지 갤러리를 타임라인 아래로 이동하거나 숨김 처리",
+      "태블릿에서는 이미지 크기 축소 및 타임라인 너비 조정",
+      "연도 표시는 모바일에서도 항상 보이도록 sticky 처리 고려"
+    ],
+    "accessibility": [
+      "타임라인의 시각적 구조를 시맨틱 HTML로 표현 (ol/li 또는 적절한 ARIA 속성)",
+      "연도별 섹션에 적절한 heading 레벨 적용",
+      "이미지에 대체 텍스트 제공"
+    ],
+    "interactions": [
+      "스크롤 시 현재 연도 하이라이트 효과",
+      "연도 클릭 시 해당 섹션으로 스무스 스크롤",
+      "이미지 클릭 시 확대 모달 표시 고려"
+    ]
+  }
+}

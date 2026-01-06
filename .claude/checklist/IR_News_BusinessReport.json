@@ -1,0 +1,117 @@
+{
+  "$schema": "checklist-v1",
+  "metadata": {
+    "pageName": "IR & News / BusinessReport",
+    "figmaUrl": "https://www.figma.com/design/PbENz9XeDICQsut5z1DfiC/NIBEC_%EB%B3%B8%EC%9E%91%EC%97%85?node-id=2325-7600&t=fE4XGmNb9uAj5DyZ-4",
+    "analyzedAt": "2026-01-06T00:00:00.000Z",
+    "fileKey": "PbENz9XeDICQsut5z1DfiC",
+    "nodeId": "2325:7600"
+  },
+  "overview": "IR & News 섹션의 사업보고서(BusinessReport) 페이지. 투자자를 위한 실적발표 자료와 사업보고서 목록을 제공하는 페이지로, 헤더 영역, 서브 내비게이션, 최근 실적발표 자료 섹션, 사업보고서 목록으로 구성됨.",
+  "commonComponents": [
+    {
+      "name": "Navbar",
+      "nodeId": "2413:18432",
+      "status": "common",
+      "position": "상단 고정",
+      "size": {
+        "width": 1920,
+        "height": 130
+      },
+      "implementation": "글로벌 네비게이션 바. 모든 페이지에서 공통으로 사용되는 인스턴스 컴포넌트.",
+      "children": [],
+      "reference": "_common_component.json"
+    },
+    {
+      "name": "Footer",
+      "nodeId": "2508:11715",
+      "status": "common",
+      "position": "하단",
+      "size": {
+        "width": 1920,
+        "height": 927
+      },
+      "implementation": "글로벌 푸터. 모든 페이지에서 공통으로 사용되는 인스턴스 컴포넌트.",
+      "children": [],
+      "reference": "_common_component.json"
+    }
+  ],
+  "sections": [
+    {
+      "name": "Header",
+      "nodeId": "2325:7603",
+      "status": "pending",
+      "order": 1,
+      "description": "페이지 상단 헤더 영역. 페이지 제목을 표시하는 영역으로 좌측에 강조 바와 함께 헤드라인 텍스트가 배치됨.",
+      "keyElements": [
+        "강조 바 (Rectangle)",
+        "헤드라인 텍스트"
+      ],
+      "implementationNotes": "배경 이미지 또는 그라데이션 처리 필요. 텍스트 좌측에 10px 너비의 강조 바 배치."
+    },
+    {
+      "name": "Layout / 145 - 서브 내비게이션 영역",
+      "nodeId": "2325:7607",
+      "status": "pending",
+      "order": 2,
+      "description": "페이지 설명과 서브 내비게이션 탭을 포함하는 영역. IR & News 섹션의 소개 문구와 하위 메뉴 링크들이 배치됨.",
+      "keyElements": [
+        "페이지 설명 텍스트",
+        "Navbar_index - 4개의 탭 링크 (각 320px 너비)"
+      ],
+      "implementationNotes": "상단에 설명 텍스트, 하단에 4개의 동일 너비 탭 메뉴. 현재 활성 탭 표시 스타일링 필요."
+    },
+    {
+      "name": "최근 실적발표 자료",
+      "nodeId": "2359:7278",
+      "status": "pending",
+      "order": 3,
+      "description": "가장 최근 실적발표 자료를 강조하여 보여주는 섹션. 제목, 설명, 액션 버튼과 함께 썸네일 이미지가 우측에 배치됨.",
+      "keyElements": [
+        "섹션 제목 '최근 실적발표 자료'",
+        "실적발표 제목 및 부제목",
+        "View Report 버튼 (외부 링크 아이콘)",
+        "PDF Download 버튼 (다운로드 아이콘)",
+        "우측 썸네일 이미지 (Investor Relations 텍스트, NIBEC 로고 포함)"
+      ],
+      "implementationNotes": "좌측 텍스트/버튼 영역과 우측 썸네일 이미지의 2컬럼 레이아웃. 버튼은 아이콘과 함께 배치."
+    },
+    {
+      "name": "사업보고서 목록",
+      "nodeId": "2325:7701",
+      "status": "pending",
+      "order": 4,
+      "description": "과거 사업보고서 목록을 테이블 형태로 보여주는 섹션. 각 행에 제목, 날짜, 다운로드/외부링크 버튼이 배치됨.",
+      "keyElements": [
+        "리스트 아이템 (4개 행)",
+        "보고서 제목",
+        "날짜/Heading 정보",
+        "PDF Download 버튼",
+        "View on DART 버튼 (마지막 항목)"
+      ],
+      "implementationNotes": "각 행은 96px 높이. 하단 구분선 또는 배경색 교차 처리 고려. 마지막 행은 DART 외부 링크 버튼으로 차별화."
+    }
+  ],
+  "recommendations": {
+    "layout": [
+      "전체 너비 1920px 기준, 컨텐츠 영역은 1280px (좌우 320px 마진)",
+      "섹션별 충분한 여백(150px) 적용하여 시각적 구분",
+      "리스트 아이템은 일관된 96px 높이 유지"
+    ],
+    "responsive": [
+      "모바일에서 2컬럼 레이아웃을 1컬럼으로 변경 (최근 실적발표 자료 섹션)",
+      "탭 메뉴는 모바일에서 가로 스크롤 또는 드롭다운으로 변경 검토",
+      "테이블 형태의 목록은 카드 형태로 변환 고려"
+    ],
+    "accessibility": [
+      "PDF 다운로드 링크에 파일 형식 및 크기 정보 제공",
+      "외부 링크(DART) 표시를 위한 시각적/텍스트 인디케이터",
+      "탭 내비게이션 키보드 접근성 확보"
+    ],
+    "interactions": [
+      "탭 전환 시 부드러운 전환 효과",
+      "버튼 호버 상태 스타일링",
+      "다운로드 버튼 클릭 시 로딩 상태 표시 고려"
+    ]
+  }
+}
