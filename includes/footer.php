@@ -12,8 +12,7 @@
     <div class="footer-main__inner">
       <!-- Logo -->
       <div class="footer-logo">
-        <img src="" alt="NIBEC Logo" data-image-id="logo" class="image-placeholder footer-logo__img" />
-        <!-- IMAGE_PLACEHOLDER_LOGO -->
+        <img src="assets/icons/logo_nibec_green.svg" alt="NIBEC Logo" class="footer-logo__img" />
       </div>
 
       <!-- Navigation Links -->

@@ -84,6 +84,7 @@ mcp__figma__get_design_context({
 - theme.css 변수 우선 사용
 - Flexbox/Grid 레이아웃
 - Pixel-perfect 치수
+- **섹션 너비 예외**: 섹션 최상위 컨테이너의 `width: 1920px`, `1440px` 등 캔버스 크기 → `width: 100%`로 변환 (내부 요소는 그대로 유지)
 
 ### Step 5: 파일 저장
 

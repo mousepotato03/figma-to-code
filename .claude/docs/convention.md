@@ -52,6 +52,7 @@ root/
 
 - `get_design_context` 값 그대로 사용. 임의 추정 금지
 - margin, padding, 모든 사이즈 정확히 구현
+- **예외**: 섹션 최상위 컨테이너의 `width: 1920px` 등 캔버스 크기는 `width: 100%`로 변환
 
 ## 4. 마커 파일 시스템
 
