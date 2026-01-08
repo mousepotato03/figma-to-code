@@ -10,13 +10,7 @@ arguments:
 
 ## 0단계: 준비
 
-### 0-1. 컨벤션 확인
-```
-Read .claude/docs/convention.md
-Read css/theme.css (없으면 생성 필요 알림)
-```
-
-### 0-2. 체크리스트 목록 확인
+### 0-1. 체크리스트 목록 확인
 ```
 Glob .claude/checklist/*.json
 ```
@@ -191,7 +185,7 @@ mkdir -p {pageName}
 ```
 Glob .claude/markers/{pageName}/*
 ```
-기존 마커 개수 기억 (완료 확인용)
+기존 마커 개수 기억 (완료 확인용) 
 
 ### 3-5. 섹션별 병렬 실행 (최대 5개씩)
 각 섹션에 대해 **병렬로** figma-implementer 호출:
