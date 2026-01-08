@@ -6,6 +6,9 @@
 root/
 ├── includes/          # 공통 컴포넌트 (header, footer, nav, db-connect)
 ├── css/               # 스타일시트 (reset.css, theme.css, [페이지].css)
+├── assets/
+│   ├── images/        # 페이지별 이미지 (assets/images/{pageName}/)
+│   └── icons/         # 공용 아이콘
 ├── [페이지명]/        # 개발 중: 섹션별 분리 (hero.php, features.php 등)
 ├── 페이지.php         # 최종: 통합된 페이지
 └── .claude/
@@ -34,13 +37,35 @@ root/
 
 ## 3. 구현 규칙
 
-### 이미지 처리
+### 이미지/아이콘 처리
 
-- **Figma에서 이미지 다운로드 금지** - placeholder로 대체
+**저장 경로:**
+- 이미지: `assets/images/{pageName}/` (페이지별 그룹화)
+- 아이콘: `assets/icons/` (공용, 페이지 구분 없음)
+
+**파일명:**
+- 원본 파일명 그대로 유지 (rename 금지)
+
+**다운로드 방법:**
+1. `get_design_context` 응답의 `downloadUrls`에서 asset URL 확인
+2. `curl -o` 명령으로 다운로드
+3. 해당 경로에 저장
+4. HTML에서 올바른 경로로 참조
+
+**예시:**
+```bash
+# 이미지 다운로드
+mkdir -p assets/images/home
+curl -o "assets/images/home/hero-bg.png" "https://figma-alpha-api.s3.us-west-2.amazonaws.com/..."
+
+# 아이콘 다운로드
+mkdir -p assets/icons
+curl -o "assets/icons/arrow-right.svg" "https://figma-alpha-api.s3.us-west-2.amazonaws.com/..."
+```
 
 ```html
-<img src="" alt="placeholder" data-image-id="1" class="image-placeholder" />
-<!-- IMAGE_PLACEHOLDER_1 -->
+<img src="assets/images/home/hero-bg.png" alt="Hero background" />
+<img src="assets/icons/arrow-right.svg" alt="Arrow" class="icon" />
 ```
 
 ### 스타일시트

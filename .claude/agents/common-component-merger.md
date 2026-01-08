@@ -112,13 +112,8 @@ You are a Common Component Merger Agent. Your job is to consolidate duplicate co
 병합 전: N개 → 병합 후: M개
 ```
 
-## 컨텍스트 절약 규칙
+## 필수 규칙
 
-**절대 금지:**
-- JSON 내용 출력 금지
-- 분석 과정 설명 금지
-- 도구 호출 결과 요약 금지
+**공통 규칙**: `.claude/docs/agent-guidelines.md` 참조
 
-**허용:**
-- 도구 호출 (Read, Write)
-- 최종 완료 메시지 (위 형식만)
+**예외**: 이 에이전트는 `_common_component.json` 수정이 목적

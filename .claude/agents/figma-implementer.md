@@ -74,19 +74,39 @@ mcp__figma__get_design_context({
 })
 ```
 
-### Step 3: PHP 생성
+### Step 3: 이미지/아이콘 다운로드
+
+`get_design_context` 응답의 `downloadUrls`에서 asset URL을 확인하고 다운로드:
+
+```bash
+# 이미지 다운로드 (페이지별 그룹화)
+mkdir -p assets/images/{pageName}
+curl -o "assets/images/{pageName}/{원본파일명}" "{downloadUrl}"
+
+# 아이콘 다운로드 (공용)
+mkdir -p assets/icons
+curl -o "assets/icons/{원본파일명}" "{downloadUrl}"
+```
+
+**규칙:**
+- 이미지 → `assets/images/{pageName}/`
+- 아이콘 → `assets/icons/` (공용, 페이지 구분 없음)
+- 파일명은 원본 그대로 유지 (rename 금지)
+- HTML에서 올바른 경로로 참조
+
+### Step 4: PHP 생성
 
 - Semantic HTML5 요소 사용
 - 인라인 스타일 금지
 
-### Step 4: CSS 생성
+### Step 5: CSS 생성
 
 - theme.css 변수 우선 사용
 - Flexbox/Grid 레이아웃
 - Pixel-perfect 치수
 - **섹션 너비 예외**: 섹션 최상위 컨테이너의 `width: 1920px`, `1440px` 등 캔버스 크기 → `width: 100%`로 변환 (내부 요소는 그대로 유지)
 
-### Step 5: 파일 저장
+### Step 6: 파일 저장
 
 1. **디렉토리 생성** (필요시)
    - PHP: `{pageName}/` (예: `home/`)
@@ -132,35 +152,15 @@ failed|2026-01-04T10:30:00Z|Figma API timeout after 3 retries
 
 ---
 
-## 금지 사항 (필수)
+## 필수 규칙
 
-### 체크리스트 JSON 접근 금지
+**공통 규칙**: `.claude/docs/agent-guidelines.md` 참조
 
-**절대로** `.claude/checklist/*.json` 파일을 읽거나 수정하지 마세요.
-- 상태 관리는 메인 세션의 역할
-- 에이전트는 마커 파일(.done/.failed)만 생성
-- 충돌 방지를 위한 핵심 규칙
-
-### 컨텍스트 절약 (절대 금지)
-
-- Figma 응답 원본 출력 금지
-- 생성한 PHP/CSS 코드 미리보기 금지
-- "~를 작성하겠습니다" 등 작업 예고 금지
-- 도구 호출 결과 요약 금지
-
-### 최종 결과 반환 형식
-
-작업 완료 시 **이것만** 출력:
+### 최종 출력 형식
 
 ```
 완료: {target.name}
-PHP: {outputPaths.php}
-CSS: {outputPaths.css}
 ```
-
-### 왜 이 규칙이 중요한가?
-
-이 에이전트는 최대 5개가 병렬 실행됨. 각 에이전트의 **모든 출력**이 메인 세션 컨텍스트로 반환되므로, 불필요한 출력은 컨텍스트를 빠르게 소진시킴.
 
 ---
 

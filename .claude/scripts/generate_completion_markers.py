@@ -5,47 +5,13 @@
 Usage:
     python .claude/scripts/generate_completion_markers.py
 """
-import json
 from pathlib import Path
 from datetime import datetime
-
-
-def normalize_page_name(filename):
-    """체크리스트 파일명 → 페이지명 정규화
-
-    Examples:
-        A_Home_Desktop → home-desktop
-        About_NIBEC_History → about-nibec-history
-        About NIBEC > OVERVIEW → about-nibec-overview
-    """
-    name = filename.replace('.json', '')
-
-    # A_, B_, C_ 등 prefix 제거
-    if name and name[0].isalpha() and name[1:2] == '_':
-        parts = name.split('_', 1)
-        if len(parts) > 1:
-            name = parts[1]
-
-    # 특수문자 → 하이픈
-    name = name.replace('>', '-').replace('•', '-').replace('/', '-')
-    name = name.replace('_', '-').replace(' ', '-')
-
-    # 소문자 변환
-    name = name.lower()
-
-    # 연속 하이픈 제거
-    while '--' in name:
-        name = name.replace('--', '-')
-
-    return name.strip('-')
+from utils import normalize_page_name, load_json_safe, setup_windows_utf8
 
 
 def main():
-    # Windows 인코딩 문제 해결
-    import sys
-    if sys.platform == 'win32':
-        import io
-        sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
+    setup_windows_utf8()
 
     checklist_dir = Path('.claude/checklist')
     marker_dir = Path('.claude/markers')
@@ -61,24 +27,23 @@ def main():
     # 1. 공통 컴포넌트 처리
     common_file = checklist_dir / '_common_component.json'
     if common_file.exists():
-        with open(common_file, 'r', encoding='utf-8') as f:
-            data = json.load(f)
+        data = load_json_safe(common_file)
+        if data:
+            components = data.get('components', [])
+            total = len(components)
+            completed = sum(1 for c in components if c.get('status') == 'completed')
+            failed = sum(1 for c in components if c.get('status') == 'failed')
 
-        components = data.get('components', [])
-        total = len(components)
-        completed = sum(1 for c in components if c.get('status') == 'completed')
-        failed = sum(1 for c in components if c.get('status') == 'failed')
-
-        if completed + failed == total and total > 0:  # 모두 완료
-            marker_path = marker_dir / 'common' / 'components.completed'
-            marker_path.parent.mkdir(parents=True, exist_ok=True)
-            timestamp = datetime.now().isoformat()
-            marker_content = f"completed|{timestamp}|common|{completed}|{failed}"
-            marker_path.write_text(marker_content, encoding='utf-8')
-            print(f"[OK] {marker_path}")
-            print(f"  -> {completed}/{total} components completed")
-        else:
-            print(f"[SKIP] Common components: {completed}/{total} completed, {failed} failed (not all done)")
+            if completed + failed == total and total > 0:  # 모두 완료
+                marker_path = marker_dir / 'common' / 'components.completed'
+                marker_path.parent.mkdir(parents=True, exist_ok=True)
+                timestamp = datetime.now().isoformat()
+                marker_content = f"completed|{timestamp}|common|{completed}|{failed}"
+                marker_path.write_text(marker_content, encoding='utf-8')
+                print(f"[OK] {marker_path}")
+                print(f"  -> {completed}/{total} components completed")
+            else:
+                print(f"[SKIP] Common components: {completed}/{total} completed, {failed} failed (not all done)")
 
     # 2. 페이지별 체크리스트 처리
     processed = 0
@@ -88,8 +53,10 @@ def main():
         if json_file.stem == '_common_component':
             continue
 
-        with open(json_file, 'r', encoding='utf-8') as f:
-            data = json.load(f)
+        data = load_json_safe(json_file)
+        if not data:
+            skipped += 1
+            continue
 
         sections = data.get('sections', [])
         if not sections:
