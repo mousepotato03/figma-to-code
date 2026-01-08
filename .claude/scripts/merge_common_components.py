@@ -6,29 +6,10 @@
 _common_component.json으로 통합합니다.
 """
 
-import json
 import sys
 from datetime import datetime
 from pathlib import Path
-
-
-def find_checklist_files(checklist_dir: Path) -> list[Path]:
-    """체크리스트 JSON 파일 목록 반환 (_common_component.json 제외)"""
-    files = []
-    for f in checklist_dir.glob("*.json"):
-        if f.name != "_common_component.json":
-            files.append(f)
-    return sorted(files)
-
-
-def load_checklist(filepath: Path) -> dict | None:
-    """JSON 체크리스트 파일 로드"""
-    try:
-        with open(filepath, 'r', encoding='utf-8') as f:
-            return json.load(f)
-    except (json.JSONDecodeError, IOError) as e:
-        print(f"Warning: Failed to load {filepath.name}: {e}")
-        return None
+from utils import find_checklist_files, load_json_safe, save_json
 
 
 def extract_common_components(data: dict) -> list[dict]:
@@ -97,13 +78,7 @@ def update_source_file(filepath: Path, data: dict) -> bool:
             modified = True
 
     if modified:
-        try:
-            with open(filepath, 'w', encoding='utf-8') as f:
-                json.dump(data, f, ensure_ascii=False, indent=2)
-            return True
-        except IOError as e:
-            print(f"Warning: Failed to update {filepath.name}: {e}")
-            return False
+        return save_json(filepath, data)
 
     return False
 
@@ -140,7 +115,7 @@ def main():
     modified_files = []
 
     for filepath in files:
-        data = load_checklist(filepath)
+        data = load_json_safe(filepath)
 
         if data:
             components = extract_common_components(data)
@@ -166,9 +141,7 @@ def main():
     # 출력 파일 생성
     output_content = generate_output(merged, len(files))
     output_path = checklist_dir / "_common_component.json"
-
-    with open(output_path, 'w', encoding='utf-8') as f:
-        json.dump(output_content, f, ensure_ascii=False, indent=2)
+    save_json(output_path, output_content)
 
     # 결과 출력
     print(f"Done: _common_component.json")

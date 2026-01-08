@@ -8,6 +8,36 @@ arguments:
 
 체크리스트 기반으로 Figma 디자인을 PHP/CSS로 구현합니다.
 
+---
+
+## 폴링 헬퍼: wait_for_markers
+
+마커 파일 기반 완료 대기를 위한 공통 로직입니다.
+
+### 파라미터
+
+| 파라미터 | 설명 | 예시 |
+|---------|------|------|
+| `path` | 마커 디렉토리 경로 | `.claude/markers/common` |
+| `pattern` | Glob 패턴 | `*.done`, `merged.*` |
+| `interval` | 대기 간격 (초) | `30`, `10` |
+| `maxRetries` | 최대 반복 횟수 | `10`, `20`, `12` |
+| `requiredCount` | 필요한 마커 개수 | pending 개수 |
+
+### 로직
+
+```
+1. sleep {interval}초
+2. Glob {path}/{pattern} + {path}/*.failed 로 마커 개수 확인
+3. 마커 개수 >= requiredCount → 완료, 다음 단계 진행
+4. 아니면 2번 반복 (최대 maxRetries회)
+5. 타임아웃 시 현재 상태로 진행
+```
+
+**중요: TaskOutput 호출 금지!** (컨텍스트 절약)
+
+---
+
 ## 0단계: 준비
 
 ### 0-1. 체크리스트 목록 확인
@@ -71,14 +101,9 @@ Task 도구 호출:
 - `Footer` → `footer.php`
 - `Navbar_index` → `navbar_index.php`
 
-### 1-3. 완료 대기 (파일 폴링)
+### 1-3. 완료 대기
 
-**중요: TaskOutput 호출 금지!** (컨텍스트 절약)
-
-1. `sleep 30` 후 마커 파일 개수 체크
-2. Glob `.claude/markers/common/*.done` + `.claude/markers/common/*.failed`
-3. 마커 개수 >= pending 컴포넌트 개수면 → 1-4 진행
-4. 아니면 30초 후 다시 체크 (최대 5분, 10회 반복)
+`wait_for_markers(.claude/markers/common, *.done, 180초, 10회, pending개수)`
 
 ### 1-4. 공통 CSS 병합
 모든 공통 컴포넌트 완료 후:
@@ -228,19 +253,11 @@ Task 도구 호출:
 | Header (Hero Section) | 1 | home/01-header-hero-section.php | css/home/01-header-hero-section.css | .claude/markers/home/01-header-hero-section |
 | About Section | 2 | home/02-about-section.php | css/home/02-about-section.css | .claude/markers/home/02-about-section |
 
-### 3-6. 완료 대기 (파일 폴링)
+### 3-6. 완료 대기
 
-**중요: TaskOutput 호출 금지!** (컨텍스트 절약)
+`wait_for_markers(.claude/markers/{pageName}, *.done, 180초, 20회, pending개수)`
 
-1. `sleep 30` 후 마커 파일 개수 체크
-2. Glob `.claude/markers/{pageName}/*.done` + `.claude/markers/{pageName}/*.failed`
-3. 새 마커 개수 >= pending 섹션 개수면 → 4단계 진행
-4. 아니면 30초 후 다시 체크 (최대 10분, 20회 반복)
-
-### 3-7. 타임아웃 처리
-10분 후에도 마커 부족시:
-- 생성된 마커들만으로 4단계 진행
-- "일부 섹션 구현 실패/진행중" 알림
+타임아웃 시 생성된 마커들만으로 4단계 진행
 
 ---
 
@@ -320,14 +337,9 @@ Task 도구 호출:
 }
 ```
 
-### 6-2. 완료 대기 (파일 폴링)
+### 6-2. 완료 대기
 
-**중요: TaskOutput 호출 금지!** (컨텍스트 절약)
-
-1. `sleep 10` 후 마커 파일 체크
-2. Glob `.claude/markers/{pageName}/merged.done` 또는 `.claude/markers/{pageName}/merged.failed`
-3. 마커 존재시 → 7단계 진행
-4. 아니면 10초 후 다시 체크 (최대 2분, 12회 반복)
+`wait_for_markers(.claude/markers/{pageName}, merged.*, 10초, 12회, 1)`
 
 ### 6-3. 결과 확인
 

@@ -267,32 +267,13 @@ if (file_exists('includes/navbar.php')) {
 
 ---
 
-## 금지 사항
+## 필수 규칙
 
-### 체크리스트 JSON 수정 금지
+**공통 규칙**: `.claude/docs/agent-guidelines.md` 참조
 
-- 상태 관리는 메인 세션의 역할
-- 에이전트는 마커 파일(.done/.failed)만 생성
-
-### 컨텍스트 절약
-
-- 생성한 PHP 코드 미리보기 금지
-- 중간 과정 설명 금지
-
----
-
-## 최종 출력 형식
-
-작업 완료 시 **이것만** 출력:
+### 최종 출력 형식
 
 ```
 완료: {outputFile}
 섹션: {completedCount}개 병합 | 실패: {failedCount}개 건너뜀
-```
-
-예시:
-
-```
-완료: home.php
-섹션: 9개 병합 | 실패: 0개 건너뜀
 ```

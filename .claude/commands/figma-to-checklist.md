@@ -24,23 +24,44 @@ arguments:
 ```
 Task 도구 호출 시:
 - subagent_type: "figma-page-analyzer"
-- prompt: URL 정보 (fileKey, nodeId, 파일명)
-- run_in_background: true  ← 필수!
+- prompt: URL
+- run_in_background: true
 ```
 
 ### 2-3. 완료 대기 (파일 폴링)
 **중요: TaskOutput을 호출하지 마세요!** (컨텍스트 절약)
 
 대신 파일 생성으로 완료 확인:
-1. `sleep 15` 후 Glob으로 `.claude/checklist/*.json` 파일 개수 체크
+1. `sleep 60` 후 Glob으로 `.claude/checklist/*.json` 파일 개수 체크
 2. 새로 생성된 파일 개수 = (현재 파일 수 - 기존 파일 수)
 3. 새 파일 개수 >= URL 개수면 → 3단계 진행
-4. 아니면 15초 후 다시 체크 (최대 5분, 20회 반복)
+4. 아니면 1분 후 다시 체크 (최대 5분, 5회 반복)
 
-### 2-4. 타임아웃 처리
+### 2-4. 타임아웃/실패 처리
 5분 후에도 파일이 부족하면:
-- 생성된 파일들만으로 3단계 진행 (에러 에이전트 무시)
-- "일부 페이지 분석 실패" 알림
+
+1. **실패한 URL 파악**
+   - 예상 파일 수 vs 실제 생성된 파일 수 비교
+   - 어떤 URL의 체크리스트가 없는지 확인
+
+2. **AskUserQuestion으로 사용자에게 질문**
+   ```
+   AskUserQuestion 도구 호출:
+   - question: "일부 페이지 분석이 실패했습니다 (N/M개 완료). 어떻게 할까요?"
+   - header: "분석 실패"
+   - options:
+     - label: "재시도"
+       description: "실패한 URL만 다시 분석 (최대 1회)"
+     - label: "계속 진행"
+       description: "성공한 파일들로 3단계 진행"
+     - label: "중단"
+       description: "작업 취소"
+   ```
+
+3. **사용자 선택에 따른 처리**
+   - "재시도": 실패한 URL들만 다시 figma-page-analyzer 실행 → 2-3으로 복귀
+   - "계속 진행": 성공한 파일들로 3단계 진행
+   - "중단": 작업 종료
 
 ## 3단계: 공통 컴포넌트 1차 병합 (순차 실행)
 2단계의 모든 체크리스트가 생성된 후에,
