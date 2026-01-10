@@ -112,20 +112,6 @@ curl -o "assets/icons/arrow-right.svg" "https://figma-alpha-api.s3.us-west-2.ama
 | 프로젝트 후반 (90% 완료) | 38,000 토큰 | 3,800 토큰 | 90% |
 | 완료 후 재실행 | 38,000 토큰 | ~0 토큰 | 100% |
 
-### 유틸리티 스크립트
-
-#### 마커 파일 생성
-```bash
-# 기존 완료된 체크리스트에 대해 마커 파일 생성
-python .claude/scripts/generate_completion_markers.py
-```
-
-#### 마커 파일 정리 (선택사항)
-```bash
-# page.completed가 있는 페이지의 섹션별 마커 삭제
-python .claude/scripts/cleanup_markers.py
-```
-
 ### 주의사항
 - 체크리스트 수동 수정 시 해당 페이지의 `page.completed` 삭제 필요
 - 마커 파일 삭제 시 다음 실행에서 자동 재생성됨
