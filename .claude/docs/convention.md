@@ -116,3 +116,73 @@ curl -o "assets/icons/arrow-right.svg" "https://figma-alpha-api.s3.us-west-2.ama
 - 체크리스트 수동 수정 시 해당 페이지의 `page.completed` 삭제 필요
 - 마커 파일 삭제 시 다음 실행에서 자동 재생성됨
 - Git 커밋 여부: 선택사항 (팀원 공유 시 커밋 권장)
+
+## 5. 반응형 규칙
+
+### 브레이크포인트
+
+- **768px 이하**: 모바일
+- **769px 이상**: 데스크톱
+
+```css
+/* 기본: 데스크톱 스타일 */
+.container {
+  padding: 120px;
+}
+
+/* 모바일 오버라이드 */
+@media (max-width: 768px) {
+  .container {
+    padding: 16px;
+  }
+}
+```
+
+### 모바일 변환 규칙
+
+| 항목 | 데스크톱 | 모바일 |
+|------|---------|--------|
+| padding > 100px | Figma 값 그대로 | 16-24px |
+| gap > 60px | Figma 값 그대로 | 16-24px |
+| width: 고정px (컨테이너) | Figma 값 그대로 | 100% |
+| **font-size** | **Figma 값 그대로** | **변환 안 함** |
+
+### layoutHint별 모바일 변환
+
+| layoutHint | 데스크톱 | 모바일 (mobileStack=true) |
+|------------|---------|-------------------------|
+| `full-width-bg` | 그대로 | 패딩 축소만 |
+| `text-image-split` | 가로 배치 | `flex-direction: column` |
+| `card-grid` | 다중 열 | `grid-template-columns: 1fr` |
+| `two-column` | 가로 배치 | `flex-direction: column` |
+| `center-content` | 그대로 | 패딩 축소만 |
+
+### 공통 컴포넌트 모바일 변환
+
+| 컴포넌트 | 데스크톱 | 모바일 |
+|---------|---------|--------|
+| Navbar | 가로 메뉴 | 햄버거 메뉴 |
+| Footer | 그대로 | 그대로 |
+| Sidebar | 좌/우 고정 | 숨김 또는 토글 |
+
+### 유틸리티 클래스
+
+```css
+/* 모바일에서 숨김 */
+.hide-mobile { display: block; }
+@media (max-width: 768px) {
+  .hide-mobile { display: none; }
+}
+
+/* 데스크톱에서 숨김 */
+.hide-desktop { display: none; }
+@media (max-width: 768px) {
+  .hide-desktop { display: block; }
+}
+
+/* 모바일에서 세로 스택 */
+.stack-mobile { display: flex; }
+@media (max-width: 768px) {
+  .stack-mobile { flex-direction: column; }
+}
+```

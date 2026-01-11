@@ -8,6 +8,8 @@ arguments:
 
 체크리스트 기반으로 Figma 디자인을 PHP/CSS로 구현합니다.
 
+**컨텍스트 절약 규칙**: `.claude/docs/agent-guidelines.md` 참조
+
 ---
 
 ## 폴링 헬퍼: wait_for_markers
@@ -112,28 +114,26 @@ python .claude/scripts/merge_section_css.py common
 ```
 결과: `css/common/*.css` → `css/common.css`
 
-### 1-5. 상태 업데이트 및 완료 마커 생성
+### 1-5. 완료 마커 생성
 
-1. 마커 파일 확인 후 `_common_component.json` 업데이트:
-   - `.done` 존재 → `"status": "completed"`
-   - `.failed` 존재 → `"status": "failed"`
+마커 파일 기반으로 완료 여부 확인:
 
-2. **모든 컴포넌트 완료 확인 및 마커 생성**:
-   ```javascript
-   const components = checklist.components;
-   const allCompleted = components.every(c => c.status === 'completed');
+```javascript
+// 마커 파일 개수로 완료 확인
+const doneMarkers = Glob('.claude/markers/common/*.done');
+const failedMarkers = Glob('.claude/markers/common/*.failed');
+const totalComponents = pendingCount; // 1-2에서 확인한 개수
 
-   if (allCompleted) {
-     const completedCount = components.length;
-     const timestamp = new Date().toISOString();
+if (doneMarkers.length + failedMarkers.length >= totalComponents) {
+  const timestamp = new Date().toISOString();
 
-     // 완료 마커 생성
-     Write `.claude/markers/common/components.completed`:
-     `completed|${timestamp}|common|${completedCount}|0`
-   }
-   ```
+  // 완료 마커 생성
+  Write `.claude/markers/common/components.completed`:
+  `completed|${timestamp}|common|${doneMarkers.length}|${failedMarkers.length}`
+}
+```
 
-   **중요**: 다음 실행 시 이 마커가 있으면 1단계 전체를 건너뜀
+**중요**: 다음 실행 시 이 마커가 있으면 1단계 전체를 건너뜀
 
 ---
 
@@ -204,7 +204,7 @@ mkdir -p {pageName}
 ```
 
 ### 3-3. pending 섹션 수집
-체크리스트의 `sections` 배열에서 `status: "pending"` 필터링
+체크리스트의 `sections` 배열에서 마커 파일이 없는 섹션 필터링
 
 ### 3-4. 기존 마커 파일 개수 기록
 ```
@@ -272,38 +272,30 @@ python .claude/scripts/merge_section_css.py {pageName}
 
 ---
 
-## 5단계: 체크리스트 상태 업데이트 및 완료 마커 생성
+## 5단계: 페이지 완료 마커 생성
 
-마커 파일 기반으로 체크리스트 JSON 업데이트:
+마커 파일 기반으로 완료 여부 확인:
 
 1. `.claude/markers/{pageName}/*.done` 파일 목록 수집
 2. `.claude/markers/{pageName}/*.failed` 파일 목록 수집
-3. 각 섹션의 status 업데이트:
-   - 마커 .done 존재 → `"status": "completed"`
-   - 마커 .failed 존재 → `"status": "failed"`
-   - 마커 없음 → 그대로 유지 (타임아웃)
-4. 체크리스트 JSON 저장
-5. **페이지 완료 확인 및 마커 생성**:
+3. **페이지 완료 확인 및 마커 생성**:
    ```javascript
-   const sections = checklist.sections;
-   const totalSections = sections.length;
-   const completedCount = sections.filter(s => s.status === 'completed').length;
-   const failedCount = sections.filter(s => s.status === 'failed').length;
-   const pendingCount = sections.filter(s => s.status === 'pending').length;
+   const totalSections = checklist.sections.length;
+   const doneMarkers = Glob('.claude/markers/{pageName}/*.done');
+   const failedMarkers = Glob('.claude/markers/{pageName}/*.failed');
 
-   if (pendingCount === 0 && totalSections > 0) {
+   if (doneMarkers.length + failedMarkers.length >= totalSections) {
      // 모든 섹션이 완료 또는 실패 → 페이지 완료 마커 생성
      const timestamp = new Date().toISOString();
 
      Write `.claude/markers/{pageName}/page.completed`:
-     `completed|${timestamp}|{pageName}|${completedCount}|${failedCount}`
+     `completed|${timestamp}|{pageName}|${doneMarkers.length}|${failedMarkers.length}`
    }
    ```
 
 **중요**:
-- pending이 0이면 페이지 작업 완료 (실패 포함해도 OK)
+- 마커 개수가 섹션 수와 같으면 페이지 작업 완료
 - 다음 실행 시 이 페이지는 2단계에서 건너뜀
-- 체크리스트 JSON 수정은 **메인 세션에서만** 수행! (에이전트는 마커 파일만 생성)
 
 ---
 
@@ -450,33 +442,4 @@ ls css/{pageName}/     # ✗ 삭제되어야 함
 
 ## 완료 보고
 
-```
-=== 구현 완료 ===
-
-[공통 컴포넌트]
-- Navbar: completed
-- Footer: completed
-- Navbar_index: completed
-총: 3/3 완료
-
-[A_Home_Desktop]
-- 섹션: 8개 성공 | 1개 실패
-- 페이지 병합: home.php ✓
-
-[About_NIBEC_History]
-- 섹션: 3개 성공 | 0개 실패
-- 페이지 병합: about-nibec-history.php ✓
-
-[About_NIBEC_OVERVIEW]
-- 섹션: 6개 성공 | 0개 실패
-- 페이지 병합: about-nibec-overview.php ✓
-
-생성된 파일:
-- includes/: 3개 (navbar.php, footer.php, navbar_index.php)
-- css/: 4개 (common.css, home.css, about-nibec-history.css, about-nibec-overview.css)
-- 통합 페이지: home.php, about-nibec-history.php, about-nibec-overview.php
-
-정리 완료:
-- 섹션별 PHP 파일 (home/, about-nibec-history/, about-nibec-overview/) ✓ 삭제됨
-- 개별 CSS 파일 (css/home/, css/about-nibec-history/, ...) ✓ 병합 후 자동 삭제됨
-```
+"완료" 한 단어만 출력 (상세 요약 금지, 컨텍스트 절약)

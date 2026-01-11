@@ -7,7 +7,7 @@ color: yellow
 
 # Section-Merger Agent
 
-분리된 섹션 파일들을 체크리스트 기반으로 하나의 완전한 PHP 페이지로 병합합니다.
+분리된 섹션 파일들을 체크리스트(v2) 기반으로 하나의 완전한 PHP 페이지로 병합합니다.
 
 ---
 
@@ -15,8 +15,9 @@ color: yellow
 
 구현 전 반드시 읽어야 할 문서:
 
-1. **체크리스트**: `.claude/checklist/{checklistFile}` (sections 순서, commonComponents 위치, recommendations)
-2. **프로젝트 컨벤션**: `.claude/docs/convention.md`
+1. **체크리스트**: `.claude/checklist/{checklistFile}` (checklist-v2 스키마)
+2. **체크리스트 스키마**: `.claude/docs/checklist-schema-v2.md`
+3. **프로젝트 컨벤션**: `.claude/docs/convention.md`
 
 ---
 
@@ -24,7 +25,7 @@ color: yellow
 
 ```json
 {
-  "checklistFile": "A_Home_Desktop.json",
+  "checklistFile": "Home.json",
   "pageName": "home",
   "outputFile": "home.php"
 }
@@ -32,7 +33,7 @@ color: yellow
 
 | 필드            | 설명                            | 예시                  |
 | --------------- | ------------------------------- | --------------------- |
-| `checklistFile` | 체크리스트 파일명               | `A_Home_Desktop.json` |
+| `checklistFile` | 체크리스트 파일명               | `Home.json` |
 | `pageName`      | 정규화된 페이지명 (섹션 폴더명) | `home`                |
 | `outputFile`    | 출력 PHP 파일 경로              | `home.php`            |
 
@@ -40,39 +41,36 @@ color: yellow
 
 ## Workflow
 
-### Step 1: 체크리스트 읽기
+### Step 1: 체크리스트 읽기 (v2 스키마)
 
 ```
 Read .claude/checklist/{checklistFile}
 ```
 
-추출 정보:
+**checklist-v2에서 추출할 정보:**
 
-- `metadata.pageName`: 페이지 제목용
-- `commonComponents`: 위치(position) 정보로 include 배치 결정
-- `sections`: order 순서, status 확인
-- `recommendations.interactions`: 추가 스크립트 생성용
+| 필드 | 용도 |
+|------|------|
+| `metadata.pageName` | 페이지 제목 |
+| `layout.type` | 페이지 레이아웃 구조 |
+| `commonComponents[].placement` | 컴포넌트 배치 위치 |
+| `sections[].order` | 섹션 순서 |
+| `sections[].id` | 섹션 식별자 |
+| `responsive.breakpoint` | 반응형 기준점 (기본 768) |
 
 ---
 
-### Step 2: 공통 컴포넌트 분류
+### Step 2: 공통 컴포넌트 분류 (v2 기준)
 
-`commonComponents`를 위치별로 분류:
+`commonComponents`를 `placement` 값으로 분류:
 
-**상단 배치** (body 시작 직후):
-
-- position에 "상단", "top", "고정" 포함 시
-- 예: Navbar
-
-**하단 배치** (body 종료 직전):
-
-- position에 "하단", "bottom" 포함 시
-- 예: Footer
-
-**중간 배치** (특정 섹션 후):
-
-- position에 y 좌표 또는 섹션 참조가 있는 경우
-- 예: Navbar_index (y: 760)
+| placement | 배치 위치 | 예시 |
+|-----------|----------|------|
+| `top-fixed` | body 시작 직후 (고정) | Navbar |
+| `top-static` | body 시작 직후 (일반) | Header |
+| `bottom` | body 종료 직전 | Footer |
+| `left` | main 좌측 | Sidebar |
+| `right` | main 우측 | Sidebar |
 
 ---
 
@@ -85,17 +83,17 @@ Glob {pageName}/*.php
 정렬 규칙:
 
 - 파일명 prefix 숫자순 (01-, 02-, ...)
-- 체크리스트 sections.order와 매칭 확인
+- 체크리스트 `sections[].order`와 매칭 확인
 
 ---
 
-### Step 4: 섹션 상태 필터링
+### Step 4: 섹션 상태 필터링 (마커 기반)
 
-체크리스트 기반:
+마커 파일 확인:
 
-- `status: "completed"` → 내용 직접 병합
-- `status: "failed"` → 주석으로 표시하고 건너뜀
-- `status: "pending"` → 경고 주석 후 건너뜀
+- `.done` 마커 존재 → 내용 직접 병합
+- `.failed` 마커 존재 → 주석으로 표시하고 건너뜀
+- 마커 없음 → 경고 주석 후 건너뜀
 
 ---
 
@@ -107,7 +105,7 @@ Glob {pageName}/*.php
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{metadata.pageName} - NIBEC</title>
+  <title>{metadata.pageName}</title>
 
   <!-- Stylesheets -->
   <link rel="stylesheet" href="css/reset.css">
@@ -116,26 +114,24 @@ Glob {pageName}/*.php
   <link rel="stylesheet" href="css/{pageName}.css">
 </head>
 <body>
-  <!-- Header Components -->
+  <!-- Header Components (placement: top-*) -->
   <?php include 'includes/navbar.php'; ?>
 
   <main class="page-{pageName}">
-    <!-- Section 1: {sectionName} -->
+    <!-- Section 1: {section.name} (id: {section.id}) -->
     {section1 content - 직접 병합}
 
-    <!-- Section 2: {sectionName} -->
+    <!-- Section 2: {section.name} (id: {section.id}) -->
     {section2 content - 직접 병합}
 
     <!-- ... -->
   </main>
 
-  <!-- Footer Components -->
+  <!-- Footer Components (placement: bottom) -->
   <?php include 'includes/footer.php'; ?>
 
-  <!-- Scripts (recommendations.interactions 기반) -->
-  <script>
-    // Smooth scroll 등
-  </script>
+  <!-- Scripts -->
+  <script src="assets/js/common.js"></script>
 </body>
 </html>
 ```
@@ -183,13 +179,13 @@ failed|{ISO timestamp}|{error reason}
 각 섹션 PHP 파일 내용을 직접 읽어서 통합 (include 아님):
 
 ```php
-<!-- Section 1: Header (Hero Section) -->
-<section class="header-hero" data-node-id="2413:13476">
+<!-- Section 1: Hero Section (id: hero) -->
+<section class="hero-section" data-section-id="hero">
   ...섹션 내용...
 </section>
 
-<!-- Section 2: About Section -->
-<section class="about-section" data-node-id="2413:13489">
+<!-- Section 2: Features (id: features) -->
+<section class="features-section" data-section-id="features">
   ...섹션 내용...
 </section>
 ```
@@ -204,52 +200,26 @@ failed|{ISO timestamp}|{error reason}
 
 ---
 
-## Recommendations 처리
-
-### interactions 분석 및 스크립트 생성
-
-| 체크리스트 값                            | 생성 코드                    |
-| ---------------------------------------- | ---------------------------- |
-| "스무스 스크롤" 또는 "smooth scroll"     | 스무스 스크롤 JS 추가        |
-| "Scroll Down 버튼 클릭 시 다음 섹션으로" | 해당 버튼에 anchor 링크 처리 |
-
-**스무스 스크롤 JS 예시:**
-
-```javascript
-// Smooth scroll for anchor links
-document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-  anchor.addEventListener("click", function (e) {
-    e.preventDefault();
-    const target = document.querySelector(this.getAttribute("href"));
-    if (target) {
-      target.scrollIntoView({ behavior: "smooth" });
-    }
-  });
-});
-```
-
----
-
 ## 에러 처리
 
 ### 섹션 파일 누락
 
 ```php
-<!-- Section 3: Missing Section -->
-<!-- ERROR: File {pageName}/03-section-name.php not found -->
+<!-- Section 3: Missing Section (id: about) -->
+<!-- ERROR: File {pageName}/03-about.php not found -->
 ```
 
-### 실패 상태 섹션
+### 실패 마커 섹션
 
 ```php
-<!-- Section 5: Business Areas - SKIPPED (status: failed) -->
+<!-- Section 5: Business Areas (id: business) - SKIPPED (marker: .failed) -->
 <!-- TODO: Re-implement this section -->
 ```
 
-### Pending 상태 섹션
+### 마커 없는 섹션
 
 ```php
-<!-- Section 7: Research Statistics - SKIPPED (status: pending) -->
+<!-- Section 7: Statistics (id: stats) - SKIPPED (no marker) -->
 <!-- WARNING: This section was not yet implemented -->
 ```
 
@@ -270,10 +240,3 @@ if (file_exists('includes/navbar.php')) {
 ## 필수 규칙
 
 **공통 규칙**: `.claude/docs/agent-guidelines.md` 참조
-
-### 최종 출력 형식
-
-```
-완료: {outputFile}
-섹션: {completedCount}개 병합 | 실패: {failedCount}개 건너뜀
-```

@@ -36,23 +36,11 @@
 
 ## 3. 마커 파일 시스템
 
-에이전트는 JSON 대신 마커 파일로 상태를 보고합니다.
+상세 정의: `.claude/docs/convention.md` 참조
 
-### 성공 시 (.done 파일)
-
-```
-{type}|{ISO timestamp}|{details...}
-```
-
-### 실패 시 (.failed 파일)
-
-```
-failed|{ISO timestamp}|{error reason}
-```
-
-**마커 파일 위치**: `.claude/markers/{pageName}/`
-
-각 에이전트별 구체적 형식은 해당 에이전트 문서 참조.
+- 성공: `.done` 파일 생성
+- 실패: `.failed` 파일 생성
+- 위치: `.claude/markers/{pageName}/`
 
 ---
 
@@ -62,12 +50,9 @@ failed|{ISO timestamp}|{error reason}
 
 ```
 완료: {대상명}
-{에이전트별 요약 정보}
 ```
 
-**허용되는 출력:**
-- 도구 호출 (Read, Write, Bash, MCP 등)
-- 위 형식의 최종 완료 메시지
+**허용되는 출력**: 도구 호출 + 최종 완료 메시지
 
 ---
 
