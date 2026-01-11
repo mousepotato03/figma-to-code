@@ -1,12 +1,16 @@
 ---
-description: Figma 구현 전체 파이프라인 실행 (theme → checklist → implement)
+description: Figma 구현 전체 파이프라인 실행 (base CSS → checklist → implement)
 ---
 
 다음 작업을 순차적으로 수행해줘:
 
-## 1단계: Theme 생성
+## 1단계: 기본 CSS 확인
 
-`.claude/commands/figma-theme.md` 파일을 Read한 후, 그 내용대로 Task 에이전트(subagent_type: general-purpose)로 실행
+```bash
+python .claude/scripts/ensure_base_css.py
+```
+
+reset.css가 없으면 자동 생성됨
 
 ## 2단계: Checklist 생성
 
@@ -19,4 +23,7 @@ description: Figma 구현 전체 파이프라인 실행 (theme → checklist →
 ## 완료 조건
 
 - 각 단계 완료 후 다음 단계 진행
-- 모든 URL 구현 완료 시 "완료" 한 단어만 출력 (요약 금지, 컨텍스트 절약)
+- 모든 URL 구현 완료 시:
+  1. 생성된 CSS 파일들에서 사용된 font-family 값을 분석
+  2. 사용된 폰트 목록과 CDN/다운로드 방법 안내
+  3. "완료" 출력

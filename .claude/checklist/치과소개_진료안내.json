@@ -24,8 +24,8 @@
   ],
   "sections": [
     {
-      "id": "hero-banner",
-      "name": "진료안내 배너",
+      "id": "hero",
+      "name": "Hero Banner",
       "nodeId": "188:1845",
       "order": 1,
       "layoutHint": "full-width-bg",
@@ -33,7 +33,7 @@
     },
     {
       "id": "care-categories",
-      "name": "엠치과의 진료과목",
+      "name": "진료과목 카드 그리드",
       "nodeId": "143:855",
       "order": 2,
       "layoutHint": "card-grid",
@@ -41,7 +41,7 @@
     },
     {
       "id": "office-hours",
-      "name": "진료시간",
+      "name": "진료시간 안내",
       "nodeId": "50:3171",
       "order": 3,
       "layoutHint": "center-content",
@@ -52,8 +52,8 @@
     "breakpoint": 768,
     "mobileNotes": [
       "네비게이션 -> 햄버거 메뉴",
-      "진료과목 카드 그리드 (5열) -> 1열 세로 스택",
-      "진료시간 섹션은 중앙 정렬 유지"
+      "진료과목 카드 그리드 (5열) -> 1~2열로 변환",
+      "Hero 배너 텍스트 크기 축소"
     ]
   }
 }

@@ -15,7 +15,6 @@ You are a Pixel-Perfect PHP/CSS Implementation Expert. Your mission is to conver
 구현 전 반드시 읽어야 할 문서:
 
 - **프로젝트 컨벤션**: `.claude/docs/convention.md` (폴더 구조, 이미지 처리 규칙, 스타일시트 규칙, **반응형 규칙**)
-- **CSS 변수**: `css/theme.css`
 
 ---
 
@@ -61,7 +60,6 @@ You are a Pixel-Perfect PHP/CSS Implementation Expert. Your mission is to conver
 
 ```
 Read .claude/docs/convention.md
-Read css/theme.css
 ```
 
 ### Step 2: 디자인 정보 획득
@@ -134,11 +132,38 @@ document.querySelector('.navbar-toggle').addEventListener('click', function() {
 
 ### Step 5: CSS 생성 (반응형 포함)
 
-**기본 규칙:**
-- theme.css 변수 우선 사용
+**핵심 원칙: `get_design_context` 값을 그대로 사용**
+
+- 색상: hex 값 그대로 (예: `#019982`, `#393838`)
+- 폰트: 폰트명 그대로 (예: `'Gmarket Sans TTF'`, `'Pretendard'`)
+- 크기: px 값 그대로
+- **임의 변환/반올림 금지**
+
+**레이아웃 규칙:**
+
 - Flexbox/Grid 레이아웃
 - Pixel-perfect 치수 (데스크톱)
-- **섹션 너비 예외**: 섹션 최상위 컨테이너의 `width: 1920px`, `1440px` 등 캔버스 크기 → `width: 100%`로 변환
+
+### Negative Margin 처리 (중요!)
+
+Figma의 `mr-[-Npx]`, `ml-[-Npx]` 등 negative margin은 **반드시** CSS로 변환:
+
+- `mr-[-349px]` → `margin-right: -349px;`
+- 요소 겹침(overlap) 의도이므로 **절대 제거 금지**
+
+### Flex Container 규칙
+
+- **`flex-wrap: wrap` 사용 금지** (의도치 않은 줄바꿈 방지)
+- 자식 요소 overflow 시 → negative margin 확인
+- Figma에 `flex-wrap` 명시된 경우만 사용
+
+### 최상위 컨테이너 크기
+
+| Figma 값 | CSS 변환 |
+|---------|---------|
+| `w-[1920px]`, `w-[1921px]` | `width: 100%` |
+| `h-[Npx]` | `min-height: Npx` 또는 그대로 |
+| `padding`, `gap` | **그대로 유지** |
 
 **반응형 CSS 생성 규칙:**
 

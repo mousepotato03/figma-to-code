@@ -5,7 +5,7 @@
 ```
 root/
 ├── includes/          # 공통 컴포넌트 (header, footer, nav, db-connect)
-├── css/               # 스타일시트 (reset.css, theme.css, [페이지].css)
+├── css/               # 스타일시트 (reset.css, fonts.css, common.css, [페이지].css)
 ├── assets/
 │   ├── images/        # 페이지별 이미지 (assets/images/{pageName}/)
 │   └── icons/         # 공용 아이콘
@@ -36,6 +36,31 @@ root/
 ```
 
 ## 3. 구현 규칙
+
+### 스타일시트
+
+페이지 `<head>`에 포함할 CSS:
+
+```html
+<link rel="stylesheet" href="css/reset.css">
+<link rel="stylesheet" href="css/fonts.css">
+<link rel="stylesheet" href="css/common.css">
+<link rel="stylesheet" href="css/{pageName}.css">
+```
+
+- `reset.css`: 브라우저 기본 스타일 초기화
+- `fonts.css`: 웹폰트 로딩 (Gmarket Sans, Pretendard, Noto Sans KR 등)
+- `common.css`: 공통 컴포넌트 스타일 (Navbar, Footer 등)
+- `{pageName}.css`: 페이지별 스타일
+
+### 스타일 값 규칙 (중요!)
+
+**`get_design_context` 응답 값을 그대로 사용:**
+
+- 색상: hex 값 그대로 (예: `#019982`, `#393838`)
+- 폰트: 폰트명 그대로 (예: `'Gmarket Sans TTF'`, `'Pretendard'`)
+- 크기: px 값 그대로
+- **임의 변환/반올림 금지**
 
 ### 이미지/아이콘 처리
 
@@ -68,16 +93,24 @@ curl -o "assets/icons/arrow-right.svg" "https://figma-alpha-api.s3.us-west-2.ama
 <img src="assets/icons/arrow-right.svg" alt="Arrow" class="icon" />
 ```
 
-### 스타일시트
-
-- `reset.css`, `theme.css` 필수 import
-- 페이지별 별도 CSS 파일 생성 (페이지명과 일치)
-
 ### Figma 정확도
 
 - `get_design_context` 값 그대로 사용. 임의 추정 금지
 - margin, padding, 모든 사이즈 정확히 구현
 - **예외**: 섹션 최상위 컨테이너의 `width: 1920px` 등 캔버스 크기는 `width: 100%`로 변환
+
+### Negative Margin 처리 (중요!)
+
+Figma의 `mr-[-Npx]`, `ml-[-Npx]` 등 negative margin은 **반드시** CSS로 변환:
+
+- `mr-[-349px]` → `margin-right: -349px;`
+- 요소 겹침(overlap) 의도이므로 **절대 제거 금지**
+
+### Flex Container 규칙
+
+- **`flex-wrap: wrap` 사용 금지** (의도치 않은 줄바꿈 방지)
+- 자식 요소 overflow 시 → negative margin 확인
+- Figma에 `flex-wrap` 명시된 경우만 사용
 
 ## 4. 마커 파일 시스템
 

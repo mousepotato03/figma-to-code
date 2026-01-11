@@ -43,19 +43,19 @@
       "nodeId": "15:2217",
       "order": 1,
       "layoutHint": "full-width-bg",
-      "mobileStack": false
+      "mobileStack": true
     },
     {
       "id": "why-m-dental",
-      "name": "왜 엠치과일까요? - 4가지 포인트",
+      "name": "왜 엠치과일까요 - 4가지 포인트",
       "nodeId": "11:1264",
       "order": 2,
       "layoutHint": "card-grid",
       "mobileStack": true
     },
     {
-      "id": "hospital-image",
-      "name": "병원 전경 이미지",
+      "id": "hospital-intro",
+      "name": "엠치과 병원 소개 이미지",
       "nodeId": "40:593",
       "order": 3,
       "layoutHint": "full-width-bg",
@@ -63,7 +63,7 @@
     },
     {
       "id": "patient-reviews",
-      "name": "환자 후기 - Before/After 및 리뷰",
+      "name": "환자 후기 섹션",
       "nodeId": "38:368",
       "order": 4,
       "layoutHint": "center-content",
@@ -79,21 +79,22 @@
     },
     {
       "id": "reservation-form",
-      "name": "예약 신청 폼",
+      "name": "예약 폼",
       "nodeId": "11:1815",
       "order": 6,
-      "layoutHint": "full-width-bg",
+      "layoutHint": "center-content",
       "mobileStack": true
     }
   ],
   "responsive": {
     "breakpoint": 768,
     "mobileNotes": [
-      "네비게이션 -> 햄버거 메뉴로 변환",
-      "우측 사이드 퀵메뉴 -> 모바일에서 숨김 처리",
-      "4개 카드 그리드 -> 1열 세로 스택",
-      "환자 후기 Before/After -> 세로 스택",
-      "예약 폼 입력 필드 -> 세로 스택"
+      "네비게이션 -> 햄버거 메뉴",
+      "Hero 섹션: 좌우 배치 -> 세로 스택 (텍스트 먼저, 이미지 아래)",
+      "4가지 포인트 카드: 4열 -> 1열 또는 2열",
+      "환자 후기 Before/After: 가로 배치 -> 세로 스택",
+      "예약 폼: 가로 배치 -> 세로 스택",
+      "Side Quick Menu: 숨김 처리"
     ]
   }
 }

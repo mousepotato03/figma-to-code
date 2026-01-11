@@ -25,7 +25,7 @@
   "sections": [
     {
       "id": "hero",
-      "name": "Hero 메인 배너",
+      "name": "Hero Banner",
       "nodeId": "125:79",
       "order": 1,
       "layoutHint": "full-width-bg",
@@ -33,7 +33,7 @@
     },
     {
       "id": "intro-section",
-      "name": "소개 섹션",
+      "name": "인트로 섹션",
       "nodeId": "125:86",
       "order": 2,
       "layoutHint": "center-content",
@@ -41,7 +41,7 @@
     },
     {
       "id": "after-diagnosis",
-      "name": "애프터 진단 - 체온/혈압/혈당 체크",
+      "name": "애프터 진단 서비스",
       "nodeId": "125:113",
       "order": 3,
       "layoutHint": "card-grid",
@@ -57,7 +57,7 @@
     },
     {
       "id": "re-surgery",
-      "name": "다른 치과에서 실패한 사례도 재수술 OK",
+      "name": "재수술 안내",
       "nodeId": "125:171",
       "order": 5,
       "layoutHint": "center-content",
@@ -73,7 +73,7 @@
     },
     {
       "id": "additional-section",
-      "name": "추가 정보 섹션",
+      "name": "추가 섹션",
       "nodeId": "125:192",
       "order": 7,
       "layoutHint": "full-width-bg",
@@ -99,9 +99,9 @@
   "responsive": {
     "breakpoint": 768,
     "mobileNotes": [
-      "네비게이션 -> 햄버거 메뉴로 변환",
-      "card-grid (애프터 진단) -> 1열 세로 스택",
-      "이미지/텍스트 중앙 정렬 섹션들은 패딩만 축소"
+      "네비게이션 -> 햄버거 메뉴",
+      "애프터 진단 카드 그리드 (3열) -> 1열 세로 스택",
+      "중앙 정렬 콘텐츠 섹션들 -> 패딩 축소"
     ]
   }
 }

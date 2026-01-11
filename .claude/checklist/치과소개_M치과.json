@@ -25,7 +25,7 @@
   "sections": [
     {
       "id": "hero",
-      "name": "Hero Banner",
+      "name": "Hero Section",
       "nodeId": "188:1954",
       "order": 1,
       "layoutHint": "full-width-bg",
@@ -49,7 +49,7 @@
     },
     {
       "id": "facilities",
-      "name": "시설 소개",
+      "name": "시설 소개 갤러리",
       "nodeId": "50:639",
       "order": 4,
       "layoutHint": "card-grid",
@@ -60,7 +60,8 @@
     "breakpoint": 768,
     "mobileNotes": [
       "네비게이션 -> 햄버거 메뉴",
-      "시설 소개 카드 그리드 -> 1열 스택"
+      "시설 갤러리 카드 그리드 -> 1열 세로 스택",
+      "소개 텍스트 패딩 축소"
     ]
   }
 }
