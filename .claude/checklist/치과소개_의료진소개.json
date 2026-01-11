@@ -1,0 +1,59 @@
+{
+  "$schema": "checklist-v2",
+  "metadata": {
+    "pageName": "치과소개_의료진소개",
+    "figmaUrl": "https://www.figma.com/design/NlimFGIcvGyhgGct3sUxBB/%EB%8C%80%EC%A0%84%EC%97%A0%EC%B9%98%EA%B3%BC-%ED%99%88%ED%8E%98%EC%9D%B4%EC%A7%80?node-id=50-1208",
+    "fileKey": "NlimFGIcvGyhgGct3sUxBB",
+    "nodeId": "50:1208",
+    "analyzedAt": "2026-01-11T00:00:00Z",
+    "designWidth": 1920
+  },
+  "layout": {
+    "type": "single-column",
+    "containerWidth": 1400,
+    "sidePadding": 260
+  },
+  "commonComponents": [
+    {
+      "name": "Navigation Bar",
+      "nodeId": "143:740",
+      "placement": "top-fixed",
+      "mobileVariant": "hamburger-menu",
+      "reference": "_common_component.json"
+    }
+  ],
+  "sections": [
+    {
+      "id": "hero",
+      "name": "Hero 배너",
+      "nodeId": "50:1238",
+      "order": 1,
+      "layoutHint": "full-width-bg",
+      "mobileStack": false
+    },
+    {
+      "id": "intro-heading",
+      "name": "통합치의학전문의 소개 헤딩",
+      "nodeId": "50:1240",
+      "order": 2,
+      "layoutHint": "center-content",
+      "mobileStack": false
+    },
+    {
+      "id": "doctor-profile",
+      "name": "대표원장 프로필",
+      "nodeId": "50:940",
+      "order": 3,
+      "layoutHint": "text-image-split",
+      "mobileStack": true
+    }
+  ],
+  "responsive": {
+    "breakpoint": 768,
+    "mobileNotes": [
+      "네비게이션 -> 햄버거 메뉴",
+      "대표원장 프로필 섹션 -> 이미지/텍스트 세로 스택",
+      "Hero 배경 이미지 비율 유지"
+    ]
+  }
+}

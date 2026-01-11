@@ -36,7 +36,7 @@ def merge_components(all_data: list[dict]) -> list[dict]:
             if name not in merged:
                 merged[name] = {
                     'name': name,
-                    'status': 'pending',
+                    'nodeId': comp.get('nodeId', ''),  # 첫 번째 occurrence의 nodeId를 대표로 사용
                     'occurrences': [],
                     'implementation': comp.get('implementation', '')
                 }
@@ -44,6 +44,7 @@ def merge_components(all_data: list[dict]) -> list[dict]:
             # 출처 정보 추가
             occurrence = {
                 'page': page_name,
+                'nodeId': comp.get('nodeId', ''),  # 각 occurrence의 nodeId 저장
                 'position': comp.get('position', ''),
             }
 
@@ -67,13 +68,12 @@ def merge_components(all_data: list[dict]) -> list[dict]:
 def update_source_file(filepath: Path, data: dict) -> bool:
     """
     원본 파일의 commonComponents를 참조 형태로 변환
-    status를 'common'으로 변경하여 통합됨을 표시
+    reference 필드 추가하여 통합됨을 표시
     """
     modified = False
 
     for comp in data.get('commonComponents', []):
-        if comp.get('status') != 'common':
-            comp['status'] = 'common'
+        if comp.get('reference') != '_common_component.json':
             comp['reference'] = '_common_component.json'
             modified = True
 

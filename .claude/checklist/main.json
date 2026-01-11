@@ -1,0 +1,99 @@
+{
+  "$schema": "checklist-v2",
+  "metadata": {
+    "pageName": "main",
+    "figmaUrl": "https://www.figma.com/design/NlimFGIcvGyhgGct3sUxBB/%EB%8C%80%EC%A0%84%EC%97%A0%EC%B9%98%EA%B3%BC-%ED%99%88%ED%8E%98%EC%9D%B4%EC%A7%80?node-id=11-1226",
+    "fileKey": "NlimFGIcvGyhgGct3sUxBB",
+    "nodeId": "11:1226",
+    "analyzedAt": "2026-01-11T00:00:00Z",
+    "designWidth": 1920
+  },
+  "layout": {
+    "type": "single-column",
+    "containerWidth": 1580,
+    "sidePadding": 170
+  },
+  "commonComponents": [
+    {
+      "name": "Navigation Bar",
+      "nodeId": "143:644",
+      "placement": "top-fixed",
+      "mobileVariant": "hamburger-menu",
+      "reference": "_common_component.json"
+    },
+    {
+      "name": "Footer",
+      "nodeId": "40:714",
+      "placement": "bottom",
+      "mobileVariant": "unchanged",
+      "reference": "_common_component.json"
+    },
+    {
+      "name": "Side Quick Menu",
+      "nodeId": "11:1833",
+      "placement": "right",
+      "mobileVariant": "hidden",
+      "reference": "_common_component.json"
+    }
+  ],
+  "sections": [
+    {
+      "id": "hero",
+      "name": "Hero Section - 임플란트 소개",
+      "nodeId": "15:2217",
+      "order": 1,
+      "layoutHint": "full-width-bg",
+      "mobileStack": false
+    },
+    {
+      "id": "why-m-dental",
+      "name": "왜 엠치과일까요? - 4가지 포인트",
+      "nodeId": "11:1264",
+      "order": 2,
+      "layoutHint": "card-grid",
+      "mobileStack": true
+    },
+    {
+      "id": "hospital-image",
+      "name": "병원 전경 이미지",
+      "nodeId": "40:593",
+      "order": 3,
+      "layoutHint": "full-width-bg",
+      "mobileStack": false
+    },
+    {
+      "id": "patient-reviews",
+      "name": "환자 후기 - Before/After 및 리뷰",
+      "nodeId": "38:368",
+      "order": 4,
+      "layoutHint": "center-content",
+      "mobileStack": true
+    },
+    {
+      "id": "cta-section",
+      "name": "CTA 섹션",
+      "nodeId": "40:557",
+      "order": 5,
+      "layoutHint": "full-width-bg",
+      "mobileStack": false
+    },
+    {
+      "id": "reservation-form",
+      "name": "예약 신청 폼",
+      "nodeId": "11:1815",
+      "order": 6,
+      "layoutHint": "full-width-bg",
+      "mobileStack": true
+    }
+  ],
+  "responsive": {
+    "breakpoint": 768,
+    "mobileNotes": [
+      "네비게이션 -> 햄버거 메뉴로 변환",
+      "우측 사이드 퀵메뉴 -> 모바일에서 숨김 처리",
+      "4개 카드 그리드 -> 1열 세로 스택",
+      "환자 후기 Before/After -> 세로 스택",
+      "예약 폼 입력 필드 -> 세로 스택"
+    ]
+  }
+}

@@ -103,15 +103,6 @@ You are a Common Component Merger Agent. Your job is to consolidate duplicate co
 }
 ```
 
-## 결과 반환
-
-작업 완료 시 **이것만** 출력:
-
-```
-완료: _common_component.json
-병합 전: N개 → 병합 후: M개
-```
-
 ## 필수 규칙
 
 **공통 규칙**: `.claude/docs/agent-guidelines.md` 참조

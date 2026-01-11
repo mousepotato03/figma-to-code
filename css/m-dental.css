@@ -1,0 +1,596 @@
+/* m-dental.css - Auto-merged from 4 section files */
+/* Do not edit directly - regenerate with merge_section_css.py */
+
+/* ========== 01-hero ========== */
+/* Hero Banner Section */
+.hero-banner {
+  position: relative;
+  width: 100%;
+  height: 970px;
+  overflow: hidden;
+}
+
+.hero-background {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.hero-bg-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero-overlay {
+  position: absolute;
+  top: -85.13px;
+  left: 0;
+  width: 100%;
+  height: 1277.344px;
+}
+
+.hero-patient-image {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero-overlay-dark {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.hero-content {
+  position: absolute;
+  left: 0;
+  top: calc(50% + 36px);
+  transform: translateY(-50%);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.hero-heading {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1px 0;
+}
+
+.hero-heading p {
+  margin: 0;
+  font-family: 'BM Dohyeon', sans-serif;
+  font-size: 75px;
+  font-weight: 400;
+  line-height: normal;
+  text-align: center;
+  color: #ffffff;
+  text-shadow: 0px 5px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .hero-banner {
+    height: 500px;
+  }
+
+  .hero-overlay {
+    top: -40px;
+    height: 600px;
+  }
+
+  .hero-content {
+    top: 50%;
+    padding: 0 16px;
+  }
+
+  .hero-heading p {
+    font-size: 32px;
+  }
+}
+
+/* ========== 02-intro-text ========== */
+/* Intro Text Section */
+.intro-text-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.intro-text-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.intro-text-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 0 139px;
+}
+
+.intro-text-content p {
+  font-family: "Pretendard", sans-serif;
+  font-size: 28px;
+  font-weight: 400;
+  line-height: 38px;
+  letter-spacing: 0;
+  color: var(--color-b1);
+  text-align: center;
+  margin: 0;
+  white-space: nowrap;
+}
+
+.intro-text-content .text-bold {
+  font-weight: 600;
+}
+
+.intro-text-content .text-spacer {
+  height: 38px;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .intro-text-content {
+    padding: 0 16px;
+  }
+
+  .intro-text-content p {
+    white-space: normal;
+    word-break: keep-all;
+  }
+}
+
+/* ========== 03-background-image ========== */
+/* Promises Section - Background Image Section */
+
+.promises-section {
+  width: 100%;
+  background-image: url('../../assets/images/m-dental/back-bg.png'), linear-gradient(90deg, #ffffff 0%, #ffffff 100%);
+  background-repeat: repeat;
+  background-size: 1920px 1276px, auto auto;
+  background-position: top left;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 260px 75px 260px;
+}
+
+.promises-container {
+  width: 1400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Header */
+.promises-header {
+  width: 1400px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  overflow: hidden;
+  padding: 21px 188px 75px 188px;
+}
+
+.promises-title {
+  font-family: 'ABeeZee', 'Noto Sans KR', sans-serif;
+  font-size: 50px;
+  font-weight: 400;
+  line-height: normal;
+  text-align: center;
+  color: #ffffff;
+  white-space: nowrap;
+  margin: 0;
+}
+
+/* Cards Container */
+.promises-cards {
+  width: 1400px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Promise Card */
+.promise-card {
+  width: 443px;
+  height: 650px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.35);
+}
+
+.promise-card:last-child {
+  width: 444px;
+}
+
+/* Card Header */
+.promise-card__header {
+  width: 100%;
+  height: 190px;
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  padding: 30px 30px 0 30px;
+}
+
+.promise-card__header--mint {
+  background-color: #dcf3ed;
+}
+
+.promise-card__header--white {
+  background-color: #ffffff;
+  justify-content: center;
+}
+
+/* Number Badge */
+.promise-card__number {
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-g1, #019982);
+  border-radius: 30px;
+  box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.2);
+  flex-shrink: 0;
+}
+
+.promise-card__number span {
+  font-family: 'Pretendard', sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  color: #ffffff;
+  text-align: center;
+}
+
+/* Card Content */
+.promise-card__content {
+  width: 320px;
+  height: 160px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+}
+
+.promise-card__header--white .promise-card__content {
+  width: 322px;
+  justify-content: space-between;
+}
+
+.promise-card__title {
+  font-family: 'Pretendard', sans-serif;
+  font-size: 35px;
+  font-weight: 600;
+  line-height: normal;
+  color: var(--color-b1, #393838);
+  margin: 0;
+}
+
+.promise-card__desc {
+  font-family: 'Pretendard', sans-serif;
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 27px;
+  color: var(--color-b1, #393838);
+  margin: 0;
+  padding: 5px 0;
+}
+
+/* Card Image */
+.promise-card__image {
+  width: 100%;
+  height: 477px;
+  background-color: #ffffff;
+  overflow: hidden;
+  position: relative;
+}
+
+.promise-card__image--bg {
+  background-image: url('../../assets/images/m-dental/card3-bg.png');
+  background-size: cover;
+  background-position: center;
+}
+
+.promise-card__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .promises-section {
+    padding: 24px 16px;
+    background-size: 768px auto, auto auto;
+  }
+
+  .promises-container {
+    width: 100%;
+  }
+
+  .promises-header {
+    width: 100%;
+    padding: 16px;
+  }
+
+  .promises-title {
+    white-space: normal;
+    word-break: keep-all;
+  }
+
+  .promises-cards {
+    width: 100%;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .promise-card {
+    width: 100%;
+    height: auto;
+  }
+
+  .promise-card:last-child {
+    width: 100%;
+  }
+
+  .promise-card__header {
+    height: auto;
+    padding: 20px 16px;
+    gap: 16px;
+  }
+
+  .promise-card__number {
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
+  }
+
+  .promise-card__number span {
+    font-size: 20px;
+  }
+
+  .promise-card__content {
+    width: calc(100% - 66px);
+    height: auto;
+    gap: 8px;
+  }
+
+  .promise-card__header--white .promise-card__content {
+    width: calc(100% - 66px);
+  }
+
+  .promise-card__title {
+    font-size: 24px;
+  }
+
+  .promise-card__desc {
+    font-size: 14px;
+    line-height: 22px;
+  }
+
+  .promise-card__image {
+    height: 300px;
+  }
+}
+
+/* ========== 04-facilities ========== */
+/* Facilities Section */
+.facilities-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 0 181px;
+  background-color: #ffffff;
+  box-sizing: border-box;
+}
+
+.facilities-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 1558px;
+}
+
+/* Header */
+.facilities-header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-bottom: 75px;
+  width: 100%;
+}
+
+.facilities-title-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1400px;
+  max-width: 100%;
+  padding: 21px 188px 15px;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.facilities-title {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-family: var(--font-title-family), 'Noto Sans KR', sans-serif;
+  font-size: var(--font-title-size);
+  font-weight: var(--font-title-weight);
+  line-height: normal;
+  letter-spacing: var(--font-title-letter-spacing);
+  color: #000000;
+  text-align: center;
+  margin: 0;
+}
+
+.facilities-title span {
+  display: block;
+}
+
+.facilities-subtitle {
+  font-family: var(--font-suvt-family), sans-serif;
+  font-size: var(--font-suvt-size);
+  font-weight: var(--font-suvt-weight);
+  line-height: var(--font-suvt-line-height);
+  letter-spacing: var(--font-suvt-letter-spacing);
+  color: #666666;
+  text-align: center;
+  width: 100%;
+  margin: 0;
+}
+
+.facilities-subtitle strong {
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 600;
+}
+
+/* Facilities Content */
+.facilities-content {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  width: 1400px;
+  max-width: 100%;
+}
+
+/* Facility Card */
+.facility-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.facility-card--main {
+  width: 100%;
+  border-radius: 8px;
+}
+
+.facility-image-wrapper {
+  position: relative;
+  width: 100%;
+  height: 577.5px;
+  overflow: hidden;
+}
+
+.facility-card--main .facility-image-wrapper {
+  height: 577.5px;
+}
+
+.facility-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Facility Overlay */
+.facility-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0));
+}
+
+.facility-name {
+  font-family: 'Pretendard', sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: normal;
+  color: #ffffff;
+  text-align: center;
+  white-space: nowrap;
+}
+
+/* Facilities Grid (2x2) */
+.facilities-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 30px;
+  width: 100%;
+  height: 1185.5px;
+}
+
+.facilities-grid .facility-card {
+  border-radius: 8.162px;
+}
+
+.facilities-grid .facility-image-wrapper {
+  height: 577.75px;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .facilities-section {
+    padding: 0 16px;
+  }
+
+  .facilities-header {
+    padding-bottom: 24px;
+  }
+
+  .facilities-title-wrapper {
+    width: 100%;
+    padding: 16px;
+  }
+
+  .facilities-subtitle {
+    padding: 0 16px;
+  }
+
+  .facilities-content {
+    width: 100%;
+    gap: 16px;
+  }
+
+  .facility-image-wrapper,
+  .facility-card--main .facility-image-wrapper {
+    height: 250px;
+  }
+
+  .facilities-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    gap: 16px;
+    height: auto;
+  }
+
+  .facilities-grid .facility-image-wrapper {
+    height: 250px;
+  }
+
+  .facility-overlay {
+    padding: 16px;
+  }
+
+  .facility-name {
+    font-size: 16px;
+  }
+}
+
