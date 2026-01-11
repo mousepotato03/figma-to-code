@@ -1,0 +1,355 @@
+/* Patient Reviews Section */
+.patient-reviews {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 68px;
+  width: 100%;
+  padding: 140px 20px;
+  background-color: #ffffff;
+}
+
+.patient-reviews__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+/* Heading */
+.patient-reviews__heading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding-bottom: 15px;
+}
+
+.patient-reviews__title {
+  font-family: 'ABeeZee', 'Noto Sans KR', sans-serif;
+  font-weight: 400;
+  font-size: 50px;
+  line-height: normal;
+  text-align: center;
+  color: #019982;
+  margin: 0;
+}
+
+/* Subtitle */
+.patient-reviews__subtitle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding-bottom: 75px;
+  opacity: 0.8;
+}
+
+.patient-reviews__subtitle p {
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 300;
+  font-size: 32px;
+  line-height: normal;
+  text-align: center;
+  color: #000000;
+  margin: 0;
+}
+
+.patient-reviews__subtitle .text-semibold {
+  font-weight: 600;
+}
+
+/* Before & After Comparison */
+.patient-reviews__comparison {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.comparison-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12.22px;
+  width: 838.36px;
+  overflow: hidden;
+}
+
+.comparison-cards {
+  display: flex;
+  gap: 60px;
+  align-items: center;
+  justify-content: center;
+}
+
+.comparison-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 320px;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.comparison-card__image {
+  width: 320px;
+  height: 200px;
+  background-color: #f7f7f7;
+  overflow: hidden;
+  position: relative;
+}
+
+.comparison-card__image--top {
+  border-radius: 20px 20px 0 0;
+}
+
+.comparison-card__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.comparison-card__label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 70px;
+  padding: 20px 30px 0;
+}
+
+.comparison-card__label span {
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 600;
+  font-size: 28px;
+  line-height: normal;
+  text-align: center;
+  color: #ffffff;
+}
+
+.comparison-card__label--before {
+  background-color: #838383;
+}
+
+.comparison-card__label--after {
+  background-color: #019982;
+}
+
+/* Disclaimer */
+.comparison-disclaimer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 5px 0;
+}
+
+.comparison-disclaimer p {
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 400;
+  font-size: 17.6px;
+  line-height: normal;
+  text-align: center;
+  color: #919191;
+  margin: 0;
+}
+
+/* Testimonials */
+.patient-reviews__testimonials {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 45px;
+  width: 100%;
+  padding: 20px 107px;
+  background-color: #ffffff;
+  overflow: hidden;
+}
+
+.testimonial-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 990px;
+  height: 165px;
+  padding: 3px 0 3px 3.6px;
+  background-color: #eaeaea;
+  border: 1px solid #00d9b6;
+  border-radius: 20px;
+  box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.35);
+}
+
+.testimonial-card--featured {
+  height: 235px;
+  background-color: #e2fcf9;
+}
+
+.testimonial-card__content {
+  display: flex;
+  align-items: center;
+  gap: 46px;
+  width: 870px;
+}
+
+.testimonial-card--featured .testimonial-card__content {
+  gap: 35px;
+}
+
+.testimonial-card__avatar {
+  flex-shrink: 0;
+  width: 96.8px;
+  height: 96.8px;
+  overflow: hidden;
+}
+
+.testimonial-card--featured .testimonial-card__avatar {
+  width: 100px;
+  height: 100px;
+}
+
+.testimonial-card__avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.testimonial-card__text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  flex: 1;
+}
+
+.testimonial-card__name {
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 300;
+  font-size: 24px;
+  line-height: normal;
+  color: #000000;
+  padding-bottom: 12px;
+}
+
+.testimonial-card__quote {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.testimonial-card__quote p {
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 500;
+  font-size: 27.6px;
+  line-height: 38px;
+  color: #000000;
+  margin: 0;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .patient-reviews {
+    gap: 24px;
+    padding: 40px 16px;
+  }
+
+  .patient-reviews__heading {
+    padding-bottom: 8px;
+  }
+
+  .patient-reviews__title {
+    font-size: 24px;
+  }
+
+  .patient-reviews__subtitle {
+    padding-bottom: 24px;
+  }
+
+  .patient-reviews__subtitle p {
+    font-size: 16px;
+  }
+
+  .comparison-wrapper {
+    width: 100%;
+    gap: 12px;
+  }
+
+  .comparison-cards {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .comparison-card {
+    width: 100%;
+    max-width: 320px;
+  }
+
+  .comparison-card__image {
+    width: 100%;
+    height: 150px;
+  }
+
+  .comparison-card__label {
+    height: 50px;
+    padding: 12px 20px 0;
+  }
+
+  .comparison-card__label span {
+    font-size: 20px;
+  }
+
+  .comparison-disclaimer p {
+    font-size: 12px;
+  }
+
+  .patient-reviews__testimonials {
+    gap: 16px;
+    padding: 16px;
+  }
+
+  .testimonial-card {
+    width: 100%;
+    height: auto;
+    min-height: 120px;
+    padding: 16px;
+  }
+
+  .testimonial-card--featured {
+    height: auto;
+    min-height: 150px;
+  }
+
+  .testimonial-card__content {
+    width: 100%;
+    gap: 16px;
+  }
+
+  .testimonial-card--featured .testimonial-card__content {
+    gap: 16px;
+  }
+
+  .testimonial-card__avatar {
+    width: 60px;
+    height: 60px;
+  }
+
+  .testimonial-card--featured .testimonial-card__avatar {
+    width: 70px;
+    height: 70px;
+  }
+
+  .testimonial-card__name {
+    font-size: 16px;
+    padding-bottom: 8px;
+  }
+
+  .testimonial-card__quote p {
+    font-size: 14px;
+    line-height: 22px;
+  }
+}
