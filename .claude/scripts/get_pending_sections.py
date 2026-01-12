@@ -7,6 +7,9 @@ pending 상태인 섹션만 추출하여 간단한 형식으로 출력
   python get_pending_sections.py              # 모든 페이지의 pending 섹션
   python get_pending_sections.py home         # 특정 페이지만
   python get_pending_sections.py --common     # 공통 컴포넌트만
+  python get_pending_sections.py home --count-only           # 개수만 출력
+  python get_pending_sections.py home --batch-size 5         # 5개씩 첫 배치
+  python get_pending_sections.py home --batch-size 5 --batch-index 1  # 두 번째 배치
 
 출력 형식:
   pageName|order|sectionSlug|nodeId|fileKey
@@ -15,7 +18,9 @@ pending 상태인 섹션만 추출하여 간단한 형식으로 출력
 
 import sys
 import re
+import argparse
 from pathlib import Path
+import math
 
 # 프로젝트 루트 기준 경로
 SCRIPT_DIR = Path(__file__).parent
@@ -164,29 +169,62 @@ def get_pending_common_components():
 def main():
     setup_windows_utf8()
 
-    args = sys.argv[1:]
+    parser = argparse.ArgumentParser(description='pending 상태인 섹션 추출')
+    parser.add_argument('page', nargs='?', default=None, help='특정 페이지만 (생략시 전체)')
+    parser.add_argument('--common', action='store_true', help='공통 컴포넌트만')
+    parser.add_argument('--count-only', action='store_true', help='개수만 출력')
+    parser.add_argument('--batch-size', type=int, default=0, help='배치당 최대 개수 (0=무제한)')
+    parser.add_argument('--batch-index', type=int, default=0, help='배치 인덱스 (0부터 시작)')
+
+    args = parser.parse_args()
 
     # --common 옵션: 공통 컴포넌트만
-    if "--common" in args:
+    if args.common:
         components = get_pending_common_components()
+
+        if args.count_only:
+            print(len(components))
+            return
+
         if not components:
             print("# No pending common components")
             return
 
-        print("# Common components (pending)")
+        # 배치 처리
+        if args.batch_size > 0:
+            total_batches = math.ceil(len(components) / args.batch_size)
+            start = args.batch_index * args.batch_size
+            end = start + args.batch_size
+            components = components[start:end]
+            print(f"# Common components (batch {args.batch_index + 1}/{total_batches}, {len(components)} items)")
+        else:
+            print("# Common components (pending)")
+
         for comp in components:
             print(f"common|00|{comp['name'].lower()}|{comp['nodeId']}|{comp['fileKey']}")
         return
 
     # 페이지 지정 또는 전체
-    target_page = args[0] if args else None
-    sections = get_pending_sections(target_page)
+    sections = get_pending_sections(args.page)
 
-    if not sections:
-        print(f"# No pending sections" + (f" for {target_page}" if target_page else ""))
+    if args.count_only:
+        print(len(sections))
         return
 
-    print("# Pending sections: pageName|order|sectionSlug|nodeId|fileKey")
+    if not sections:
+        print(f"# No pending sections" + (f" for {args.page}" if args.page else ""))
+        return
+
+    # 배치 처리
+    if args.batch_size > 0:
+        total_batches = math.ceil(len(sections) / args.batch_size)
+        start = args.batch_index * args.batch_size
+        end = start + args.batch_size
+        sections = sections[start:end]
+        print(f"# Pending sections (batch {args.batch_index + 1}/{total_batches}, {len(sections)} items): pageName|order|sectionSlug|nodeId|fileKey")
+    else:
+        print("# Pending sections: pageName|order|sectionSlug|nodeId|fileKey")
+
     for s in sections:
         print(f"{s['pageName']}|{s['order']:02d}|{s['sectionSlug']}|{s['nodeId']}|{s['fileKey']}")
 
