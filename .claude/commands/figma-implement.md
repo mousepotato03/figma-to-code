@@ -67,7 +67,27 @@ Glob .claude/checklist/*.json
    Read .claude/checklist/_common_component.json
    ```
 
-### 1-2. pending 컴포넌트 병렬 구현
+### 1-2. pending 컴포넌트 병렬 구현 (배치 처리, 최대 5개씩)
+
+**배치 처리 절차**:
+
+1. **pending 개수 확인**:
+   ```bash
+   python .claude/scripts/get_pending_sections.py --common --count-only
+   ```
+
+2. **배치 수 계산**: `ceil(pending개수 / 5)`
+
+3. **배치별 순차 실행**:
+   ```
+   for batch_index in 0..(배치수-1):
+     # 해당 배치의 컴포넌트만 가져오기
+     python .claude/scripts/get_pending_sections.py --common --batch-size 5 --batch-index {batch_index}
+
+     # 해당 컴포넌트들 병렬 실행 (아래 Task 호출)
+     # 완료 대기: wait_for_markers(..., 해당 배치 크기)
+   ```
+
 각 pending 컴포넌트에 대해 **병렬로** figma-implementer 호출:
 
 ```
@@ -181,7 +201,7 @@ for each pageName:
 
 ---
 
-## 3단계: 섹션 병렬 구현 (최대 5개 동시)
+## 3단계: 섹션 병렬 구현 (배치 처리, 최대 5개 동시)
 
 ### 3-1. 페이지 정보 추출
 체크리스트 메타데이터에서:
@@ -212,7 +232,27 @@ Glob .claude/markers/{pageName}/*
 ```
 기존 마커 개수 기억 (완료 확인용) 
 
-### 3-5. 섹션별 병렬 실행 (최대 5개씩)
+### 3-5. 섹션별 병렬 실행 (배치 처리, 최대 5개씩)
+
+**배치 처리 절차**:
+
+1. **pending 개수 확인**:
+   ```bash
+   python .claude/scripts/get_pending_sections.py {pageName} --count-only
+   ```
+
+2. **배치 수 계산**: `ceil(pending개수 / 5)`
+
+3. **배치별 순차 실행**:
+   ```
+   for batch_index in 0..(배치수-1):
+     # 해당 배치의 섹션만 가져오기
+     python .claude/scripts/get_pending_sections.py {pageName} --batch-size 5 --batch-index {batch_index}
+
+     # 해당 섹션들 병렬 실행 (아래 Task 호출)
+     # 완료 대기: wait_for_markers(..., 해당 배치 크기)
+   ```
+
 각 섹션에 대해 **병렬로** figma-implementer 호출:
 
 ```
