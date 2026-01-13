@@ -13,33 +13,32 @@ arguments:
 - count 인자가 있으면: 상위 {count}개만 사용
 - count 인자가 없으면: 전체 URL 사용
 
-## 2단계: 페이지 분석 (백그라운드 병렬 실행)
+## 2단계: 페이지 분석 (순차 실행)
 
-### 2-1. 사전 준비
-1. Glob으로 `.claude/checklist/*.json` 파일 목록을 확인하고 **기존 파일 개수**를 기억
-2. 분석할 **URL 개수**를 기억
+각 URL에 대해 figma-page-analyzer 에이전트를 **순차적으로** 실행:
 
-### 2-2. 백그라운드 실행
-각 URL에 대해 figma-page-analyzer 에이전트를 병렬로 실행:
 ```
-Task 도구 호출 시:
-- subagent_type: "figma-page-analyzer"
-- prompt: URL
-- run_in_background: true
-```
+for each URL in urls:
+  1. Task 도구 호출:
+     - subagent_type: "figma-page-analyzer"
+     - prompt: URL
+     - run_in_background: true
 
-### 2-3. 완료 대기 (파일 폴링)
+  2. 완료 대기 (마커 폴링):
+     - sleep 30초
+     - Glob으로 해당 URL의 체크리스트 파일 존재 확인
+     - 최대 10회 반복 (30초 × 10 = 5분)
+
+  3. 다음 URL로 진행
+```
 
 **중요: TaskOutput 호출 금지** (컨텍스트 절약)
 
-폴링 로직:
-1. `sleep 60` 후 Glob으로 `.claude/checklist/*.json` 파일 개수 체크
-2. 새 파일 개수 >= URL 개수 → 3단계 진행
-3. 최대 5분, 5회 반복
+### 타임아웃/실패 처리
 
-### 2-4. 타임아웃/실패 처리
-
-5분 후에도 파일 부족시 AskUserQuestion으로 사용자에게 재시도/계속/중단 선택 요청
+개별 URL이 5분 후에도 완료되지 않으면:
+- 해당 URL 건너뛰고 다음 URL 진행
+- 최종 보고 시 실패 URL 목록 포함
 
 ## 3단계: 공통 컴포넌트 1차 병합 (순차 실행)
 2단계의 모든 체크리스트가 생성된 후에,

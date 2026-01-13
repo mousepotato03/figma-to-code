@@ -22,7 +22,7 @@ def merge_components(all_data: list[dict]) -> list[dict]:
     여러 페이지의 컴포넌트 병합 (출처별 메타데이터 보존)
 
     Args:
-        all_data: [{'page': 페이지명, 'components': [컴포넌트들]}]
+        all_data: [{'page': 페이지명, 'fileKey': 파일키, 'components': [컴포넌트들]}]
 
     Returns:
         병합된 컴포넌트 목록
@@ -31,6 +31,7 @@ def merge_components(all_data: list[dict]) -> list[dict]:
 
     for page_data in all_data:
         page_name = page_data['page']
+        file_key = page_data.get('fileKey', '')  # 페이지 메타데이터에서 fileKey 가져옴
         for comp in page_data['components']:
             name = comp.get('name', 'Unknown')
             if name not in merged:
@@ -38,29 +39,17 @@ def merge_components(all_data: list[dict]) -> list[dict]:
                     'name': name,
                     'nodeId': comp.get('nodeId', ''),  # 첫 번째 occurrence의 nodeId를 대표로 사용
                     'occurrences': [],
-                    'implementation': comp.get('implementation', '')
                 }
 
-            # 출처 정보 추가
+            # 출처 정보 추가 (v2 스키마: placement 사용)
             occurrence = {
                 'page': page_name,
-                'nodeId': comp.get('nodeId', ''),  # 각 occurrence의 nodeId 저장
-                'position': comp.get('position', ''),
+                'nodeId': comp.get('nodeId', ''),
+                'fileKey': file_key,
+                'placement': comp.get('placement', ''),  # v2 스키마 필드명
             }
 
-            # size가 있으면 문자열로 변환
-            size = comp.get('size')
-            if size:
-                if isinstance(size, dict):
-                    occurrence['size'] = f"{size.get('width', 0)} x {size.get('height', 0)}"
-                else:
-                    occurrence['size'] = str(size)
-
             merged[name]['occurrences'].append(occurrence)
-
-            # 더 상세한 implementation이 있으면 업데이트
-            if comp.get('implementation') and len(comp['implementation']) > len(merged[name]['implementation']):
-                merged[name]['implementation'] = comp['implementation']
 
     return list(merged.values())
 
@@ -86,7 +75,7 @@ def update_source_file(filepath: Path, data: dict) -> bool:
 def generate_output(merged: list[dict], page_count: int) -> dict:
     """_common_component.json 내용 생성"""
     return {
-        "$schema": "common-components-v1",
+        "$schema": "common-components-v2",
         "metadata": {
             "totalPages": page_count,
             "generatedAt": datetime.now().isoformat()
@@ -119,11 +108,14 @@ def main():
 
         if data:
             components = extract_common_components(data)
-            page_name = data.get('metadata', {}).get('pageName', filepath.stem)
+            metadata = data.get('metadata', {})
+            page_name = metadata.get('pageName', filepath.stem)
+            file_key = metadata.get('fileKey', '')  # 페이지 메타데이터에서 fileKey 추출
 
             if components:
                 all_data.append({
                     'page': page_name,
+                    'fileKey': file_key,  # fileKey 포함
                     'components': components
                 })
 
