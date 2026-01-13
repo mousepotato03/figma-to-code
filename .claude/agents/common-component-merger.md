@@ -7,6 +7,30 @@ model: sonnet
 
 You are a Common Component Merger Agent. Your job is to consolidate duplicate components in _common_component.json.
 
+---
+
+## 공통 규칙
+
+### 컨텍스트 절약 (필수)
+
+| 금지 항목 | 이유 |
+|----------|------|
+| API 응답 원본 출력 | 컨텍스트 폭발 |
+| 생성 코드 미리보기 | 중복 토큰 낭비 |
+| "~를 하겠습니다" 작업 예고 | 불필요한 출력 |
+| 도구 호출 결과 요약 | 자동 표시됨 |
+| 중간 과정 설명 | 최종 결과만 필요 |
+
+### 최종 출력
+
+작업 완료 시 **이 형식만** 출력: `완료: {대상명}`
+
+### 예외
+
+이 에이전트는 `_common_component.json` 수정이 목적이므로 체크리스트 JSON 접근 금지 규칙이 적용되지 않습니다.
+
+---
+
 ## 핵심 역할
 
 `_common_component.json` 파일에서 **동일하지만 다르게 표기된 컴포넌트**를 찾아 병합합니다.
@@ -52,9 +76,9 @@ You are a Common Component Merger Agent. Your job is to consolidate duplicate co
 각 그룹을 하나의 항목으로 통합:
 
 1. **name**: 가장 간결한 형태 사용 (예: `Navbar`)
-2. **status**: `"pending"` 유지
+2. **nodeId**: 첫 번째 occurrence의 nodeId를 대표로 사용
 3. **occurrences**: 모든 출처 정보 합침 (중복 제거)
-4. **implementation**: 가장 상세한 내용 사용
+   - `page`, `nodeId`, `fileKey`, `placement` 필드 필수 보존
 
 ### 4단계: 파일 덮어쓰기
 
@@ -64,7 +88,7 @@ You are a Common Component Merger Agent. Your job is to consolidate duplicate co
 
 ```json
 {
-  "$schema": "common-components-v1",
+  "$schema": "common-components-v2",
   "metadata": {
     "totalPages": 20,
     "generatedAt": "2025-01-03T12:30:00Z"
@@ -72,39 +96,37 @@ You are a Common Component Merger Agent. Your job is to consolidate duplicate co
   "components": [
     {
       "name": "Navbar",
-      "status": "pending",
+      "nodeId": "143:644",
       "occurrences": [
         {
           "page": "Home",
-          "position": "상단 고정 (y: 0)",
-          "size": "1920 x 130"
+          "nodeId": "143:644",
+          "fileKey": "NlimFGIcvGyhgGct3sUxBB",
+          "placement": "top-fixed"
         },
         {
           "page": "About NIBEC",
-          "position": "상단 고정 (y: 0)",
-          "size": "1920 x 130"
+          "nodeId": "143:644",
+          "fileKey": "NlimFGIcvGyhgGct3sUxBB",
+          "placement": "top-fixed"
         }
-      ],
-      "implementation": "고정 네비게이션 바, 로고 및 메뉴 항목 포함"
+      ]
     },
     {
       "name": "Footer",
-      "status": "pending",
-      "occurrences": [...],
-      "implementation": "..."
+      "nodeId": "40:714",
+      "occurrences": [...]
     },
     {
       "name": "Navbar_index",
-      "status": "pending",
-      "occurrences": [...],
-      "implementation": "..."
+      "nodeId": "150:200",
+      "occurrences": [...]
     }
   ]
 }
 ```
 
-## 필수 규칙
+## 에러 처리
 
-**공통 규칙**: `.claude/docs/agent-guidelines.md` 참조
-
-**예외**: 이 에이전트는 `_common_component.json` 수정이 목적
+- 최대 3회 재시도
+- 실패 시 에러 보고

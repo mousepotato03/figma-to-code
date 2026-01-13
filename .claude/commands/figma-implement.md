@@ -8,7 +8,12 @@ arguments:
 
 체크리스트 기반으로 Figma 디자인을 PHP/CSS로 구현합니다.
 
-**컨텍스트 절약 규칙**: `.claude/docs/agent-guidelines.md` 참조
+**컨텍스트 절약 규칙**:
+- API 응답 원본 출력 금지
+- 생성 코드 미리보기 금지
+- "~를 하겠습니다" 작업 예고 금지
+- 중간 과정 설명 금지
+- TaskOutput 호출 금지
 
 ---
 
@@ -51,7 +56,7 @@ Glob .claude/checklist/*.json
 
 ---
 
-## 1단계: 공통 컴포넌트 구현 (병렬 처리)
+## 1단계: 공통 컴포넌트 구현 (순차 처리)
 
 ### 1-1. 공통 컴포넌트 완료 확인 (마커 우선)
 
@@ -67,34 +72,25 @@ Glob .claude/checklist/*.json
    Read .claude/checklist/_common_component.json
    ```
 
-### 1-2. pending 컴포넌트 병렬 구현 (배치 처리, 최대 5개씩)
+### 1-2. pending 컴포넌트 순차 구현
 
-**배치 처리 절차**:
-
-1. **pending 개수 확인**:
-   ```bash
-   python .claude/scripts/get_pending_sections.py --common --count-only
-   ```
-
-2. **배치 수 계산**: `ceil(pending개수 / 5)`
-
-3. **배치별 순차 실행**:
-   ```
-   for batch_index in 0..(배치수-1):
-     # 해당 배치의 컴포넌트만 가져오기
-     python .claude/scripts/get_pending_sections.py --common --batch-size 5 --batch-index {batch_index}
-
-     # 해당 컴포넌트들 병렬 실행 (아래 Task 호출)
-     # 완료 대기: wait_for_markers(..., 해당 배치 크기)
-   ```
-
-각 pending 컴포넌트에 대해 **병렬로** figma-implementer 호출:
-
+**pending 목록 가져오기**:
+```bash
+python .claude/scripts/get_pending_sections.py --common
 ```
-Task 도구 호출:
-- subagent_type: "figma-implementer"
-- run_in_background: true   ← 병렬 실행!
-- prompt: (아래 JSON 형식)
+
+**순차 처리 절차**:
+```
+for each pending component:
+  1. Task 도구 호출:
+     - subagent_type: "figma-implementer"
+     - run_in_background: true
+     - prompt: (아래 JSON 형식)
+
+  2. 완료 대기:
+     wait_for_markers(.claude/markers/common, {name}.done, 60초, 10회, 1)
+
+  3. 다음 컴포넌트로 진행
 ```
 
 ```json
@@ -103,12 +99,12 @@ Task 도구 호출:
     "type": "common",
     "name": "{component.name}",
     "nodeId": "{component.occurrences[0].nodeId}",
-    "fileKey": "PbENz9XeDICQsut5z1DfiC"
+    "fileKey": "{component.occurrences[0].fileKey}"
   },
   "context": {
     "pageName": "_common",
     "order": 0,
-    "size": { "width": 1920, "height": 130 }
+    "placement": "{component.occurrences[0].placement}"
   },
   "outputPaths": {
     "php": "includes/{lowercase-name}.php",
@@ -119,13 +115,14 @@ Task 도구 호출:
 ```
 
 **이름 변환 규칙**:
-- `Navbar` → `navbar.php`
+- Figma 컴포넌트 이름을 그대로 사용 (소문자 + 하이픈)
+- `Nav` → `nav.php`
 - `Footer` → `footer.php`
-- `Navbar_index` → `navbar_index.php`
+- `Navigation Bar` → `navigation-bar.php`
 
-### 1-3. 완료 대기
+### 1-3. 개별 완료 확인
 
-`wait_for_markers(.claude/markers/common, *.done, 180초, 10회, pending개수)`
+각 컴포넌트는 순차 처리 중 개별적으로 완료 대기함 (1-2 참조)
 
 ### 1-4. 공통 CSS 병합
 모든 공통 컴포넌트 완료 후:
@@ -201,7 +198,7 @@ for each pageName:
 
 ---
 
-## 3단계: 섹션 병렬 구현 (배치 처리, 최대 5개 동시)
+## 3단계: 섹션 순차 구현
 
 ### 3-1. 페이지 정보 추출
 체크리스트 메타데이터에서:
@@ -223,43 +220,25 @@ mkdir -p .claude/markers/{pageName}
 mkdir -p {pageName}
 ```
 
-### 3-3. pending 섹션 수집
-체크리스트의 `sections` 배열에서 마커 파일이 없는 섹션 필터링
-
-### 3-4. 기존 마커 파일 개수 기록
+### 3-3. pending 섹션 목록 가져오기
+```bash
+python .claude/scripts/get_pending_sections.py {pageName}
 ```
-Glob .claude/markers/{pageName}/*
+
+### 3-4. 섹션별 순차 실행
+
+**순차 처리 절차**:
 ```
-기존 마커 개수 기억 (완료 확인용) 
+for each pending section:
+  1. Task 도구 호출:
+     - subagent_type: "figma-implementer"
+     - run_in_background: true
+     - prompt: (아래 JSON 형식)
 
-### 3-5. 섹션별 병렬 실행 (배치 처리, 최대 5개씩)
+  2. 완료 대기:
+     wait_for_markers(.claude/markers/{pageName}, {order:02d}-{section-slug}.done, 60초, 10회, 1)
 
-**배치 처리 절차**:
-
-1. **pending 개수 확인**:
-   ```bash
-   python .claude/scripts/get_pending_sections.py {pageName} --count-only
-   ```
-
-2. **배치 수 계산**: `ceil(pending개수 / 5)`
-
-3. **배치별 순차 실행**:
-   ```
-   for batch_index in 0..(배치수-1):
-     # 해당 배치의 섹션만 가져오기
-     python .claude/scripts/get_pending_sections.py {pageName} --batch-size 5 --batch-index {batch_index}
-
-     # 해당 섹션들 병렬 실행 (아래 Task 호출)
-     # 완료 대기: wait_for_markers(..., 해당 배치 크기)
-   ```
-
-각 섹션에 대해 **병렬로** figma-implementer 호출:
-
-```
-Task 도구 호출:
-- subagent_type: "figma-implementer"
-- run_in_background: true  ← 병렬 실행!
-- prompt: (아래 JSON 형식)
+  3. 다음 섹션으로 진행
 ```
 
 ```json
@@ -293,11 +272,9 @@ Task 도구 호출:
 | Header (Hero Section) | 1 | home/01-header-hero-section.php | css/home/01-header-hero-section.css | .claude/markers/home/01-header-hero-section |
 | About Section | 2 | home/02-about-section.php | css/home/02-about-section.css | .claude/markers/home/02-about-section |
 
-### 3-6. 완료 대기
+### 3-5. 개별 완료 확인
 
-`wait_for_markers(.claude/markers/{pageName}, *.done, 180초, 20회, pending개수)`
-
-타임아웃 시 생성된 마커들만으로 4단계 진행
+각 섹션은 순차 처리 중 개별적으로 완료 대기함 (3-4 참조)
 
 ---
 
@@ -460,7 +437,7 @@ ls css/{pageName}/     # ✗ 삭제되어야 함
 │       └── {pageName}/
 │           └── merged.done        ← 병합 이력
 └── includes/                   ← 공통 컴포넌트
-    ├── navbar.php
+    ├── nav.php
     └── footer.php
 ```
 

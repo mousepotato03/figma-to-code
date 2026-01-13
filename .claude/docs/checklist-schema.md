@@ -1,4 +1,4 @@
-# Checklist Schema v2
+# Checklist Schema
 
 체크리스트 JSON 파일의 스키마 정의 문서입니다.
 
@@ -84,7 +84,7 @@
 |------|------|------|
 | `name` | string | 컴포넌트 이름 |
 | `nodeId` | string | Figma 노드 ID |
-| `placement` | string | 배치 위치: `top-fixed`, `top-static`, `bottom`, `left`, `right` |
+| `placement` | string | 배치 위치: `top-fixed`, `top-static`, `bottom`, `bottom-fixed`, `floating-right`, `floating-left`, `left`, `right` |
 | `mobileVariant` | string | 모바일 변형: `hamburger-menu`, `bottom-nav`, `hidden`, `unchanged` |
 
 ```json
@@ -100,9 +100,34 @@
     "nodeId": "127:6700",
     "placement": "bottom",
     "mobileVariant": "unchanged"
+  },
+  {
+    "name": "Quick Contact Form",
+    "nodeId": "11:1815",
+    "placement": "bottom-fixed",
+    "mobileVariant": "unchanged"
+  },
+  {
+    "name": "Chat Widget",
+    "nodeId": "127:6702",
+    "placement": "floating-right",
+    "mobileVariant": "hidden"
   }
 ]
 ```
+
+#### placement 옵션 상세
+
+| 값 | 설명 | CSS 처리 | 사용 예시 |
+|----|------|---------|----------|
+| `top-fixed` | 상단 고정 (스크롤 따라다님) | `position: fixed; top: 0;` | Navbar |
+| `top-static` | 상단 정적 (스크롤 시 사라짐) | `position: static;` | Navbar (특수) |
+| `bottom` | 페이지 맨 아래 배치 | `position: static;` (문서 흐름) | Footer |
+| `bottom-fixed` | 하단 고정 (스크롤 따라다님) | `position: fixed; bottom: 0;` | 고정 상담폼, 하단바 |
+| `floating-right` | 우측 플로팅 | `position: fixed; right: 20px;` | 채팅 위젯, 피드백 버튼 |
+| `floating-left` | 좌측 플로팅 | `position: fixed; left: 20px;` | 사이드 위젯 |
+| `left` | 좌측 사이드바 | - | Sidebar |
+| `right` | 우측 사이드바 | - | Sidebar |
 
 #### mobileVariant 옵션
 
@@ -127,6 +152,7 @@
 | `order` | number | 배치 순서 (1부터 시작) |
 | `layoutHint` | string | 레이아웃 힌트 (아래 참조) |
 | `mobileStack` | boolean | 모바일에서 세로 스택 여부 |
+| `responsiveHints` | object | 분기점별 반응형 처리 힌트 (선택) |
 
 ```json
 "sections": [
@@ -136,7 +162,11 @@
     "nodeId": "127:6622",
     "order": 1,
     "layoutHint": "full-width-bg",
-    "mobileStack": false
+    "mobileStack": false,
+    "responsiveHints": {
+      "1200px": "패딩 축소, 이미지 max-width 적용",
+      "768px": "세로 스택, 버튼 풀 너비"
+    }
   },
   {
     "id": "content",
@@ -144,10 +174,27 @@
     "nodeId": "127:6653",
     "order": 2,
     "layoutHint": "text-image-split",
-    "mobileStack": true
+    "mobileStack": true,
+    "responsiveHints": {
+      "1200px": "이미지 50% 너비로 축소",
+      "768px": "이미지 → 텍스트 순서로 세로 스택"
+    }
   }
 ]
 ```
+
+#### responsiveHints 필드 (v3 신규)
+
+각 분기점에서 어떻게 처리해야 하는지 힌트를 제공합니다.
+
+| 분기점 | 일반적인 힌트 |
+|--------|-------------|
+| `1440px` | 패딩/gap 80%로 축소 |
+| `1200px` | 패딩/gap 60%로 축소, 고정 너비 → max-width |
+| `1024px` | 일부 레이아웃 세로 전환, 버튼 스택 |
+| `768px` | 전체 세로 스택, 최소 패딩 |
+
+**참고:** `responsiveHints`는 구현 에이전트에게 분기점별 처리 방법을 안내합니다. layoutHint와 mobileStack만으로 부족한 세부 지침을 제공합니다.
 
 #### layoutHint 유형
 
@@ -183,12 +230,22 @@ Figma 메타데이터에서 다음을 분석하여 결정:
 
 | 필드 | 타입 | 설명 |
 |------|------|------|
-| `breakpoint` | number | 모바일 브레이크포인트 (기본: 768) |
+| `breakpoints` | object | 분기점 정의 (v3에서 확장) |
+| `criticalBreakpoint` | number | 레이아웃 변경이 시작되는 핵심 분기점 (기본: 1200) |
+| `mobileBreakpoint` | number | 모바일 분기점 (기본: 768) |
 | `mobileNotes` | string[] | 모바일 변환 시 참고사항 (병합 에이전트용) |
 
 ```json
 "responsive": {
-  "breakpoint": 768,
+  "breakpoints": {
+    "desktop": 1920,
+    "laptop": 1440,
+    "tablet-landscape": 1200,
+    "tablet": 1024,
+    "mobile": 768
+  },
+  "criticalBreakpoint": 1200,
+  "mobileBreakpoint": 768,
   "mobileNotes": [
     "네비게이션 → 햄버거 메뉴",
     "text-image-split 섹션들 → 세로 스택"
@@ -196,13 +253,15 @@ Figma 메타데이터에서 다음을 분석하여 결정:
 }
 ```
 
+**중요:** `criticalBreakpoint`(기본 1200px)는 레이아웃이 변경되기 시작하는 지점입니다. 이 분기점에서 패딩/gap 축소, 고정 너비 유연화 등이 적용됩니다.
+
 ---
 
 ## 전체 예시
 
 ```json
 {
-  "$schema": "checklist-v2",
+  "$schema": "checklist-v3",
   "metadata": {
     "pageName": "덴탈클리닉_사랑니_발치",
     "figmaUrl": "https://www.figma.com/design/NlimFGIcvGyhgGct3sUxBB/...",
@@ -231,7 +290,11 @@ Figma 메타데이터에서 다음을 분석하여 결정:
       "nodeId": "127:6622",
       "order": 1,
       "layoutHint": "full-width-bg",
-      "mobileStack": false
+      "mobileStack": false,
+      "responsiveHints": {
+        "1200px": "패딩 축소, 이미지 max-width 적용",
+        "768px": "세로 스택, 버튼 풀 너비"
+      }
     },
     {
       "id": "content",
@@ -239,11 +302,23 @@ Figma 메타데이터에서 다음을 분석하여 결정:
       "nodeId": "127:6653",
       "order": 2,
       "layoutHint": "text-image-split",
-      "mobileStack": true
+      "mobileStack": true,
+      "responsiveHints": {
+        "1200px": "이미지 50% 너비로 축소",
+        "768px": "세로 스택"
+      }
     }
   ],
   "responsive": {
-    "breakpoint": 768,
+    "breakpoints": {
+      "desktop": 1920,
+      "laptop": 1440,
+      "tablet-landscape": 1200,
+      "tablet": 1024,
+      "mobile": 768
+    },
+    "criticalBreakpoint": 1200,
+    "mobileBreakpoint": 768,
     "mobileNotes": [
       "네비게이션 → 햄버거 메뉴",
       "text-image-split 섹션들 → 세로 스택"
@@ -281,3 +356,30 @@ Figma 메타데이터에서 다음을 분석하여 결정:
 | - | `commonComponents[].mobileVariant` | 신규 추가 |
 | - | `layout` | 신규 추가 |
 | - | `responsive` | 신규 추가 |
+
+---
+
+## v2에서 v3로 마이그레이션
+
+### 신규 필드 (v3)
+
+| 필드 | 설명 |
+|------|------|
+| `sections[].responsiveHints` | 분기점별 반응형 처리 힌트 |
+| `responsive.breakpoints` | 분기점 객체 (desktop, laptop, tablet-landscape, tablet, mobile) |
+| `responsive.criticalBreakpoint` | 핵심 분기점 (기본 1200px) |
+| `responsive.mobileBreakpoint` | 모바일 분기점 (기본 768px) |
+
+### 변경된 필드 (v3)
+
+| v2 필드 | v3 필드 | 변경 사항 |
+|---------|---------|----------|
+| `$schema: "checklist-v2"` | `$schema: "checklist-v3"` | 스키마 버전 업 |
+| `responsive.breakpoint` | `responsive.mobileBreakpoint` | 이름 변경 (명확화) |
+
+### 하위 호환성
+
+v2 체크리스트도 계속 사용 가능합니다. 다만 v3 필드가 없으면 기본값이 적용됩니다:
+- `responsiveHints`: 빈 객체 {}
+- `criticalBreakpoint`: 1200
+- `breakpoints`: 기본 분기점 세트

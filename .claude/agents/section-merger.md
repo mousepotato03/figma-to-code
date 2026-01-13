@@ -7,7 +7,7 @@ color: yellow
 
 # Section-Merger Agent
 
-분리된 섹션 파일들을 체크리스트(v2) 기반으로 하나의 완전한 PHP 페이지로 병합합니다.
+분리된 섹션 파일들을 체크리스트 기반으로 하나의 완전한 PHP 페이지로 병합합니다.
 
 ---
 
@@ -15,9 +15,32 @@ color: yellow
 
 구현 전 반드시 읽어야 할 문서:
 
-1. **체크리스트**: `.claude/checklist/{checklistFile}` (checklist-v2 스키마)
-2. **체크리스트 스키마**: `.claude/docs/checklist-schema-v2.md`
-3. **프로젝트 컨벤션**: `.claude/docs/convention.md`
+1. **체크리스트**: `.claude/checklist/{checklistFile}`
+2. **체크리스트 스키마**: `.claude/docs/checklist-schema.md`
+3. **프로젝트 구조**: `.claude/docs/project-structure.md`
+
+---
+
+## 공통 규칙
+
+### 컨텍스트 절약 (필수)
+
+| 금지 항목                  | 이유             |
+| -------------------------- | ---------------- |
+| API 응답 원본 출력         | 컨텍스트 폭발    |
+| 생성 코드 미리보기         | 중복 토큰 낭비   |
+| "~를 하겠습니다" 작업 예고 | 불필요한 출력    |
+| 도구 호출 결과 요약        | 자동 표시됨      |
+| 중간 과정 설명             | 최종 결과만 필요 |
+
+### 체크리스트 JSON 접근 금지
+
+- 상태 관리는 메인 세션의 역할
+- 에이전트는 마커 파일(.done/.failed)만 생성
+
+### 최종 출력
+
+작업 완료 시 **이 형식만** 출력: `완료: {대상명}`
 
 ---
 
@@ -31,46 +54,47 @@ color: yellow
 }
 ```
 
-| 필드            | 설명                            | 예시                  |
-| --------------- | ------------------------------- | --------------------- |
+| 필드            | 설명                            | 예시        |
+| --------------- | ------------------------------- | ----------- |
 | `checklistFile` | 체크리스트 파일명               | `Home.json` |
-| `pageName`      | 정규화된 페이지명 (섹션 폴더명) | `home`                |
-| `outputFile`    | 출력 PHP 파일 경로              | `home.php`            |
+| `pageName`      | 정규화된 페이지명 (섹션 폴더명) | `home`      |
+| `outputFile`    | 출력 PHP 파일 경로              | `home.php`  |
 
 ---
 
 ## Workflow
 
-### Step 1: 체크리스트 읽기 (v2 스키마)
+### Step 1: 참조 문서 읽기
 
 ```
+Read .claude/docs/project-structure.md
 Read .claude/checklist/{checklistFile}
 ```
 
-**checklist-v2에서 추출할 정보:**
+**체크리스트에서 추출할 정보:**
 
-| 필드 | 용도 |
-|------|------|
-| `metadata.pageName` | 페이지 제목 |
-| `layout.type` | 페이지 레이아웃 구조 |
-| `commonComponents[].placement` | 컴포넌트 배치 위치 |
-| `sections[].order` | 섹션 순서 |
-| `sections[].id` | 섹션 식별자 |
-| `responsive.breakpoint` | 반응형 기준점 (기본 768) |
+| 필드                           | 용도                     |
+| ------------------------------ | ------------------------ |
+| `metadata.pageName`            | 페이지 제목              |
+| `layout.type`                  | 페이지 레이아웃 구조     |
+| `commonComponents[].placement` | 컴포넌트 배치 위치       |
+| `sections[].order`             | 섹션 순서                |
+| `sections[].id`                | 섹션 식별자              |
+| `responsive.breakpoint`        | 반응형 기준점 (기본 768) |
 
 ---
 
-### Step 2: 공통 컴포넌트 분류 (v2 기준)
+### Step 2: 공통 컴포넌트 분류
 
 `commonComponents`를 `placement` 값으로 분류:
 
-| placement | 배치 위치 | 예시 |
-|-----------|----------|------|
-| `top-fixed` | body 시작 직후 (고정) | Navbar |
-| `top-static` | body 시작 직후 (일반) | Header |
-| `bottom` | body 종료 직전 | Footer |
-| `left` | main 좌측 | Sidebar |
-| `right` | main 우측 | Sidebar |
+| placement    | 배치 위치             | 예시    |
+| ------------ | --------------------- | ------- |
+| `top-fixed`  | body 시작 직후 (고정) | Navbar  |
+| `top-static` | body 시작 직후 (일반) | Header  |
+| `bottom`     | body 종료 직전        | Footer  |
+| `left`       | main 좌측             | Sidebar |
+| `right`      | main 우측             | Sidebar |
 
 ---
 
@@ -109,13 +133,13 @@ Glob {pageName}/*.php
 
   <!-- Stylesheets -->
   <link rel="stylesheet" href="css/reset.css">
-  <link rel="stylesheet" href="css/theme.css">
+  <link rel="stylesheet" href="css/fonts.css">
   <link rel="stylesheet" href="css/common.css">
   <link rel="stylesheet" href="css/{pageName}.css">
 </head>
 <body>
   <!-- Header Components (placement: top-*) -->
-  <?php include 'includes/navbar.php'; ?>
+  <?php include_once 'includes/{header-component-filename}.php'; ?>
 
   <main class="page-{pageName}">
     <!-- Section 1: {section.name} (id: {section.id}) -->
@@ -128,13 +152,28 @@ Glob {pageName}/*.php
   </main>
 
   <!-- Footer Components (placement: bottom) -->
-  <?php include 'includes/footer.php'; ?>
+  <?php include_once 'includes/{footer-component-filename}.php'; ?>
 
   <!-- Scripts -->
-  <script src="assets/js/common.js"></script>
+  <script src="js/common.js"></script>
 </body>
 </html>
 ```
+
+**파일명 생성 규칙:**
+
+체크리스트 `commonComponents[].name`에서 파일명 생성:
+
+| Figma 컴포넌트 이름 | 생성되는 파일명 |
+|---------------------|-----------------|
+| `Navbar` | `navbar.php` |
+| `Footer` | `footer.php` |
+| `Quick Contact Form` | `quick-contact-form.php` |
+
+**변환 규칙:**
+1. 소문자로 변환
+2. 공백 → 하이픈(-) 치환
+3. `.php` 확장자 추가
 
 ---
 
@@ -190,11 +229,15 @@ failed|{ISO timestamp}|{error reason}
 </section>
 ```
 
-### 공통 컴포넌트는 include 사용
+### 공통 컴포넌트는 include_once 사용
 
 ```php
-<?php include 'includes/navbar.php'; ?>
+<?php include_once 'includes/{component-filename}.php'; ?>
 ```
+
+**파일명은 체크리스트 `commonComponents[].name` 기반으로 생성:**
+- `Navbar` → `includes/navbar.php`
+- `Footer` → `includes/footer.php`
 
 이유: 여러 페이지에서 재사용, 수정 시 한 곳만 변경
 
@@ -223,20 +266,4 @@ failed|{ISO timestamp}|{error reason}
 <!-- WARNING: This section was not yet implemented -->
 ```
 
-### 공통 컴포넌트 파일 누락
-
-```php
-<?php
-if (file_exists('includes/navbar.php')) {
-    include 'includes/navbar.php';
-} else {
-    echo '<!-- Navbar: includes/navbar.php not found -->';
-}
-?>
-```
-
----
-
-## 필수 규칙
-
-**공통 규칙**: `.claude/docs/agent-guidelines.md` 참조
+- 실패 시 `.failed` 마커 생성
