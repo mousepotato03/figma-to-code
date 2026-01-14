@@ -17,6 +17,16 @@ arguments:
 
 ---
 
+## 상수 정의
+
+| 상수 | 값 | 설명 |
+|------|---|------|
+| BATCH_SIZE | 5 | 병렬 실행 배치 크기 |
+| POLL_INTERVAL | 90 | 마커 확인 간격 (초) |
+| MAX_POLL_RETRIES | 20 | 최대 폴링 횟수 |
+
+---
+
 ## 폴링 헬퍼: wait_for_markers
 
 마커 파일 기반 완료 대기를 위한 공통 로직입니다.
@@ -31,17 +41,43 @@ arguments:
 | `maxRetries` | 최대 반복 횟수 | `10`, `20`, `12` |
 | `requiredCount` | 필요한 마커 개수 | pending 개수 |
 
-### 로직
+### 로직 (배치 인식)
 
 ```
-1. sleep {interval}초
-2. Glob {path}/{pattern} + {path}/*.failed 로 마커 개수 확인
-3. 마커 개수 >= requiredCount → 완료, 다음 단계 진행
-4. 아니면 2번 반복 (최대 maxRetries회)
-5. 타임아웃 시 현재 상태로 진행
+function wait_for_markers(path, pattern, interval, maxRetries, requiredCount):
+  # 0. 시작 시점 마커 개수 기록 (배치 시작 전 상태)
+  initialDone = count(Glob {path}/*.done)
+  initialFailed = count(Glob {path}/*.failed)
+  initialCount = initialDone + initialFailed
+
+  retryCount = 0
+
+  while retryCount < maxRetries:
+    # 1. 대기
+    sleep {interval}초
+
+    # 2. 현재 마커 개수 확인
+    currentDone = count(Glob {path}/*.done)
+    currentFailed = count(Glob {path}/*.failed)
+    currentCount = currentDone + currentFailed
+
+    # 3. 새로 생성된 마커 개수 계산
+    newMarkers = currentCount - initialCount
+
+    # 4. 필요한 수 이상이면 완료
+    if newMarkers >= requiredCount:
+      return SUCCESS
+
+    retryCount += 1
+
+  # 5. 타임아웃 시 현재 상태로 진행
+  return TIMEOUT
 ```
 
-**중요: TaskOutput 호출 금지!** (컨텍스트 절약)
+**중요**:
+- TaskOutput 호출 금지! (컨텍스트 절약)
+- 배치 시작 시점의 마커 개수를 기록하고, 새로 추가된 마커만 카운트
+- 예: 시작 시 마커 3개, 배치 5개 실행 → 마커 8개 이상이면 완료
 
 ---
 
@@ -49,14 +85,14 @@ arguments:
 
 ### 0-1. 체크리스트 목록 확인
 ```
-Glob .claude/checklist/*.json
+Glob .claude/checklists/*.json
 ```
 - `_common_component.json`: 공통 컴포넌트
 - 나머지: 페이지별 체크리스트
 
 ---
 
-## 1단계: 공통 컴포넌트 구현 (순차 처리)
+## 1단계: 공통 컴포넌트 구현 (배치 병렬 처리)
 
 ### 1-1. 공통 컴포넌트 완료 확인 (마커 우선)
 
@@ -69,35 +105,58 @@ Glob .claude/checklist/*.json
 
 2. 체크리스트 읽기 (마커 없을 때만):
    ```
-   Read .claude/checklist/_common_component.json
+   Read .claude/checklists/_common_component.json
    ```
 
-### 1-2. pending 컴포넌트 순차 구현
+3. 마커 디렉토리 생성:
+   ```bash
+   mkdir -p .claude/markers/common
+   ```
 
-**pending 목록 가져오기**:
+### 1-2. pending 컴포넌트 배치 병렬 구현
+
+**pending 개수 확인**:
 ```bash
-python .claude/scripts/get_pending_sections.py --common
+python .claude/scripts/get_pending_sections.py --common --count-only
+```
+→ `totalCount` 저장, `totalBatches = ceil(totalCount / BATCH_SIZE)`
+
+**배치 반복 처리**:
+```
+batchIndex = 0
+
+while batchIndex < totalBatches:
+  # 1. 현재 배치 가져오기
+  python .claude/scripts/get_pending_sections.py --common --batch-size 5 --batch-index {batchIndex}
+
+  # 2. 배치 내 모든 컴포넌트 병렬 실행 (단일 메시지에서 동시 호출!)
+  for each component in batch:
+    Task 도구 호출:
+      - subagent_type: "figma-implementer"
+      - run_in_background: true
+      - prompt: (아래 JSON 형식)
+
+  # 3. 현재 배치 완료 대기
+  wait_for_markers(
+    path: .claude/markers/common,
+    pattern: *.done,
+    interval: POLL_INTERVAL,
+    maxRetries: MAX_POLL_RETRIES,
+    requiredCount: len(batch)
+  )
+
+  # 4. 다음 배치
+  batchIndex += 1
 ```
 
-**순차 처리 절차**:
-```
-for each pending component:
-  1. Task 도구 호출:
-     - subagent_type: "figma-implementer"
-     - run_in_background: true
-     - prompt: (아래 JSON 형식)
-
-  2. 완료 대기:
-     wait_for_markers(.claude/markers/common, {name}.done, 60초, 10회, 1)
-
-  3. 다음 컴포넌트로 진행
-```
+**중요**: 배치 내 모든 Task는 **단일 메시지에서 동시 호출**해야 병렬 실행됨!
 
 ```json
 {
   "target": {
     "type": "common",
     "name": "{component.name}",
+    "slug": "{component.slug}",
     "nodeId": "{component.occurrences[0].nodeId}",
     "fileKey": "{component.occurrences[0].fileKey}"
   },
@@ -107,22 +166,22 @@ for each pending component:
     "placement": "{component.occurrences[0].placement}"
   },
   "outputPaths": {
-    "php": "includes/{lowercase-name}.php",
-    "css": "css/common/{name}.css",
-    "marker": ".claude/markers/common/{name}"
+    "php": "includes/{component.slug}.php",
+    "css": "css/common/{component.slug}.css",
+    "marker": ".claude/markers/common/{component.slug}"
   }
 }
 ```
 
-**이름 변환 규칙**:
-- Figma 컴포넌트 이름을 그대로 사용 (소문자 + 하이픈)
-- `Nav` → `nav.php`
-- `Footer` → `footer.php`
-- `Navigation Bar` → `navigation-bar.php`
+**slug 사용 규칙 (v3.1)**:
+- 체크리스트의 `slug` 필드를 그대로 사용
+- 예: `component.slug = "navbar-index"` → `includes/navbar-index.php`
 
-### 1-3. 개별 완료 확인
+### 1-3. 배치 완료 확인
 
-각 컴포넌트는 순차 처리 중 개별적으로 완료 대기함 (1-2 참조)
+각 배치는 wait_for_markers로 완료 대기 (1-2 참조)
+- 배치 시작 시점 마커 개수 기록
+- 새로 생성된 마커 개수가 배치 크기 이상이면 다음 배치 진행
 
 ### 1-4. 공통 CSS 병합
 모든 공통 컴포넌트 완료 후:
@@ -160,7 +219,7 @@ if (doneMarkers.length + failedMarkers.length >= totalComponents) {
 
 ```bash
 # 1. 모든 페이지명 추출 (체크리스트 파일명에서)
-Glob .claude/checklist/*.json
+Glob .claude/checklists/*.json
   → 파일명에서 페이지명 정규화
   → 예: About_NIBEC_History.json → about-nibec-history
   → 예: A_Home_Desktop.json → home-desktop (A_ prefix 제거)
@@ -198,7 +257,7 @@ for each pageName:
 
 ---
 
-## 3단계: 섹션 순차 구현
+## 3단계: 섹션 배치 병렬 구현
 
 ### 3-1. 페이지 정보 추출
 체크리스트 메타데이터에서:
@@ -220,26 +279,43 @@ mkdir -p .claude/markers/{pageName}
 mkdir -p {pageName}
 ```
 
-### 3-3. pending 섹션 목록 가져오기
+### 3-3. pending 섹션 개수 확인
 ```bash
-python .claude/scripts/get_pending_sections.py {pageName}
+python .claude/scripts/get_pending_sections.py {pageName} --count-only
+```
+→ `totalCount` 저장, `totalBatches = ceil(totalCount / BATCH_SIZE)`
+
+### 3-4. 섹션별 배치 병렬 실행
+
+**배치 반복 처리**:
+```
+batchIndex = 0
+
+while batchIndex < totalBatches:
+  # 1. 현재 배치 가져오기
+  python .claude/scripts/get_pending_sections.py {pageName} --batch-size 5 --batch-index {batchIndex}
+
+  # 2. 배치 내 모든 섹션 병렬 실행 (단일 메시지에서 동시 호출!)
+  for each section in batch:
+    Task 도구 호출:
+      - subagent_type: "figma-implementer"
+      - run_in_background: true
+      - prompt: (아래 JSON 형식)
+
+  # 3. 현재 배치 완료 대기
+  wait_for_markers(
+    path: .claude/markers/{pageName},
+    pattern: *.done,
+    interval: POLL_INTERVAL,
+    maxRetries: MAX_POLL_RETRIES,
+    requiredCount: len(batch)
+  )
+
+  # 4. 다음 배치
+  batchIndex += 1
 ```
 
-### 3-4. 섹션별 순차 실행
-
-**순차 처리 절차**:
-```
-for each pending section:
-  1. Task 도구 호출:
-     - subagent_type: "figma-implementer"
-     - run_in_background: true
-     - prompt: (아래 JSON 형식)
-
-  2. 완료 대기:
-     wait_for_markers(.claude/markers/{pageName}, {order:02d}-{section-slug}.done, 60초, 10회, 1)
-
-  3. 다음 섹션으로 진행
-```
+**중요**: 배치 내 모든 Task는 **단일 메시지에서 동시 호출**해야 병렬 실행됨!
 
 ```json
 {
@@ -272,20 +348,73 @@ for each pending section:
 | Header (Hero Section) | 1 | home/01-header-hero-section.php | css/home/01-header-hero-section.css | .claude/markers/home/01-header-hero-section |
 | About Section | 2 | home/02-about-section.php | css/home/02-about-section.css | .claude/markers/home/02-about-section |
 
-### 3-5. 개별 완료 확인
+### 3-5. 배치 완료 확인
 
-각 섹션은 순차 처리 중 개별적으로 완료 대기함 (3-4 참조)
+각 배치는 wait_for_markers로 완료 대기 (3-4 참조)
+- 배치 시작 시점 마커 개수 기록
+- 새로 생성된 마커 개수가 배치 크기 이상이면 다음 배치 진행
 
 ---
 
-## 4단계: CSS 병합
+## 4단계: CSS/PHP 병합 (병렬)
 
-모든 섹션 완료 후:
-```bash
-python .claude/scripts/merge_section_css.py {pageName}
+모든 섹션 완료 후, CSS 병합과 PHP 병합을 **동시에** 실행합니다.
+
+### 4-1. 병렬 실행
+
+**단일 메시지에서 두 작업을 동시에 호출:**
+
+1. **CSS 병합** (Bash, run_in_background: true):
+   ```bash
+   python .claude/scripts/merge_section_css.py {pageName}
+   ```
+
+2. **PHP 병합** (Task, run_in_background: true):
+   ```
+   Task 도구 호출:
+   - subagent_type: "section-merger"
+   - run_in_background: true
+   - prompt: (아래 JSON 형식)
+   ```
+
+   ```json
+   {
+     "checklistFile": "{체크리스트 파일명}",
+     "pageName": "{정규화된 페이지명}",
+     "outputFile": "{pageName}.php"
+   }
+   ```
+
+   **예시 (home 페이지)**:
+   ```json
+   {
+     "checklistFile": "A_Home_Desktop.json",
+     "pageName": "home",
+     "outputFile": "home.php"
+   }
+   ```
+
+### 4-2. 완료 대기
+
+두 작업 모두 완료될 때까지 대기:
+
+```
+wait_for_markers(.claude/markers/{pageName}, merged.*, 10초, 12회, 1)
 ```
 
-결과: `css/{pageName}/*.css` → `css/{pageName}.css`
+**참고**: CSS 병합은 빠르게 완료되고, PHP 병합(section-merger)이 더 오래 걸림
+
+### 4-3. 결과 확인
+
+마커 파일 읽기:
+```
+merged|2026-01-04T12:00:00Z|home.php|9|0
+```
+
+파싱:
+- `outputFile`: 생성된 통합 페이지
+- `completedCount`: 병합된 섹션 수
+- `failedCount`: 건너뛴 섹션 수
 
 ---
 
@@ -316,59 +445,11 @@ python .claude/scripts/merge_section_css.py {pageName}
 
 ---
 
-## 6단계: 페이지 병합 (메인 세션에서 직접 처리)
-
-섹션 파일들을 하나의 완전한 PHP 페이지로 병합합니다.
-
-### 6-1. 섹션 파일 읽기 및 병합
-
-```
-Task 도구 호출:
-- subagent_type: "section-merger"
-- run_in_background: true
-- prompt: (아래 JSON 형식)
-```
-
-```json
-{
-  "checklistFile": "{체크리스트 파일명}",
-  "pageName": "{정규화된 페이지명}",
-  "outputFile": "{pageName}.php"
-}
-```
-
-**예시 (home 페이지)**:
-```json
-{
-  "checklistFile": "A_Home_Desktop.json",
-  "pageName": "home",
-  "outputFile": "home.php"
-}
-```
-
-### 6-2. 완료 대기
-
-`wait_for_markers(.claude/markers/{pageName}, merged.*, 10초, 12회, 1)`
-
-### 6-3. 결과 확인
-
-마커 파일 읽기:
-```
-merged|2026-01-04T12:00:00Z|home.php|9|0
-```
-
-파싱:
-- `outputFile`: 생성된 통합 페이지
-- `completedCount`: 병합된 섹션 수
-- `failedCount`: 건너뛴 섹션 수
-
----
-
-## 7단계: 정리 (Cleanup)
+## 6단계: 정리 (Cleanup)
 
 페이지 병합 완료 후, 더 이상 필요 없는 임시 파일들을 정리합니다.
 
-### 7-1. 섹션별 PHP 파일 삭제
+### 6-1. 섹션별 PHP 파일 삭제
 
 ```bash
 rm -rf {pageName}/
@@ -391,7 +472,7 @@ rm -rf home/
 # - home/08-news-investor-relations-section.php
 ```
 
-### 7-2. 마커 파일 정리 (선택사항)
+### 6-2. 마커 파일 정리 (선택사항)
 
 마커 파일은 작업 이력이므로 보관 권장하지만, 정리가 필요하면:
 
@@ -408,7 +489,7 @@ rm .claude/markers/{pageName}/*.failed
 - ✅ `.claude/markers/{pageName}/merged.done` - 병합 이력
 - ⚠️ `.claude/markers/{pageName}/*.done` - 섹션 구현 이력 (디버깅용)
 
-### 7-3. CSS 정리 확인
+### 6-3. CSS 정리 확인
 
 `merge_section_css.py` 스크립트가 이미 자동으로 처리함:
 - ✅ `css/{pageName}/*.css` → `css/{pageName}.css` 병합 후 자동 삭제
@@ -421,7 +502,7 @@ ls css/{pageName}.css  # ✓ 존재해야 함
 ls css/{pageName}/     # ✗ 삭제되어야 함
 ```
 
-### 7-4. 최종 파일 구조
+### 6-4. 최종 파일 구조
 
 정리 후 남는 파일:
 
@@ -443,7 +524,7 @@ ls css/{pageName}/     # ✗ 삭제되어야 함
 
 ---
 
-## 8단계: 다음 체크리스트 진행
+## 7단계: 다음 체크리스트 진행
 
 ### 조건 확인
 - 현재 체크리스트의 모든 섹션이 completed 또는 failed
@@ -453,10 +534,24 @@ ls css/{pageName}/     # ✗ 삭제되어야 함
 ### 다음 체크리스트로
 2단계로 돌아가 다음 체크리스트 선택 후 반복
 
-**중요**: 각 페이지 완료 시마다 7단계 정리 수행!
+**중요**: 각 페이지 완료 시마다 6단계 정리 수행!
 
 ---
 
 ## 완료 보고
 
-"완료" 한 단어만 출력 (상세 요약 금지, 컨텍스트 절약)
+다음 형식으로 출력:
+
+```
+완료
+
+📝 폰트 설정 필요:
+css/fonts.css 파일을 생성하고 프로젝트에 맞는 폰트를 설정하세요.
+
+예시 (Noto Sans KR):
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap');
+
+body {
+  font-family: 'Noto Sans KR', sans-serif;
+}
+```
