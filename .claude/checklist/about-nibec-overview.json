@@ -1,0 +1,59 @@
+{
+  "$schema": "checklist-v4",
+  "metadata": {
+    "pageName": "about-nibec-overview",
+    "figmaUrl": "https://www.figma.com/design/PbENz9XeDICQsut5z1DfiC/NIBEC_%EB%B3%B8%EC%9E%91%EC%97%85?node-id=2413-12132&m=dev",
+    "fileKey": "PbENz9XeDICQsut5z1DfiC",
+    "nodeId": "2413:12132",
+    "analyzedAt": "2026-01-15T00:00:00Z"
+  },
+  "commonComponents": [
+    {
+      "name": "navbar",
+      "nodeId": "2413:18106",
+      "reference": "_common_component.json"
+    },
+    {
+      "name": "navbar-index",
+      "nodeId": "2413:12144",
+      "reference": "_common_component.json"
+    },
+    {
+      "name": "footer",
+      "nodeId": "2508:10671",
+      "reference": "_common_component.json"
+    }
+  ],
+  "sections": [
+    {
+      "id": "header",
+      "name": "Header Section (타이틀 + 배경 이미지)",
+      "nodeId": "2413:12134",
+      "order": 1
+    },
+    {
+      "id": "vision",
+      "name": "Vision Section (비전 소개 + 좌우 교차 레이아웃)",
+      "nodeId": "2413:12145",
+      "order": 2
+    },
+    {
+      "id": "core-values",
+      "name": "Our Core Values Section (4개 카드 그리드)",
+      "nodeId": "2413:12173",
+      "order": 3
+    },
+    {
+      "id": "innovation-base",
+      "name": "Innovation Base Section (3개 카드 그리드)",
+      "nodeId": "2413:12257",
+      "order": 4
+    },
+    {
+      "id": "video-section",
+      "name": "Video Section (비디오 플레이어 + 텍스트)",
+      "nodeId": "2413:12281",
+      "order": 5
+    }
+  ]
+}

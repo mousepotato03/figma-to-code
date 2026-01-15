@@ -4,6 +4,15 @@
 
 ---
 
+## 0. 개발환경
+
+### 기술 스택
+
+- **바닐라 환경**: 순수 PHP, CSS, JS만 사용
+- **경로 참조**: 상대 경로 또는 절대 경로 직접 사용
+
+---
+
 ## 1. 폴더 구조
 
 ```
@@ -32,15 +41,16 @@ root/
 
 ### 파일명 규칙 (Figma 컴포넌트명 기준)
 
-| Figma 컴포넌트명 | PHP 파일명 |
-|------------------|------------|
-| `Navbar` | `includes/navbar.php` |
-| `Footer` | `includes/footer.php` |
+| Figma 컴포넌트명     | PHP 파일명                        |
+| -------------------- | --------------------------------- |
+| `Navbar`             | `includes/navbar.php`             |
+| `Footer`             | `includes/footer.php`             |
 | `Quick Contact Form` | `includes/quick-contact-form.php` |
 
 **변환 규칙:**
+
 1. 소문자로 변환
-2. 공백 → 하이픈(-) 치환
+2. 공백, 언더바 → 하이픈(-) 치환
 3. `.php` 확장자 추가
 
 ---
@@ -55,13 +65,6 @@ root/
 <link rel="stylesheet" href="css/common.css" />
 <link rel="stylesheet" href="css/{pageName}.css" />
 ```
-
-| 파일             | 역할                                                    |
-| ---------------- | ------------------------------------------------------- |
-| `reset.css`      | 브라우저 기본 스타일 초기화                             |
-| `fonts.css`      | 웹폰트 로딩 (Gmarket Sans, Pretendard, Noto Sans KR 등) |
-| `common.css`     | 공통 컴포넌트 스타일 (Navbar, Footer 등)                |
-| `{pageName}.css` | 페이지별 스타일                                         |
 
 ---
 
@@ -80,25 +83,7 @@ root/
 
 ### 다운로드 방법
 
-1. `get_design_context` 응답의 `downloadUrls`에서 asset URL 확인
-2. `curl -o` 명령으로 다운로드
-3. 해당 경로에 저장
-4. HTML에서 올바른 경로로 참조
-
-```bash
-# 이미지 다운로드
-mkdir -p assets/images/home
-curl -o "assets/images/home/hero-bg.png" "https://figma-alpha-api.s3.us-west-2.amazonaws.com/..."
-
-# 아이콘 다운로드
-mkdir -p assets/icons
-curl -o "assets/icons/arrow-right.svg" "https://figma-alpha-api.s3.us-west-2.amazonaws.com/..."
-```
-
-```html
-<img src="assets/images/home/hero-bg.png" alt="Hero background" />
-<img src="assets/icons/arrow-right.svg" alt="Arrow" class="icon" />
-```
+- figma mcp tool의 get_design_context 함수에서 전달받은 url들을 통해 다운로드.
 
 ---
 
@@ -130,17 +115,7 @@ curl -o "assets/icons/arrow-right.svg" "https://figma-alpha-api.s3.us-west-2.ama
 - **용도**: 모든 공통 컴포넌트 완료 시 생성
 - **효과**: 다음 `figma-implement` 실행 시 1단계 건너뜀
 
-### 토큰 절감 효과
-
-| 시나리오                     | Before      | After       | 절감율 |
-| ---------------------------- | ----------- | ----------- | ------ |
-| 프로젝트 초기 (모두 pending) | 38,000 토큰 | 38,000 토큰 | 0%     |
-| 프로젝트 중반 (50% 완료)     | 38,000 토큰 | 19,000 토큰 | 50%    |
-| 프로젝트 후반 (90% 완료)     | 38,000 토큰 | 3,800 토큰  | 90%    |
-| 완료 후 재실행               | 38,000 토큰 | ~0 토큰     | 100%   |
-
 ### 주의사항
 
 - 체크리스트 수동 수정 시 해당 페이지의 `page.completed` 삭제 필요
 - 마커 파일 삭제 시 다음 실행에서 자동 재생성됨
-- Git 커밋 여부: 선택사항 (팀원 공유 시 커밋 권장)

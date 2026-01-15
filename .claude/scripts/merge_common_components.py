@@ -41,12 +41,11 @@ def merge_components(all_data: list[dict]) -> list[dict]:
                     'occurrences': [],
                 }
 
-            # 출처 정보 추가 (v2 스키마: placement 사용)
+            # 출처 정보 추가
             occurrence = {
                 'page': page_name,
                 'nodeId': comp.get('nodeId', ''),
                 'fileKey': file_key,
-                'placement': comp.get('placement', ''),  # v2 스키마 필드명
             }
 
             merged[name]['occurrences'].append(occurrence)

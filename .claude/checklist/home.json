@@ -1,0 +1,78 @@
+{
+  "$schema": "checklist-v4",
+  "metadata": {
+    "pageName": "home",
+    "figmaUrl": "https://www.figma.com/design/PbENz9XeDICQsut5z1DfiC/NIBEC_%EB%B3%B8%EC%9E%91%EC%97%85?node-id=2413-13474&m=dev",
+    "fileKey": "PbENz9XeDICQsut5z1DfiC",
+    "nodeId": "2413:13474",
+    "analyzedAt": "2026-01-15T00:00:00Z"
+  },
+  "commonComponents": [
+    {
+      "name": "navbar",
+      "nodeId": "2413:13984",
+      "reference": "_common_component.json"
+    },
+    {
+      "name": "footer",
+      "nodeId": "2489:7702",
+      "reference": "_common_component.json"
+    }
+  ],
+  "sections": [
+    {
+      "id": "hero",
+      "name": "Header Hero Section",
+      "nodeId": "2413:13476",
+      "order": 1
+    },
+    {
+      "id": "about-visual",
+      "name": "About Visual Section",
+      "nodeId": "2413:13489",
+      "order": 2
+    },
+    {
+      "id": "research-domains",
+      "name": "Research Domains Section",
+      "nodeId": "2413:13585",
+      "order": 3
+    },
+    {
+      "id": "drug-delivery",
+      "name": "Drug Delivery Platform Section",
+      "nodeId": "2413:13670",
+      "order": 4
+    },
+    {
+      "id": "medical-devices",
+      "name": "Medical Devices Section",
+      "nodeId": "2413:13757",
+      "order": 5
+    },
+    {
+      "id": "products-pipeline",
+      "name": "Products Pipeline Section",
+      "nodeId": "2413:13799",
+      "order": 6
+    },
+    {
+      "id": "research-statistics",
+      "name": "Research Statistics Section",
+      "nodeId": "2413:13905",
+      "order": 7
+    },
+    {
+      "id": "investor-relations-heading",
+      "name": "Investor Relations Heading",
+      "nodeId": "2413:13943",
+      "order": 8
+    },
+    {
+      "id": "investor-relations-content",
+      "name": "Investor Relations Content Section",
+      "nodeId": "2413:13949",
+      "order": 9
+    }
+  ]
+}

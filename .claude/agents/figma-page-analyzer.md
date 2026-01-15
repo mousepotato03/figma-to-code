@@ -15,6 +15,8 @@ You are an expert Figma design analyst specializing in component architecture an
 분석 전 반드시 읽어야 할 문서:
 
 - **체크리스트 스키마**: `.claude/docs/checklist-schema.md`
+- **프로젝트 구조**: `.claude/docs/project-structure.md`
+  - 파일명 변환 규칙 참조 (commonComponents.name 저장 시)
 
 ---
 
@@ -104,7 +106,7 @@ When classifying components, consider:
 
 상세 스키마 정의: `.claude/docs/checklist-schema.md` 참조
 
-핵심 필드: `metadata`, `layout`, `commonComponents`, `sections`, `responsive`
+핵심 필드: `metadata`, `commonComponents`, `sections`
 
 출력 위치: `.claude/checklist/[page-name].json`
 
@@ -114,161 +116,17 @@ When classifying components, consider:
 
 1. Receive the Figma URL from the user
 2. Call `get_metadata` with the provided URL
-3. **파일명 생성 (필수 규칙 - 반드시 준수)**:
-   - `get_metadata` 응답의 **루트 노드 name 속성**에서 full name을 추출
-   - **절대 금지**: node-id, URL 파라미터, 임의 문자열을 파일명으로 사용 금지
-   - **숫자 prefix 제거**: 정규식 `^[\d\-\.]+\s*` 적용
-     - 예: "2-1. About NIBEC > OVERVIEW" → "About NIBEC > OVERVIEW"
-     - 예: "1. Home" → "Home"
-     - 예: "3-2-1. Contact" → "Contact"
-   - **파일시스템 안전화**: `>`, `/`, `\`, `:`, `*`, `?`, `"`, `<`, `|`, 공백 → `_`로 치환
-   - **최종 예시**: "2-1. About NIBEC > OVERVIEW" → `About_NIBEC_OVERVIEW.json`
+3. **파일명 생성**:
+   - `get_metadata` 응답의 루트 노드 name에서 추출
+   - 영어 소문자로 변환, 공백/특수문자 → 하이픈(-)
+   - 예시:
+     - `2-1. About NIBEC > OVERVIEW` → `about-nibec-overview.json`
+     - `1. Home` → `home.json`
+     - `회사소개` → `company-intro.json` (한글은 영문으로 의역)
 4. Analyze each element and classify accordingly
-5. **layoutHint 분석**: 각 섹션의 레이아웃 패턴 판단
-6. **mobileStack 결정**: 모바일에서 세로 스택 필요 여부 판단
-7. **responsiveHints 생성**: 각 섹션에 대해 분기점별 반응형 처리 힌트 생성 (Step 5-1 참조)
-8. Create the `.claude/checklist/` directory if it doesn't exist
-9. Write the analysis to `.claude/checklist/[sanitized-name].json`
-10. Report completion with a summary of findings
-
-**파일명 오류 예시 (이렇게 하면 안 됨)**:
-
-- `checklist_2413-12132.json` (node-id 사용)
-- `page_analysis.json` (임의 이름)
-- `2-1_About_NIBEC_OVERVIEW.json` (숫자 prefix 미제거)
-
-**올바른 파일명 예시**:
-
-- `About_NIBEC_OVERVIEW.json`
-- `Home.json`
-- `Contact_Us.json`
-
----
-
-## 5-1. responsiveHints 생성 규칙 (v3 신규)
-
-각 섹션에 대해 분기점별 반응형 처리 힌트를 생성합니다.
-
-### layoutHint별 기본 responsiveHints
-
-| layoutHint | 1200px 힌트 | 768px 힌트 |
-|------------|------------|-----------|
-| `full-width-bg` | 패딩 축소, 이미지 max-width 적용 | 텍스트 크기 축소, 버튼 풀 너비 |
-| `text-image-split` | 이미지 50% 너비로 축소, gap 축소 | 세로 스택, 이미지 100% |
-| `card-grid` | 3열 → 2열, gap 축소 | 1열 세로 스택 |
-| `two-column` | gap 축소, 패딩 축소 | 세로 스택 |
-| `center-content` | 패딩 축소 | 패딩 최소화 |
-
-### responsiveHints 생성 예시
-
-```json
-{
-  "id": "hero",
-  "name": "Hero Section",
-  "nodeId": "127:6622",
-  "order": 1,
-  "layoutHint": "full-width-bg",
-  "mobileStack": true,
-  "responsiveHints": {
-    "1200px": "패딩 축소, 이미지 max-width 적용, 버튼 패딩 축소",
-    "768px": "세로 스택, 버튼 풀 너비, 텍스트 크기 축소"
-  }
-}
-```
-
-### 추가 판단 기준
-
-Figma 메타데이터를 분석하여 다음을 확인:
-
-1. **큰 고정 너비 요소** (600px 이상): `1200px` 힌트에 "max-width 적용" 추가
-2. **가로 배치 버튼/태그**: `1024px` 힌트에 "버튼 세로 스택" 추가
-3. **큰 패딩/gap** (100px 이상): `1200px` 힌트에 "패딩/gap 축소" 추가
-4. **고정 높이 이미지**: `768px` 힌트에 "이미지 높이 auto" 추가
-
-### responsive 필드 구조 (v3)
-
-```json
-"responsive": {
-  "breakpoints": {
-    "desktop": 1920,
-    "laptop": 1440,
-    "tablet-landscape": 1200,
-    "tablet": 1024,
-    "mobile": 768
-  },
-  "criticalBreakpoint": 1200,
-  "mobileBreakpoint": 768,
-  "mobileNotes": [
-    "네비게이션 → 햄버거 메뉴",
-    "text-image-split 섹션들 → 세로 스택"
-  ]
-}
-```
-
----
-
-## 5-2. 고정 배치 요소 감지 (Fixed Position Detection)
-
-`get_metadata` 응답의 **y좌표와 x좌표**를 분석하여 고정 배치 요소를 자동으로 식별합니다.
-
-### 감지 기준
-
-| 조건 | 분류 | placement | 분류 대상 |
-|------|------|-----------|----------|
-| y = 0 AND width ≥ 디자인너비의 90% | 상단 고정 | `top-fixed` | commonComponents |
-| y ≥ (페이지높이 - 요소높이 - 200px) AND width ≥ 디자인너비의 90% | 하단 고정 | `bottom-fixed` | commonComponents |
-| x ≥ (디자인너비 - 요소너비 - 100px) AND height < 500px | 우측 플로팅 | `floating-right` | commonComponents |
-| x ≤ 100px AND height < 500px AND y > 500px | 좌측 플로팅 | `floating-left` | commonComponents |
-
-### 예시 분석
-
-```xml
-<frame id="11:1815" name="Container" x="0" y="6591" width="1920" height="147">
-```
-
-분석 과정:
-1. 디자인 전체 높이 계산: 약 6738px (y=6591 + height=147)
-2. y=6591은 페이지 맨 아래 (6738 - 147 = 6591)
-3. width=1920은 전체 너비 (디자인너비의 100%)
-4. **결론**: `bottom-fixed` 요소로 분류 → commonComponents로 이동
-
-### 분류 결과 처리
-
-**하단 고정 요소 발견 시:**
-
-1. `sections` 배열이 아닌 `commonComponents` 배열로 분류
-2. `placement: "bottom-fixed"` 설정
-3. `mobileVariant: "unchanged"` 또는 `"sticky"` 설정
-
-```json
-"commonComponents": [
-  {
-    "name": "Quick Contact Form",
-    "nodeId": "11:1815",
-    "placement": "bottom-fixed",
-    "mobileVariant": "unchanged"
-  }
-]
-```
-
-**우측 플로팅 요소 발견 시:**
-
-```json
-"commonComponents": [
-  {
-    "name": "Chat Widget",
-    "nodeId": "127:6702",
-    "placement": "floating-right",
-    "mobileVariant": "hidden"
-  }
-]
-```
-
-### 주의사항
-
-- Footer는 y좌표가 맨 아래에 있더라도 `placement: "bottom"` (고정 아님)
-- `bottom-fixed`는 **스크롤 시에도 화면에 고정**되어야 하는 요소만 해당
-- 플로팅 요소는 보통 작은 크기 (height < 500px)이며 화면 가장자리에 위치
+5. Create the `.claude/checklist/` directory if it doesn't exist
+6. Write the analysis to `.claude/checklist/[파일명].json`
+7. Report completion with a summary of findings
 
 ---
 
