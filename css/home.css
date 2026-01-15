@@ -1,0 +1,2605 @@
+/* home.css - Auto-merged from 9 section files */
+/* Do not edit directly - regenerate with merge_section_css.py */
+
+/* ========== 01-header-hero-section ========== */
+/* Hero Section */
+.hero-section {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  min-height: 67.5rem; /* 1080px */
+  background-color: #fff;
+  overflow: hidden;
+}
+
+.hero-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.hero-bg-image {
+  position: absolute;
+  top: -1.1875rem;
+  left: -2.0625rem;
+  width: calc(100% + 4.1875rem);
+  height: calc(100% + 2.375rem);
+  object-fit: cover;
+  pointer-events: none;
+}
+
+.hero-content {
+  position: absolute;
+  left: 6.875rem;
+  top: 50%;
+  transform: translateY(calc(-50% + 13.25rem));
+  width: 68.3125rem;
+  backdrop-filter: blur(0.375rem);
+  -webkit-backdrop-filter: blur(0.375rem);
+}
+
+.hero-title {
+  margin: 0;
+  padding-top: 1.25rem;
+  font-family: 'Paperlogy', sans-serif;
+  font-weight: 900;
+  font-size: 7.5rem;
+  line-height: 8.125rem;
+  text-transform: uppercase;
+  color: #fff;
+  text-shadow: 0 0.25rem 3.125rem #001c1a, 0 0.25rem 0.25rem rgba(0, 0, 0, 0.25);
+}
+
+.hero-description {
+  margin-top: 3.125rem;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 600;
+  font-size: 1.375rem;
+  line-height: 1.4;
+  letter-spacing: -0.0275rem;
+  color: #f9f3e2;
+  text-transform: capitalize;
+  text-shadow: 0 0.25rem 0.625rem rgba(0, 0, 0, 0.25);
+}
+
+.hero-description p {
+  margin: 0;
+}
+
+.hero-scroll-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 5rem;
+  padding: 0.75rem 0.75rem 0.75rem 1.5rem;
+  width: 12.5rem;
+  height: 3rem;
+  border: 1px solid rgba(241, 237, 226, 0.7);
+  border-radius: 3rem;
+  text-decoration: none;
+  overflow: hidden;
+  transition: background-color 0.3s ease;
+}
+
+.hero-scroll-btn:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.scroll-text {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  text-transform: uppercase;
+  color: rgba(241, 237, 226, 0.7);
+}
+
+.scroll-icon {
+  width: 2.25rem;
+  height: 2.25rem;
+  flex-shrink: 0;
+}
+
+/* Responsive - Tablet */
+@media (max-width: 1024px) {
+  .hero-section {
+    min-height: 50rem;
+  }
+
+  .hero-content {
+    left: 3rem;
+    width: calc(100% - 6rem);
+    transform: translateY(calc(-50% + 8rem));
+  }
+
+  .hero-title {
+    font-size: clamp(3rem, 8vw, 6rem);
+    line-height: 1.1;
+  }
+
+  .hero-description {
+    font-size: 1.125rem;
+  }
+}
+
+/* Responsive - Mobile */
+@media (max-width: 768px) {
+  .hero-section {
+    min-height: 40rem;
+  }
+
+  .hero-bg-image {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .hero-content {
+    left: 1.5rem;
+    width: calc(100% - 3rem);
+    transform: translateY(calc(-50% + 4rem));
+  }
+
+  .hero-title {
+    font-size: clamp(2.5rem, 10vw, 4rem);
+    line-height: 1.1;
+    padding-top: 0;
+  }
+
+  .hero-description {
+    margin-top: 2rem;
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+
+  .hero-description p {
+    display: inline;
+  }
+
+  .hero-scroll-btn {
+    margin-top: 3rem;
+    width: auto;
+    padding: 0.625rem 1rem 0.625rem 1.25rem;
+    height: 2.75rem;
+  }
+
+  .scroll-text {
+    font-size: 0.75rem;
+  }
+
+  .scroll-icon {
+    width: 1.75rem;
+    height: 1.75rem;
+  }
+}
+
+/* Responsive - Small Mobile */
+@media (max-width: 480px) {
+  .hero-section {
+    min-height: 35rem;
+  }
+
+  .hero-content {
+    left: 1rem;
+    width: calc(100% - 2rem);
+  }
+
+  .hero-title {
+    font-size: 2rem;
+  }
+
+  .hero-description {
+    font-size: 0.875rem;
+  }
+}
+
+/* ========== 02-about-visual-section ========== */
+/* ==========================================================================
+   About Visual Section
+   ========================================================================== */
+
+.about-visual {
+  position: relative;
+  width: 100%;
+  height: 67.5rem; /* 1080px */
+  background-color: #56a3bd;
+  overflow: hidden;
+}
+
+/* --------------------------------------------------------------------------
+   Background Layer
+   -------------------------------------------------------------------------- */
+
+.about-visual__bg {
+  position: absolute;
+  top: -1.25rem;
+  left: 0;
+  width: 121rem; /* 1936px */
+  height: 80.6875rem; /* 1291px */
+  filter: blur(0.625rem); /* 10px */
+}
+
+.about-visual__bg-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  mix-blend-mode: luminosity;
+  opacity: 0.5;
+}
+
+.about-visual__bg-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 53, 22, 0.5);
+}
+
+/* --------------------------------------------------------------------------
+   Masked Image Layer
+   -------------------------------------------------------------------------- */
+
+.about-visual__mask-group {
+  position: absolute;
+  top: -13.3125rem; /* -213px */
+  left: -8.75rem; /* -140px */
+  width: 113.127rem; /* 1810.029px */
+  height: 75.427rem; /* 1206.833px */
+  mask-image: url('../../assets/images/home/young-asian-woman-working-lab-mask.png');
+  -webkit-mask-image: url('../../assets/images/home/young-asian-woman-working-lab-mask.png');
+  mask-size: 121.125rem 81.5rem; /* 1938px 1304px */
+  -webkit-mask-size: 121.125rem 81.5rem;
+  mask-position: -5.0625rem -0.4375rem; /* -81px -7px */
+  -webkit-mask-position: -5.0625rem -0.4375rem;
+  mask-repeat: no-repeat;
+  -webkit-mask-repeat: no-repeat;
+}
+
+.about-visual__mask-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* --------------------------------------------------------------------------
+   Content Area
+   -------------------------------------------------------------------------- */
+
+.about-visual__content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3.4375rem; /* 55px */
+  width: 86.25rem; /* 1380px */
+  max-width: 90%;
+  backdrop-filter: blur(0.125rem); /* 2px */
+  -webkit-backdrop-filter: blur(0.125rem);
+  border-radius: 37.5rem; /* 600px - decorative */
+}
+
+.about-visual__text-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem; /* 24px */
+  width: 100%;
+  text-align: center;
+  backdrop-filter: blur(0.3125rem); /* 5px */
+  -webkit-backdrop-filter: blur(0.3125rem);
+}
+
+.about-visual__title {
+  font-family: 'Paperlogy', sans-serif;
+  font-weight: 800;
+  font-size: clamp(1.75rem, 2.33vw + 1.2rem, 3.75rem); /* 28px - 60px */
+  line-height: 1.2;
+  letter-spacing: -0.0375rem; /* -0.6px */
+  color: #ffffff;
+  text-shadow:
+    0 0.25rem 3.125rem rgba(66, 93, 99, 0.6),
+    0 0.25rem 0.25rem rgba(0, 0, 0, 0.25);
+  text-transform: capitalize;
+  margin: 0;
+}
+
+.about-visual__description {
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 600;
+  font-size: clamp(1rem, 0.52vw + 0.88rem, 1.375rem); /* 16px - 22px */
+  line-height: 1.4;
+  letter-spacing: -0.0275rem; /* -0.44px */
+  color: #283c36;
+  margin: 0;
+}
+
+/* --------------------------------------------------------------------------
+   Actions / Button
+   -------------------------------------------------------------------------- */
+
+.about-visual__actions {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem; /* 24px */
+}
+
+.about-visual__button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem; /* 8px */
+  width: 12.5rem; /* 200px */
+  padding: 0.75rem 0.75rem 0.75rem 1.5rem; /* 12px 12px 12px 24px */
+  border: 0.0625rem solid rgba(0, 0, 0, 0.5);
+  border-radius: 3rem; /* 48px */
+  background: transparent;
+  text-decoration: none;
+  overflow: hidden;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.about-visual__button:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.about-visual__button-text {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  font-size: 0.875rem; /* 14px */
+  line-height: 1.5;
+  color: rgba(0, 0, 0, 0.5);
+  text-transform: uppercase;
+}
+
+.about-visual__button-icon {
+  width: 1.5rem; /* 24px */
+  height: 1.5rem;
+  flex-shrink: 0;
+}
+
+/* --------------------------------------------------------------------------
+   Inner Shadow Overlay
+   -------------------------------------------------------------------------- */
+
+.about-visual__inner-shadow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  box-shadow: inset 6.25rem 6.25rem 9.375rem 0 rgba(0, 0, 0, 0.3);
+}
+
+/* ==========================================================================
+   Responsive Styles
+   ========================================================================== */
+
+@media (max-width: 1200px) {
+  .about-visual__content {
+    width: 90%;
+  }
+}
+
+@media (max-width: 768px) {
+  .about-visual {
+    height: auto;
+    min-height: 100vh;
+    padding: 6rem 1.5rem;
+  }
+
+  .about-visual__bg {
+    width: 200%;
+    height: 120%;
+  }
+
+  .about-visual__mask-group {
+    width: 150%;
+    height: 100%;
+    top: -5rem;
+    left: -25%;
+  }
+
+  .about-visual__content {
+    position: relative;
+    top: auto;
+    left: auto;
+    transform: none;
+    width: 100%;
+    max-width: 100%;
+    gap: 2.5rem;
+    padding: 2rem 0;
+  }
+
+  .about-visual__text-group {
+    gap: 1rem;
+  }
+
+  .about-visual__title {
+    font-size: 1.75rem;
+    letter-spacing: -0.02rem;
+  }
+
+  .about-visual__description {
+    font-size: 1rem;
+  }
+
+  .about-visual__description br {
+    display: none;
+  }
+
+  .about-visual__button {
+    width: 11rem;
+    padding: 0.625rem 0.625rem 0.625rem 1.25rem;
+  }
+
+  .about-visual__inner-shadow {
+    box-shadow: inset 2rem 2rem 4rem 0 rgba(0, 0, 0, 0.3);
+  }
+}
+
+@media (max-width: 480px) {
+  .about-visual {
+    padding: 5rem 1rem;
+  }
+
+  .about-visual__title {
+    font-size: 1.5rem;
+  }
+
+  .about-visual__description {
+    font-size: 0.9375rem;
+  }
+
+  .about-visual__button {
+    width: 10rem;
+  }
+
+  .about-visual__button-text {
+    font-size: 0.8125rem;
+  }
+}
+
+/* ========== 03-research-domains-section ========== */
+/* Research Domains Section */
+.research-domains {
+  background-color: #f1ede2;
+  padding: 0 6.875rem;
+  position: relative;
+  min-height: 67.5rem;
+  overflow: hidden;
+}
+
+.research-domains__container {
+  position: relative;
+  height: 67.5rem;
+  max-width: 106.25rem;
+  margin: 0 auto;
+}
+
+/* Left Text Content */
+.research-domains__text-content {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  gap: 2.1875rem;
+  align-items: center;
+  max-width: 45.5rem;
+}
+
+.research-domains__accent-bar {
+  width: 0.625rem;
+  height: 9.875rem;
+  background-color: #006241;
+  flex-shrink: 0;
+}
+
+.research-domains__text-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  flex: 1;
+  min-width: 0;
+}
+
+.research-domains__title {
+  font-family: 'Paperlogy', sans-serif;
+  font-weight: 700;
+  font-size: clamp(2rem, 1.03vw + 1.61rem, 3rem);
+  line-height: 1.4;
+  letter-spacing: -0.06rem;
+  color: #006241;
+  text-transform: capitalize;
+  margin: 0;
+}
+
+.research-domains__subtitle {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+  font-size: clamp(1.125rem, 0.39vw + 1.03rem, 1.5rem);
+  line-height: 2.125rem;
+  color: #14483c;
+  margin: 0;
+}
+
+/* Circles Area */
+.research-domains__circles-area {
+  position: absolute;
+  right: -7.75rem;
+  top: -1.625rem;
+  width: 78.75rem;
+  height: 69.125rem;
+}
+
+/* Common Circle Styles */
+.research-domains__circle {
+  position: absolute;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+/* Medical Device Circle */
+.research-domains__circle--medical {
+  width: 29.375rem;
+  height: 29.375rem;
+  background-color: #ffffff;
+  border: 1px solid #006241;
+  left: 13.4375rem;
+  top: 0;
+}
+
+.research-domains__circle--medical .research-domains__circle-content {
+  position: absolute;
+  left: 4.5625rem;
+  top: 4.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  align-items: center;
+  text-align: center;
+}
+
+/* Drug Discovery Circle */
+.research-domains__circle--drug {
+  width: 31.25rem;
+  height: 31.25rem;
+  background-color: #ffffff;
+  border: 1px solid #006241;
+  left: 46.25rem;
+  top: 32.125rem;
+}
+
+.research-domains__circle--drug .research-domains__circle-content {
+  position: absolute;
+  left: 6.125rem;
+  top: 6.125rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  align-items: flex-start;
+  text-align: center;
+}
+
+/* Circle Content */
+.research-domains__icon {
+  width: 6.5625rem;
+  height: auto;
+}
+
+.research-domains__icon--tube {
+  width: 6.875rem;
+}
+
+.research-domains__circle-title {
+  font-family: 'Paperlogy', sans-serif;
+  font-weight: 700;
+  font-size: clamp(1.5rem, 0.52vw + 1.34rem, 2.5rem);
+  line-height: 1.3;
+  letter-spacing: -0.05rem;
+  color: #006241;
+  margin: 0;
+}
+
+.research-domains__circle-desc {
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 400;
+  font-size: 1.25rem;
+  line-height: 1.6;
+  letter-spacing: -0.025rem;
+  color: rgba(0, 0, 0, 0.75);
+  text-transform: capitalize;
+  margin: 0;
+}
+
+/* DNA Helix Decorative */
+.research-domains__dna-helix {
+  position: absolute;
+  left: 13.0475rem;
+  top: 25.1387rem;
+  width: 37.2321rem;
+  height: 37.3617rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.research-domains__dna-img {
+  width: 24.9280rem;
+  height: 27.8438rem;
+  transform: rotate(136.8deg);
+}
+
+/* Colorful Circle */
+.research-domains__circle--colorful {
+  width: 28rem;
+  height: 28rem;
+  left: 0;
+  top: 46.6875rem;
+  background-color: #ffffff;
+  border: 1px solid #006241;
+}
+
+.research-domains__colorful-bg {
+  position: absolute;
+  top: -4.46%;
+  left: 50%;
+  transform: translateX(calc(-50% - 0.6275rem));
+  width: auto;
+  height: 104.46%;
+  object-fit: cover;
+}
+
+/* Logo Circle */
+.research-domains__circle--logo {
+  width: 16.25rem;
+  height: 16.25rem;
+  background-color: #006241;
+  left: 25.4375rem;
+  top: 33.875rem;
+}
+
+.research-domains__logo-img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 13.25rem;
+  height: auto;
+}
+
+/* Responsive Styles */
+@media (max-width: 1440px) {
+  .research-domains {
+    padding: 0 3.75rem;
+  }
+
+  .research-domains__circles-area {
+    right: -10rem;
+    transform: scale(0.85);
+    transform-origin: top right;
+  }
+}
+
+@media (max-width: 1200px) {
+  .research-domains {
+    min-height: auto;
+    padding: 5rem 2rem;
+  }
+
+  .research-domains__container {
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+  }
+
+  .research-domains__text-content {
+    position: relative;
+    top: 0;
+    transform: none;
+    max-width: 100%;
+  }
+
+  .research-domains__circles-area {
+    position: relative;
+    right: 0;
+    top: 0;
+    width: 100%;
+    height: auto;
+    transform: none;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    justify-items: center;
+  }
+
+  .research-domains__circle {
+    position: relative;
+    left: auto !important;
+    top: auto !important;
+  }
+
+  .research-domains__circle--medical,
+  .research-domains__circle--drug {
+    width: 100%;
+    max-width: 25rem;
+    height: auto;
+    aspect-ratio: 1;
+  }
+
+  .research-domains__circle--medical .research-domains__circle-content,
+  .research-domains__circle--drug .research-domains__circle-content {
+    position: relative;
+    left: auto;
+    top: auto;
+    padding: 3rem 2rem;
+  }
+
+  .research-domains__circle--colorful {
+    width: 100%;
+    max-width: 20rem;
+    height: auto;
+    aspect-ratio: 1;
+  }
+
+  .research-domains__circle--logo {
+    width: 100%;
+    max-width: 12rem;
+    height: auto;
+    aspect-ratio: 1;
+  }
+
+  .research-domains__dna-helix {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .research-domains {
+    padding: 3rem 1.5rem;
+  }
+
+  .research-domains__text-content {
+    gap: 1rem;
+  }
+
+  .research-domains__accent-bar {
+    width: 0.375rem;
+    height: 6rem;
+  }
+
+  .research-domains__text-wrapper {
+    gap: 0.75rem;
+  }
+
+  .research-domains__subtitle br {
+    display: none;
+  }
+
+  .research-domains__circles-area {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .research-domains__circle--medical,
+  .research-domains__circle--drug,
+  .research-domains__circle--colorful {
+    max-width: 20rem;
+  }
+
+  .research-domains__circle--logo {
+    max-width: 10rem;
+  }
+
+  .research-domains__icon {
+    width: 4rem;
+  }
+
+  .research-domains__icon--tube {
+    width: 4.5rem;
+  }
+
+  .research-domains__circle-desc br {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .research-domains {
+    padding: 2rem 1rem;
+  }
+
+  .research-domains__circle--medical,
+  .research-domains__circle--drug,
+  .research-domains__circle--colorful {
+    max-width: 16rem;
+  }
+
+  .research-domains__circle--medical .research-domains__circle-content,
+  .research-domains__circle--drug .research-domains__circle-content {
+    padding: 2rem 1.5rem;
+  }
+
+  .research-domains__circle--logo {
+    max-width: 8rem;
+  }
+
+  .research-domains__logo-img {
+    width: 6rem;
+  }
+}
+
+/* ========== 04-drug-delivery-platform-section ========== */
+/* Drug Delivery Platform Section */
+.drug-delivery-platform {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+}
+
+/* Header Section */
+.ddp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  background-color: #fff;
+}
+
+.ddp-header-inner {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex: 1 0 0;
+  align-self: stretch;
+}
+
+.ddp-header-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1 0 0;
+  height: 100%;
+  min-height: 1px;
+  min-width: 1px;
+  padding: 8.4375rem 20rem 8.4375rem 24.375rem;
+  background-color: #fff;
+}
+
+.ddp-header-content > div {
+  display: flex;
+  align-items: center;
+  gap: 2.1875rem;
+  width: 100%;
+}
+
+.ddp-accent-bar {
+  flex-shrink: 0;
+  width: 0.625rem;
+  align-self: stretch;
+  background-color: #006241;
+}
+
+.ddp-header-text {
+  display: flex;
+  flex-direction: column;
+  gap: 1.875rem;
+  flex: 1 0 0;
+  min-height: 1px;
+  min-width: 1px;
+  text-transform: capitalize;
+}
+
+.ddp-title {
+  font-family: 'Paperlogy', sans-serif;
+  font-weight: 700;
+  font-size: clamp(1.75rem, 1.03vw + 1.25rem, 3rem);
+  line-height: 1.4;
+  letter-spacing: -0.02em;
+  color: #006241;
+  margin: 0;
+}
+
+.ddp-subtitle {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+  font-size: clamp(1rem, 0.52vw + 0.75rem, 1.5rem);
+  line-height: 2.125rem;
+  color: #283c36;
+  margin: 0;
+}
+
+/* Card Base Styles */
+.ddp-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 32.1875rem;
+  background-color: #fff;
+}
+
+.ddp-card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+  justify-content: center;
+  height: 100%;
+  padding: 6.875rem;
+}
+
+.ddp-card-content--green {
+  background-color: #006241;
+  flex-shrink: 0;
+  width: 74.375rem;
+}
+
+.ddp-card-content--light {
+  flex: 1 0 0;
+  min-height: 1px;
+  min-width: 1px;
+  padding: 6.875rem 6.75rem;
+  background-color: #f6f5f2;
+}
+
+.ddp-card-content--o {
+  width: 76.5625rem;
+  padding: 6.875rem 5rem 6.875rem 6.875rem;
+}
+
+.ddp-icon {
+  width: 3.75rem;
+  height: 3.75rem;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.ddp-card-text {
+  display: flex;
+  flex-direction: column;
+  gap: 1.875rem;
+  width: 100%;
+  text-transform: capitalize;
+}
+
+.ddp-card-titles {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.ddp-card-title {
+  font-family: 'Paperlogy', sans-serif;
+  font-weight: 700;
+  font-size: clamp(1.5rem, 0.65vw + 1.125rem, 2.5rem);
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+  color: #fff;
+  margin: 0;
+}
+
+.ddp-card-title--green {
+  color: #006241;
+}
+
+.ddp-card-tagline {
+  font-family: 'Paperlogy', sans-serif;
+  font-weight: 500;
+  font-size: clamp(1.25rem, 0.58vw + 0.938rem, 2.125rem);
+  line-height: 1.4;
+  color: #fff;
+  margin: 0;
+}
+
+.ddp-card-tagline--green {
+  color: #006241;
+}
+
+.ddp-card-description {
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 400;
+  font-size: clamp(0.875rem, 0.32vw + 0.75rem, 1.25rem);
+  line-height: 1.6;
+  letter-spacing: -0.02em;
+  color: #283c36;
+  margin: 0;
+}
+
+.ddp-card-description--light {
+  color: #f9f3e2;
+}
+
+/* Card Image Sections */
+.ddp-card-image {
+  flex: 1 0 0;
+  height: 100%;
+  min-height: 1px;
+  min-width: 1px;
+  overflow: hidden;
+  position: relative;
+}
+
+.ddp-card-image--s {
+  flex: none;
+  width: 45.625rem;
+}
+
+.ddp-bg-image {
+  position: absolute;
+  top: -26%;
+  left: 0;
+  width: 100%;
+  height: 126%;
+  object-fit: cover;
+}
+
+.ddp-dna-image {
+  position: absolute;
+  top: 50%;
+  left: calc(50% + 3.125rem);
+  transform: translate(-50%, -50%) rotate(180deg) scaleY(-1);
+  width: 66.125rem;
+  height: auto;
+}
+
+.ddp-droplet-image {
+  position: absolute;
+  top: -18%;
+  left: 0;
+  width: 100%;
+  height: 131%;
+  object-fit: cover;
+}
+
+.ddp-capsules-image {
+  position: absolute;
+  top: 50%;
+  left: calc(50% + 0.34375rem);
+  transform: translate(-50%, -50%);
+  width: 44.125rem;
+  height: 33.125rem;
+  object-fit: cover;
+}
+
+/* Responsive Styles */
+@media (max-width: 1200px) {
+  .ddp-header-content {
+    padding: 5rem 3rem 5rem 5rem;
+  }
+
+  .ddp-card-content--green {
+    width: 60%;
+  }
+
+  .ddp-card-content--o {
+    width: 62%;
+  }
+
+  .ddp-card-image--s {
+    width: 40%;
+  }
+
+  .ddp-dna-image {
+    width: 90%;
+    left: 50%;
+  }
+
+  .ddp-capsules-image {
+    width: 90%;
+    left: 50%;
+  }
+}
+
+@media (max-width: 992px) {
+  .ddp-header-content {
+    padding: 3.5rem 2rem;
+  }
+
+  .ddp-header-content > div {
+    gap: 1.25rem;
+  }
+
+  .ddp-card {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .ddp-card-s {
+    flex-direction: column-reverse;
+  }
+
+  .ddp-card-content--green,
+  .ddp-card-content--light,
+  .ddp-card-content--o {
+    width: 100%;
+    padding: 3rem 2rem;
+  }
+
+  .ddp-card-image,
+  .ddp-card-image--s {
+    width: 100%;
+    height: 18.75rem;
+    flex: none;
+  }
+
+  .ddp-bg-image {
+    top: -10%;
+    height: 120%;
+  }
+
+  .ddp-dna-image {
+    width: 100%;
+    max-width: 35rem;
+  }
+
+  .ddp-droplet-image {
+    top: -5%;
+    height: 110%;
+  }
+
+  .ddp-capsules-image {
+    width: 100%;
+    max-width: 25rem;
+    height: auto;
+  }
+
+  .hide-mobile {
+    display: none;
+  }
+}
+
+@media (max-width: 576px) {
+  .ddp-header-content {
+    padding: 2.5rem 1.25rem;
+  }
+
+  .ddp-header-content > div {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .ddp-accent-bar {
+    width: 100%;
+    height: 0.375rem;
+    align-self: auto;
+  }
+
+  .ddp-card-content--green,
+  .ddp-card-content--light,
+  .ddp-card-content--o {
+    padding: 2rem 1.25rem;
+  }
+
+  .ddp-card-image,
+  .ddp-card-image--s {
+    height: 12.5rem;
+  }
+
+  .ddp-icon {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  .ddp-card-text {
+    gap: 1rem;
+  }
+}
+
+/* ========== 05-medical-devices-section ========== */
+/* Medical Devices Section */
+.medical-devices-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  padding-bottom: 9.375rem; /* 150px */
+  background-color: #ffffff;
+}
+
+/* Header Area */
+.medical-devices-header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  padding: 9.375rem 15rem 9.375rem 24.375rem; /* 150px 240px 150px 390px */
+}
+
+.header-content {
+  display: flex;
+  gap: 2.1875rem; /* 35px */
+  align-items: flex-end;
+  width: 100%;
+}
+
+.accent-bar {
+  width: 0.625rem; /* 10px */
+  align-self: stretch;
+  background-color: #006241;
+}
+
+.header-text {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+  gap: 1.25rem; /* 20px */
+  justify-content: center;
+  text-transform: capitalize;
+}
+
+.section-title {
+  font-family: "Paperlogy", sans-serif;
+  font-weight: 700;
+  font-size: clamp(1.75rem, 1.55vw + 1.17rem, 3rem); /* 28px to 48px */
+  line-height: 1.4;
+  letter-spacing: -0.06rem; /* -0.96px */
+  color: #006241;
+  margin: 0;
+}
+
+.section-description {
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-size: clamp(1rem, 0.52vw + 0.81rem, 1.5rem); /* 16px to 24px */
+  line-height: 2.125rem; /* 34px */
+  color: #14483c;
+  margin: 0;
+  max-width: 48.25rem; /* 772px */
+}
+
+/* Cards Container */
+.medical-devices-cards {
+  display: flex;
+  gap: 3.75rem; /* 60px */
+  align-items: center;
+  width: 100%;
+  height: 37.5rem; /* 600px */
+  padding: 0 6.875rem; /* 0 110px */
+}
+
+/* Individual Card */
+.device-card {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.card-background {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.card-bg-color {
+  position: absolute;
+  inset: 0;
+  background-color: #f6f5f2;
+}
+
+.card-image-wrapper {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.card-image {
+  position: absolute;
+  top: -10%;
+  left: -15%;
+  width: 85%;
+  height: auto;
+  max-width: none;
+}
+
+/* Card Content */
+.card-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 2.625rem; /* 42px */
+  padding-bottom: 3.25rem; /* 52px */
+  gap: 1.25rem; /* 20px */
+}
+
+.card-text {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+  gap: 1.875rem; /* 30px */
+}
+
+.card-title {
+  font-family: "Paperlogy", sans-serif;
+  font-weight: 700;
+  font-size: clamp(1.5rem, 1.03vw + 1.11rem, 2.5rem); /* 24px to 40px */
+  line-height: 1.3;
+  letter-spacing: -0.05rem; /* -0.8px */
+  color: #006241;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-title span {
+  display: block;
+}
+
+.card-description {
+  font-family: "Pretendard", sans-serif;
+  font-weight: 400;
+  font-size: clamp(0.875rem, 0.32vw + 0.75rem, 1.25rem); /* 14px to 20px */
+  line-height: 1.6;
+  letter-spacing: -0.025rem; /* -0.4px */
+  color: rgba(0, 0, 0, 0.7);
+  text-transform: capitalize;
+  margin: 0;
+}
+
+/* Card Button */
+.card-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.75rem; /* 60px */
+  height: 3.75rem; /* 60px */
+  flex-shrink: 0;
+  background-color: #ffffff;
+  border-radius: 3.75rem; /* 60px */
+  padding: 1.25rem; /* 20px */
+  transition: background-color 0.2s ease;
+}
+
+.card-btn:hover {
+  background-color: #f0f0f0;
+}
+
+.btn-icon {
+  width: 1rem; /* 16px */
+  height: 1rem; /* 16px */
+  transform: scaleY(-1);
+}
+
+/* Responsive - Tablet */
+@media (max-width: 1200px) {
+  .medical-devices-header {
+    padding: 6rem 3rem 6rem 5rem;
+  }
+
+  .medical-devices-cards {
+    padding: 0 3rem;
+    gap: 2rem;
+    height: 32rem;
+  }
+}
+
+/* Responsive - Mobile */
+@media (max-width: 768px) {
+  .medical-devices-section {
+    padding-bottom: 4rem;
+  }
+
+  .medical-devices-header {
+    padding: 4rem 1.5rem;
+  }
+
+  .header-content {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
+  }
+
+  .accent-bar {
+    width: 3rem;
+    height: 0.375rem;
+    align-self: auto;
+  }
+
+  .section-description {
+    line-height: 1.6;
+  }
+
+  .medical-devices-cards {
+    flex-direction: column;
+    height: auto;
+    padding: 0 1.5rem;
+    gap: 2rem;
+  }
+
+  .device-card {
+    width: 100%;
+    height: 28rem;
+    flex: none;
+  }
+
+  .card-content {
+    padding: 1.5rem;
+    padding-bottom: 2rem;
+  }
+
+  .card-text {
+    gap: 1rem;
+  }
+
+  .card-btn {
+    width: 3rem;
+    height: 3rem;
+    padding: 0.875rem;
+  }
+
+  .btn-icon {
+    width: 0.875rem;
+    height: 0.875rem;
+  }
+}
+
+/* Responsive - Small Mobile */
+@media (max-width: 480px) {
+  .medical-devices-header {
+    padding: 3rem 1rem;
+  }
+
+  .medical-devices-cards {
+    padding: 0 1rem;
+    gap: 1.5rem;
+  }
+
+  .device-card {
+    height: 24rem;
+  }
+
+  .card-content {
+    padding: 1rem;
+    padding-bottom: 1.5rem;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .card-btn {
+    align-self: flex-end;
+  }
+}
+
+/* ========== 06-products-pipeline-section ========== */
+/* Products Pipeline Section */
+.products-pipeline {
+  position: relative;
+  width: 100%;
+  padding: 9.375rem 6.875rem;
+}
+
+.products-pipeline__bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.products-pipeline__bg-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.products-pipeline__bg-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.products-pipeline__content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 6.25rem;
+  width: 100%;
+}
+
+/* Header Section */
+.products-pipeline__header {
+  display: flex;
+  flex-direction: column;
+  gap: 1.875rem;
+  align-items: center;
+  padding: 0 16.875rem;
+  text-align: center;
+}
+
+.products-pipeline__title {
+  font-family: 'Paperlogy', sans-serif;
+  font-weight: 700;
+  font-size: clamp(2rem, 1.03vw + 1.5rem, 3rem);
+  line-height: 1.4;
+  letter-spacing: -0.06rem;
+  color: #ffffff;
+  text-transform: capitalize;
+  margin: 0;
+}
+
+.products-pipeline__description {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+  font-size: clamp(1rem, 0.52vw + 0.75rem, 1.5rem);
+  line-height: 2.125rem;
+  color: #f9f3e2;
+  margin: 0;
+}
+
+/* Stats Cards Row */
+.products-pipeline__stats {
+  display: flex;
+  gap: 3.75rem;
+  width: 100%;
+}
+
+.products-pipeline__stat-card {
+  flex: 1;
+  display: flex;
+  background-color: #006241;
+  min-width: 0;
+}
+
+.products-pipeline__stat-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  padding: 1.5rem;
+}
+
+.products-pipeline__stat-icon {
+  width: 5.625rem;
+  height: 5.625rem;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.products-pipeline__stat-icon img {
+  width: 3.375rem;
+  height: 3.375rem;
+  object-fit: contain;
+}
+
+.products-pipeline__stat-label {
+  font-family: 'Paperlogy', sans-serif;
+  font-weight: 700;
+  font-size: clamp(1.5rem, 0.52vw + 1.25rem, 2.125rem);
+  line-height: 1.3;
+  color: #ffffff;
+  text-align: center;
+  margin: 0;
+}
+
+.products-pipeline__stat-value-container {
+  flex: 1;
+  position: relative;
+  min-width: 0;
+  min-height: 25rem;
+  overflow: hidden;
+}
+
+.products-pipeline__stat-bg {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 100%;
+  width: auto;
+  max-width: none;
+}
+
+.products-pipeline__stat-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.products-pipeline__stat-number {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  color: #ffffff;
+  white-space: nowrap;
+}
+
+.products-pipeline__stat-number--partners {
+  font-size: clamp(4rem, 3.57vw + 2.5rem, 6.875rem);
+  line-height: 12.6rem;
+}
+
+.products-pipeline__stat-number--contract {
+  font-size: clamp(3.5rem, 2.58vw + 2.25rem, 5.9375rem);
+  line-height: 12.6rem;
+}
+
+/* Global Market Row */
+.products-pipeline__market {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3.75rem;
+}
+
+.products-pipeline__market-info {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.products-pipeline__market-icon {
+  width: 5.625rem;
+  height: 5.625rem;
+  border-radius: 3.75rem;
+  background-color: #006241;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.products-pipeline__market-icon img {
+  width: 2.5rem;
+  height: 2.875rem;
+  object-fit: contain;
+}
+
+.products-pipeline__market-label {
+  font-family: 'Paperlogy', sans-serif;
+  font-weight: 700;
+  font-size: clamp(1.5rem, 0.52vw + 1.25rem, 2.125rem);
+  line-height: 1.3;
+  color: #f9f3e2;
+  margin: 0;
+}
+
+.products-pipeline__market-value {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.products-pipeline__market-number {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: clamp(4rem, 3.09vw + 2.75rem, 6.25rem);
+  line-height: 12.6rem;
+  color: #ffffff;
+}
+
+/* Responsive - Tablet */
+@media (max-width: 1024px) {
+  .products-pipeline {
+    padding: 6rem 3rem;
+  }
+
+  .products-pipeline__content {
+    gap: 4rem;
+  }
+
+  .products-pipeline__header {
+    padding: 0 2rem;
+  }
+
+  .products-pipeline__stats {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .products-pipeline__stat-card {
+    flex-direction: row;
+  }
+
+  .products-pipeline__stat-value-container {
+    min-height: 18.75rem;
+  }
+
+  .products-pipeline__market {
+    flex-direction: column;
+    gap: 2rem;
+  }
+}
+
+/* Responsive - Mobile */
+@media (max-width: 768px) {
+  .products-pipeline {
+    padding: 4rem 1.5rem;
+  }
+
+  .products-pipeline__content {
+    gap: 3rem;
+  }
+
+  .products-pipeline__header {
+    padding: 0;
+    gap: 1.25rem;
+  }
+
+  .products-pipeline__description br {
+    display: none;
+  }
+
+  .products-pipeline__stats {
+    gap: 1.5rem;
+  }
+
+  .products-pipeline__stat-card {
+    flex-direction: column;
+  }
+
+  .products-pipeline__stat-info {
+    padding: 1.5rem;
+  }
+
+  .products-pipeline__stat-value-container {
+    min-height: 12.5rem;
+  }
+
+  .products-pipeline__market-info {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .products-pipeline__market-label {
+    text-align: center;
+  }
+}
+
+/* ========== 07-research-statistics-section ========== */
+/* ==========================================================================
+   Research Statistics Section
+   ========================================================================== */
+
+.research-statistics {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  background-color: #fff;
+}
+
+/* Header
+   ========================================================================== */
+
+.research-statistics__header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  padding: 9.375rem 30rem; /* 150px 480px */
+}
+
+.research-statistics__header-inner {
+  display: flex;
+  align-items: flex-end;
+  gap: 2.1875rem; /* 35px */
+  width: 100%;
+}
+
+.research-statistics__accent-bar {
+  width: 0.625rem; /* 10px */
+  align-self: stretch;
+  background-color: #006241;
+}
+
+.research-statistics__header-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  flex: 1 0 0;
+  min-width: 0;
+  gap: 1.25rem; /* 20px */
+  background-color: #fff;
+  text-transform: capitalize;
+}
+
+.research-statistics__title {
+  margin: 0;
+  font-family: 'Paperlogy', sans-serif;
+  font-size: 3rem; /* 48px */
+  font-weight: 700;
+  line-height: 1.4;
+  letter-spacing: -0.06rem; /* -0.96px */
+  color: #006241;
+}
+
+.research-statistics__description {
+  margin: 0;
+  width: 100%;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.5rem; /* 24px */
+  font-weight: 400;
+  line-height: 2.125rem; /* 34px */
+  color: #14483c;
+}
+
+/* Grid Layout
+   ========================================================================== */
+
+.research-statistics__grid {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+/* Stat Card (with image)
+   ========================================================================== */
+
+.research-statistics__stat-card {
+  position: relative;
+  width: 25%;
+  height: 30.6113rem; /* 489.78px */
+  overflow: hidden;
+}
+
+.research-statistics__stat-image {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: cover;
+}
+
+.research-statistics__stat-overlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.research-statistics__stat-number {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'Poppins', sans-serif;
+  font-size: 6.25rem; /* 100px */
+  font-weight: 600;
+  line-height: 12.6rem; /* 201.6px */
+  color: #fff;
+  white-space: nowrap;
+}
+
+/* Info Card
+   ========================================================================== */
+
+.research-statistics__info-card {
+  position: relative;
+  width: 25%;
+  height: 30.625rem; /* 490px */
+  background-color: #006241;
+}
+
+.research-statistics__info-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  padding: 1.8125rem 2.5rem; /* 29px 40px */
+  box-sizing: border-box;
+}
+
+.research-statistics__info-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.875rem; /* 30px */
+}
+
+.research-statistics__info-title {
+  margin: 0;
+  font-family: 'Paperlogy', sans-serif;
+  font-size: 2.625rem; /* 42px */
+  font-weight: 700;
+  line-height: 1.3;
+  color: #fff;
+  text-transform: capitalize;
+}
+
+/* Links
+   ========================================================================== */
+
+.research-statistics__links {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.75rem; /* 12px */
+}
+
+.research-statistics__link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem; /* 8px */
+  height: 3rem; /* 48px */
+  padding: 0.75rem 0; /* 12px 0 */
+  border-bottom: 1px solid rgba(249, 243, 226, 0.7);
+  overflow: hidden;
+  font-family: 'Pretendard', sans-serif;
+  font-size: 1.0625rem; /* 17px */
+  font-weight: 400;
+  line-height: 1.6;
+  color: #fff;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.research-statistics__link:hover {
+  opacity: 0.8;
+}
+
+.research-statistics__link-icon {
+  width: 1.5rem; /* 24px */
+  height: 1.5rem; /* 24px */
+  flex-shrink: 0;
+}
+
+/* ==========================================================================
+   Responsive - Tablet (max-width: 1024px)
+   ========================================================================== */
+
+@media (max-width: 64rem) {
+  .research-statistics__header {
+    padding: 5rem 3rem; /* 80px 48px */
+  }
+
+  .research-statistics__title {
+    font-size: 2.25rem; /* 36px */
+  }
+
+  .research-statistics__description {
+    font-size: 1.25rem; /* 20px */
+    line-height: 1.7;
+  }
+
+  .research-statistics__grid {
+    flex-wrap: wrap;
+  }
+
+  .research-statistics__stat-card,
+  .research-statistics__info-card {
+    width: 50%;
+    height: 25rem; /* 400px */
+  }
+
+  .research-statistics__stat-number {
+    font-size: 5rem; /* 80px */
+    line-height: 1.5;
+  }
+
+  .research-statistics__info-title {
+    font-size: 2rem; /* 32px */
+  }
+
+  .research-statistics__link {
+    font-size: 1rem; /* 16px */
+  }
+}
+
+/* ==========================================================================
+   Responsive - Mobile (max-width: 768px)
+   ========================================================================== */
+
+@media (max-width: 48rem) {
+  .research-statistics__header {
+    padding: 3rem 1.5rem; /* 48px 24px */
+  }
+
+  .research-statistics__header-inner {
+    gap: 1rem; /* 16px */
+  }
+
+  .research-statistics__accent-bar {
+    width: 0.375rem; /* 6px */
+  }
+
+  .research-statistics__header-content {
+    gap: 1rem; /* 16px */
+  }
+
+  .research-statistics__title {
+    font-size: 1.75rem; /* 28px */
+    letter-spacing: -0.03rem;
+  }
+
+  .research-statistics__description {
+    font-size: 1rem; /* 16px */
+    line-height: 1.6;
+  }
+
+  .research-statistics__grid {
+    flex-direction: column;
+  }
+
+  .research-statistics__stat-card,
+  .research-statistics__info-card {
+    width: 100%;
+    height: 20rem; /* 320px */
+  }
+
+  .research-statistics__stat-number {
+    font-size: 4rem; /* 64px */
+    line-height: 1.5;
+  }
+
+  .research-statistics__info-content {
+    padding: 2rem 1.5rem; /* 32px 24px */
+  }
+
+  .research-statistics__info-group {
+    gap: 1.25rem; /* 20px */
+  }
+
+  .research-statistics__info-title {
+    font-size: 1.75rem; /* 28px */
+  }
+
+  .research-statistics__links {
+    gap: 0.5rem; /* 8px */
+  }
+
+  .research-statistics__link {
+    font-size: 0.9375rem; /* 15px */
+    height: 2.75rem; /* 44px */
+    padding: 0.625rem 0; /* 10px 0 */
+  }
+
+  .research-statistics__link-icon {
+    width: 1.25rem; /* 20px */
+    height: 1.25rem; /* 20px */
+  }
+}
+
+/* ========== 08-investor-relations-heading ========== */
+/* Investor Relations Heading Section */
+.investor-relations-heading {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 9.375rem 30rem;
+  background-color: #ffffff;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.investor-relations-heading__container {
+  display: flex;
+  align-items: flex-end;
+  gap: 2.1875rem;
+  width: 100%;
+}
+
+.investor-relations-heading__accent-bar {
+  width: 0.625rem;
+  align-self: stretch;
+  background-color: #006241;
+  flex-shrink: 0;
+}
+
+.investor-relations-heading__content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 1.875rem;
+  flex: 1 0 0;
+  min-width: 0;
+  text-transform: capitalize;
+}
+
+.investor-relations-heading__title {
+  font-family: 'Paperlogy', sans-serif;
+  font-weight: 700;
+  font-size: 3rem;
+  line-height: 1.4;
+  letter-spacing: -0.06rem;
+  color: #006241;
+  margin: 0;
+}
+
+.investor-relations-heading__description {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+  font-size: 1.5rem;
+  line-height: 2.125rem;
+  color: #14483c;
+  margin: 0;
+  width: 100%;
+}
+
+/* Responsive - Tablet */
+@media (max-width: 1200px) {
+  .investor-relations-heading {
+    padding: 6rem 3rem;
+  }
+
+  .investor-relations-heading__title {
+    font-size: clamp(2rem, 2.5vw + 1rem, 3rem);
+  }
+
+  .investor-relations-heading__description {
+    font-size: clamp(1.125rem, 1vw + 0.75rem, 1.5rem);
+    line-height: 1.6;
+  }
+}
+
+/* Responsive - Mobile */
+@media (max-width: 768px) {
+  .investor-relations-heading {
+    padding: 4rem 1.5rem;
+  }
+
+  .investor-relations-heading__container {
+    gap: 1.25rem;
+  }
+
+  .investor-relations-heading__accent-bar {
+    width: 0.375rem;
+  }
+
+  .investor-relations-heading__content {
+    gap: 1.25rem;
+  }
+
+  .investor-relations-heading__title {
+    font-size: 1.75rem;
+  }
+
+  .investor-relations-heading__description {
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+}
+
+/* ========== 09-investor-relations-content-section ========== */
+/* =============================================
+   Investor Relations Content Section
+   ============================================= */
+
+.investor-relations {
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+  position: relative;
+}
+
+/* -----------------------------------------
+   Left Panel (Green Background)
+   ----------------------------------------- */
+.investor-relations__left {
+  background-color: #006241;
+  width: 50%;
+  height: 33.75rem; /* 540px */
+  position: relative;
+  flex-shrink: 0;
+}
+
+.investor-relations__content {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.875rem; /* 30px */
+  padding: 0 6.875rem; /* 110px */
+}
+
+.investor-relations__title {
+  font-family: 'Paperlogy', sans-serif;
+  font-weight: 700;
+  font-size: 2.5rem; /* 40px */
+  line-height: 1.3;
+  letter-spacing: -0.05rem; /* -0.8px */
+  color: #ffffff;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.investor-relations__title--highlight {
+  color: #bee3a6;
+}
+
+.investor-relations__button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem; /* 8px */
+  padding: 0.75rem 0; /* 12px */
+  border-bottom: 1px solid rgba(249, 243, 226, 0.7);
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.investor-relations__button:hover {
+  opacity: 0.8;
+}
+
+.investor-relations__button span {
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 400;
+  font-size: 1.0625rem; /* 17px */
+  line-height: 1.6;
+  color: #ffffff;
+}
+
+.investor-relations__button-icon {
+  width: 2rem; /* 32px */
+  height: 2rem; /* 32px */
+  transform: rotate(180deg) scaleY(-1);
+}
+
+/* Image Container */
+.investor-relations__image-container {
+  position: absolute;
+  top: 1.125rem; /* 18px */
+  left: 22.375rem; /* 358px */
+  width: 43.75rem; /* 700px */
+  height: 33.9375rem; /* 543px */
+}
+
+.investor-relations__image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Rotated Text */
+.investor-relations__rotated-text {
+  position: absolute;
+  top: 6.5625rem; /* 105px */
+  left: 40.75rem; /* 652px */
+  transform: rotate(15.333deg);
+  font-family: 'Work Sans', sans-serif;
+  font-weight: 600;
+  font-size: 2.625rem; /* 42px */
+  line-height: 1.2;
+  letter-spacing: -0.105rem; /* -1.68px */
+  text-transform: uppercase;
+  color: #ffffff;
+}
+
+.investor-relations__rotated-text p {
+  margin: 0;
+}
+
+.investor-relations__rotated-text--green {
+  color: #c4ff9c;
+}
+
+/* Logo */
+.investor-relations__logo {
+  position: absolute;
+  top: 25.953rem; /* 415.25px */
+  left: 46.69rem; /* 747.05px */
+  width: 5.493rem; /* 87.885px */
+  height: 2.61rem; /* 41.757px */
+  transform: rotate(16.073deg);
+}
+
+/* -----------------------------------------
+   Right Panel (Press Releases)
+   ----------------------------------------- */
+.investor-relations__right {
+  background-color: #f6f5f2;
+  width: 50%;
+  min-height: 33.75rem; /* 540px */
+  padding: 2.5rem 6.875rem; /* 40px 110px */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-shrink: 0;
+}
+
+.investor-relations__press {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem; /* 24px */
+  width: 100%;
+}
+
+.investor-relations__press-title {
+  font-family: 'Paperlogy', sans-serif;
+  font-weight: 700;
+  font-size: 2.5rem; /* 40px */
+  line-height: 1.3;
+  letter-spacing: -0.05rem; /* -0.8px */
+  color: #006241;
+  margin: 0;
+}
+
+.investor-relations__press-item {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.investor-relations__press-date {
+  font-family: 'Work Sans', sans-serif;
+  font-weight: 600;
+  font-size: 1.5rem; /* 24px */
+  line-height: 1.4;
+  letter-spacing: -0.03rem; /* -0.48px */
+  color: #006241;
+  text-transform: capitalize;
+}
+
+.investor-relations__press-link {
+  display: flex;
+  align-items: center;
+  gap: 1.875rem; /* 30px */
+  padding: 0.75rem 0; /* 12px */
+  border-bottom: 1px solid rgba(46, 68, 61, 0.5);
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.investor-relations__press-link:hover {
+  opacity: 0.8;
+}
+
+.investor-relations__press-text {
+  flex: 1;
+  min-width: 0;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 400;
+  font-size: 1.25rem; /* 20px */
+  line-height: 1.6;
+  letter-spacing: -0.025rem; /* -0.4px */
+  color: #2e443d;
+  margin: 0;
+  text-transform: capitalize;
+}
+
+.investor-relations__press-tag {
+  color: #2e443d;
+}
+
+.investor-relations__press-chevron {
+  width: 1.5rem; /* 24px */
+  height: 1.5rem; /* 24px */
+  flex-shrink: 0;
+}
+
+/* Screen reader only */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* -----------------------------------------
+   Responsive Design
+   ----------------------------------------- */
+@media (max-width: 1280px) {
+  .investor-relations__left {
+    height: auto;
+    min-height: 28rem;
+  }
+
+  .investor-relations__content {
+    padding: 0 4rem;
+  }
+
+  .investor-relations__image-container {
+    left: 18rem;
+    width: 36rem;
+    height: 28rem;
+  }
+
+  .investor-relations__rotated-text {
+    left: 30rem;
+    font-size: 2rem;
+  }
+
+  .investor-relations__logo {
+    left: 34rem;
+  }
+
+  .investor-relations__right {
+    padding: 2rem 4rem;
+    min-height: 28rem;
+  }
+}
+
+@media (max-width: 1024px) {
+  .investor-relations {
+    flex-direction: column;
+  }
+
+  .investor-relations__left,
+  .investor-relations__right {
+    width: 100%;
+  }
+
+  .investor-relations__left {
+    min-height: 26rem;
+    overflow: hidden;
+  }
+
+  .investor-relations__content {
+    padding: 2.5rem 3rem;
+    position: relative;
+    top: auto;
+    transform: none;
+    z-index: 2;
+  }
+
+  .investor-relations__title {
+    font-size: 2rem;
+  }
+
+  .investor-relations__image-container {
+    position: absolute;
+    right: -5rem;
+    left: auto;
+    top: 0;
+    width: 24rem;
+    height: 100%;
+    opacity: 0.6;
+  }
+
+  .investor-relations__rotated-text {
+    display: none;
+  }
+
+  .investor-relations__logo {
+    display: none;
+  }
+
+  .investor-relations__right {
+    padding: 2rem 3rem;
+    min-height: auto;
+  }
+
+  .investor-relations__press-title {
+    font-size: 2rem;
+  }
+
+  .investor-relations__press-date {
+    font-size: 1.25rem;
+  }
+
+  .investor-relations__press-text {
+    font-size: 1.125rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .investor-relations__content {
+    padding: 2rem;
+    gap: 1.5rem;
+  }
+
+  .investor-relations__title {
+    font-size: 1.75rem;
+  }
+
+  .investor-relations__button span {
+    font-size: 1rem;
+  }
+
+  .investor-relations__button-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  .investor-relations__image-container {
+    width: 18rem;
+    right: -6rem;
+  }
+
+  .investor-relations__right {
+    padding: 1.5rem;
+  }
+
+  .investor-relations__press {
+    gap: 1rem;
+  }
+
+  .investor-relations__press-title {
+    font-size: 1.75rem;
+  }
+
+  .investor-relations__press-date {
+    font-size: 1.125rem;
+  }
+
+  .investor-relations__press-text {
+    font-size: 1rem;
+  }
+
+  .investor-relations__press-link {
+    gap: 1rem;
+  }
+
+  .investor-relations__press-chevron {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .investor-relations__content {
+    padding: 1.5rem;
+    gap: 1.25rem;
+  }
+
+  .investor-relations__title {
+    font-size: 1.5rem;
+  }
+
+  .investor-relations__image-container {
+    width: 14rem;
+    right: -4rem;
+    opacity: 0.4;
+  }
+
+  .investor-relations__right {
+    padding: 1.25rem;
+  }
+
+  .investor-relations__press-title {
+    font-size: 1.5rem;
+  }
+
+  .investor-relations__press-date {
+    font-size: 1rem;
+  }
+
+  .investor-relations__press-text {
+    font-size: 0.9375rem;
+  }
+}
+

@@ -14,6 +14,10 @@ import shutil
 import sys
 from pathlib import Path
 
+# Windows 콘솔 한글 출력 깨짐 방지
+if sys.platform == 'win32':
+    sys.stdout.reconfigure(encoding='utf-8')
+
 
 def merge_css(page_name: str) -> None:
     """Merge all section CSS files for a page into a single file."""

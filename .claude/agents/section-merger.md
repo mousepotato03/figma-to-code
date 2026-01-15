@@ -73,28 +73,23 @@ Read .claude/checklist/{checklistFile}
 
 **체크리스트에서 추출할 정보:**
 
-| 필드                           | 용도                     |
-| ------------------------------ | ------------------------ |
-| `metadata.pageName`            | 페이지 제목              |
-| `layout.type`                  | 페이지 레이아웃 구조     |
-| `commonComponents[].placement` | 컴포넌트 배치 위치       |
-| `sections[].order`             | 섹션 순서                |
-| `sections[].id`                | 섹션 식별자              |
-| `responsive.breakpoint`        | 반응형 기준점 (기본 768) |
+| 필드                           | 용도               |
+| ------------------------------ | ------------------ |
+| `metadata.pageName`            | 페이지 제목        |
+| `commonComponents[].name`      | 컴포넌트 이름      |
+| `sections[].order`             | 섹션 순서          |
+| `sections[].id`                | 섹션 식별자        |
 
 ---
 
 ### Step 2: 공통 컴포넌트 분류
 
-`commonComponents`를 `placement` 값으로 분류:
+`commonComponents`를 이름으로 분류:
 
-| placement    | 배치 위치             | 예시    |
-| ------------ | --------------------- | ------- |
-| `top-fixed`  | body 시작 직후 (고정) | Navbar  |
-| `top-static` | body 시작 직후 (일반) | Header  |
-| `bottom`     | body 종료 직전        | Footer  |
-| `left`       | main 좌측             | Sidebar |
-| `right`      | main 우측             | Sidebar |
+| 이름 패턴 | 배치 위치 |
+| --------- | --------- |
+| Navigation, Navbar, Header | body 시작 직후 |
+| Footer | body 종료 직전 |
 
 ---
 
@@ -138,7 +133,7 @@ Glob {pageName}/*.php
   <link rel="stylesheet" href="css/{pageName}.css">
 </head>
 <body>
-  <!-- Header Components (placement: top-*) -->
+  <!-- Header Components -->
   <?php include_once 'includes/{header-component-filename}.php'; ?>
 
   <main class="page-{pageName}">
@@ -151,7 +146,7 @@ Glob {pageName}/*.php
     <!-- ... -->
   </main>
 
-  <!-- Footer Components (placement: bottom) -->
+  <!-- Footer Components -->
   <?php include_once 'includes/{footer-component-filename}.php'; ?>
 
   <!-- Scripts -->
@@ -162,18 +157,7 @@ Glob {pageName}/*.php
 
 **파일명 생성 규칙:**
 
-체크리스트 `commonComponents[].name`에서 파일명 생성:
-
-| Figma 컴포넌트 이름 | 생성되는 파일명 |
-|---------------------|-----------------|
-| `Navbar` | `navbar.php` |
-| `Footer` | `footer.php` |
-| `Quick Contact Form` | `quick-contact-form.php` |
-
-**변환 규칙:**
-1. 소문자로 변환
-2. 공백 → 하이픈(-) 치환
-3. `.php` 확장자 추가
+`project-structure.md`의 "파일명 규칙 (Figma 컴포넌트명 기준)" 참조.
 
 ---
 
@@ -191,16 +175,25 @@ rm -rf {pageName}/
 
 ### Step 7: 마커 파일 생성
 
-**성공 시**: `.claude/markers/{pageName}/merged.done`
+**성공 시**: 두 개의 마커 파일 생성
 
+1. `.claude/markers/{pageName}/merged.done`
 ```
 merged|{ISO timestamp}|{outputFile}|{completedCount}|{failedCount}
 ```
 
-예시:
-
+2. `.claude/markers/{pageName}/page.completed` (메인 세션 대기용)
 ```
+completed|{ISO timestamp}|{pageName}|{completedCount}|{failedCount}
+```
+
+예시:
+```
+# merged.done
 merged|2026-01-04T12:00:00Z|home.php|9|0
+
+# page.completed
+completed|2026-01-04T12:00:00Z|home|9|0
 ```
 
 **실패 시**: `.claude/markers/{pageName}/merged.failed`
