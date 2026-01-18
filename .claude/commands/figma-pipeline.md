@@ -30,7 +30,7 @@ URL들을 10개씩 배치로 나누어 **병렬 실행** (시간 기반 연속 �
 
 ```
 BATCH_SIZE = 10
-BATCH_INTERVAL = 60  # 초 
+BATCH_INTERVAL = 60  # 초
 
 batches = split(urls, BATCH_SIZE)  # URL을 10개씩 그룹화
 
@@ -53,7 +53,7 @@ for i, batch in enumerate(batches):
 # 모든 배치 실행 후
 4. 전체 완료 대기:
    ```bash
-   python .claude/scripts/wait_files.py --path .claude/checklist --glob "*.json" --count {total_url_count} --timeout 120
+   python .claude/scripts/wait_files.py --path .claude/checklists --glob "*.json" --count {total_url_count} --timeout 120
    ```
 ```
 
@@ -171,7 +171,7 @@ Glob .claude/markers/common/components.completed
   },
   "context": {
     "pageName": "_common",
-    "order": 0
+    "position": "fixed-top"
   },
   "outputPaths": {
     "php": "includes/{component.slug}.php",
@@ -228,22 +228,31 @@ mkdir -p css/{pageName} .claude/markers/{pageName} {pageName}
   },
   "context": {
     "pageName": "{normalized-pageName}",
-    "order": {section.order},
+    "position": "{section.position}",
     "size": { "width": 1920, "height": 1080 }
   },
   "outputPaths": {
-    "php": "{pageName}/{order:02d}-{section-slug}.php",
-    "css": "css/{pageName}/{order:02d}-{section-slug}.css",
-    "marker": ".claude/markers/{pageName}/{order:02d}-{section-slug}"
+    "php": "{pageName}/{flowNum:02d}-{section-slug}.php",
+    "css": "css/{pageName}/{flowNum:02d}-{section-slug}.css",
+    "marker": ".claude/markers/{pageName}/{flowNum:02d}-{section-slug}"
   }
 }
 ```
 
+**position → 파일명 변환 규칙**:
+| position | flowNum | PHP 경로 |
+|----------|---------|----------|
+| `flow-1` | 01 | `{pageName}/01-{slug}.php` |
+| `flow-2` | 02 | `{pageName}/02-{slug}.php` |
+| `fixed-top` | - | `includes/navbar.php` (공통 컴포넌트) |
+| `fixed-bottom-right` | - | `includes/fab-{slug}.php` (공통 컴포넌트) |
+
 **예시 (home 페이지)**:
-| 섹션 | order | PHP | CSS |
-|------|-------|-----|-----|
-| Header (Hero Section) | 1 | home/01-header-hero-section.php | css/home/01-header-hero-section.css |
-| About Section | 2 | home/02-about-section.php | css/home/02-about-section.css |
+| 섹션 | position | PHP | CSS |
+|------|----------|-----|-----|
+| Hero Section | flow-1 | home/01-hero-section.php | css/home/01-hero-section.css |
+| About Section | flow-2 | home/02-about-section.php | css/home/02-about-section.css |
+| Footer | flow-3 | home/03-footer.php | css/home/03-footer.css |
 
 ## 3-4. CSS/PHP 병합
 

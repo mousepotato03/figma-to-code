@@ -102,14 +102,14 @@ When classifying components, consider:
 
 ---
 
-## 4. JSON Output Schema (v5)
+## 4. JSON Output Schema (v6)
 
 상세 스키마 정의: `.claude/docs/checklist-schema.md` 참조
 
 핵심 구조:
 ```json
 {
-  "$schema": "checklist-v5",
+  "$schema": "checklist-v6",
   "metadata": { ... },
   "nodes": [ ... ]
 }
@@ -126,55 +126,81 @@ When classifying components, consider:
     "type": "common",
     "name": "Navbar",
     "nodeId": "2413:18106",
-    "order": 1
+    "position": "fixed-top"
   },
   {
-    "id": "navbar-index",
-    "type": "common",
-    "name": "Navbar_index",
-    "nodeId": "2413:12144",
-    "order": 2
-  },
-  {
-    "id": "header-section",
+    "id": "hero-section",
     "type": "section",
-    "name": "Header Section - 타이틀 및 배경 이미지",
+    "name": "Hero Section - 메인 비주얼",
     "nodeId": "2413:12134",
-    "order": 3
+    "position": "flow-1"
+  },
+  {
+    "id": "rooms-section",
+    "type": "section",
+    "name": "Rooms Section - 객실 소개",
+    "nodeId": "2413:12145",
+    "position": "flow-2"
   },
   {
     "id": "footer",
     "type": "common",
     "name": "Footer",
     "nodeId": "2508:10671",
-    "order": 5
+    "position": "flow-3"
+  },
+  {
+    "id": "booking-fab",
+    "type": "common",
+    "name": "Quick Booking FAB",
+    "nodeId": "2413:12300",
+    "position": "fixed-bottom-right"
   }
 ]
 ```
 
-### Order 부여 규칙
+### Position 부여 규칙
 
-**원칙**: `get_metadata` XML 응답에서 노드가 나타나는 순서 그대로 order 부여
+**원칙**: `get_metadata` XML 응답에서 노드 특성에 따라 position 부여
+
+#### Step 1: 고정 요소 감지
+
+**중요**: `position` 값은 **분류 힌트**입니다. 실제 CSS 좌표값은 구현 에이전트가 피그마 데이터에서 추출합니다.
+
+| 이름 패턴 | position (분류 힌트) | 의미 |
+|-----------|---------------------|------|
+| Navbar, Navigation, Top Nav | `fixed-top` | 상단에 고정되는 요소 |
+| FAB, Floating Button, Quick Action | `fixed-bottom-right` | 우하단에 고정되는 플로팅 버튼 |
+| Bottom Bar, Reservation Bar, CTA Bar | `fixed-bottom` | 하단에 고정되는 바 |
+| Sidebar (left), Left Menu | `fixed-left` | 좌측에 고정되는 사이드바 |
+| Sidebar (right), Right Panel | `fixed-right` | 우측에 고정되는 사이드바 |
+
+**참고**: 이 테이블의 position 값은 CSS 속성을 직접 지정하지 않습니다. 실제 top, bottom, left, right 등의 좌표값은 피그마 디자인 데이터(get_design_context 응답)에서 추출해야 합니다.
+
+#### Step 2: 스크롤 콘텐츠 순서 부여
+
+고정 요소를 제외한 노드들에 등장 순서대로 `flow-1`, `flow-2`, ... 부여:
 
 ```xml
 <!-- get_metadata 응답 예시 -->
 <frame id="2413:12132" name="페이지">
-  <instance id="2413:18106" name="Navbar" />      <!-- order: 1 -->
-  <instance id="2413:12144" name="Navbar_index" /> <!-- order: 2 -->
-  <frame id="2413:12134" name="Header Section" /> <!-- order: 3 -->
-  <frame id="2413:12145" name="Vision Section" /> <!-- order: 4 -->
-  ...
-  <instance id="2508:10671" name="Footer" />      <!-- order: N (마지막) -->
+  <instance id="2413:18106" name="Navbar" />           <!-- fixed-top -->
+  <frame id="2413:12134" name="Hero Section" />        <!-- flow-1 -->
+  <frame id="2413:12145" name="Rooms Section" />       <!-- flow-2 -->
+  <frame id="2413:12200" name="Amenities Section" />   <!-- flow-3 -->
+  <instance id="2508:10671" name="Footer" />           <!-- flow-4 (마지막 flow) -->
+  <instance id="2413:12300" name="Booking FAB" />      <!-- fixed-bottom-right -->
 </frame>
 ```
 
 **규칙**:
 1. 페이지 루트의 **직계 자식 노드**들을 순회
-2. 등장 순서대로 order 1, 2, 3, ... 부여
-3. type은 별도로 분류 (navbar/footer/sidebar/modal → common, 나머지 → section)
-4. **하드코딩된 order 범위 없음** (Figma 구조를 그대로 반영)
+2. 고정 요소는 `fixed-*` position 부여
+3. 나머지는 등장 순서대로 `flow-1`, `flow-2`, ... 부여
+4. type은 별도로 분류 (navbar/footer/sidebar/modal → common, 나머지 → section)
+5. **Footer는 보통 flow 콘텐츠의 마지막** (fixed 아님)
 
-출력 위치: `.claude/checklist/[page-name].json`
+출력 위치: `.claude/checklists/[page-name].json`
 
 ---
 
@@ -190,9 +216,11 @@ When classifying components, consider:
      - `1. Home` → `home.json`
      - `회사소개` → `company-intro.json` (한글은 영문으로 의역)
 4. Analyze each element and classify accordingly
-5. **nodes 배열 구성**: 공통 컴포넌트와 섹션을 하나의 배열로 통합하고 order 부여
-6. Create the `.claude/checklist/` directory if it doesn't exist
-7. Write the analysis to `.claude/checklist/[파일명].json`
+5. **nodes 배열 구성**:
+   - 고정 요소 감지 → `fixed-*` position 부여
+   - 나머지 → `flow-N` position 부여
+6. Create the `.claude/checklists/` directory if it doesn't exist
+7. Write the analysis to `.claude/checklists/[파일명].json`
 8. Report completion with a summary of findings
 
 ---

@@ -15,7 +15,7 @@ color: yellow
 
 구현 전 반드시 읽어야 할 문서:
 
-1. **체크리스트**: `.claude/checklist/{checklistFile}`
+1. **체크리스트**: `.claude/checklists/{checklistFile}`
 2. **체크리스트 스키마**: `.claude/docs/checklist-schema.md`
 3. **프로젝트 구조**: `.claude/docs/project-structure.md`
 
@@ -68,10 +68,10 @@ color: yellow
 
 ```
 Read .claude/docs/project-structure.md
-Read .claude/checklist/{checklistFile}
+Read .claude/checklists/{checklistFile}
 ```
 
-**체크리스트에서 추출할 정보 (v5 스키마):**
+**체크리스트에서 추출할 정보 (v6 스키마):**
 
 | 필드                      | 용도                   |
 | ------------------------- | ---------------------- |
@@ -79,30 +79,49 @@ Read .claude/checklist/{checklistFile}
 | `nodes[].type`            | common/section 구분    |
 | `nodes[].name`            | 컴포넌트/섹션 이름     |
 | `nodes[].id`              | 섹션 식별자            |
-| `nodes[].order`           | 배치 순서              |
+| `nodes[].position`        | 배치 위치              |
 
 ---
 
-### Step 2: 노드 분류 (v5 스키마 기반)
+### Step 2: 노드 분류 (v6 스키마 기반)
 
-`nodes` 배열을 `order` 기준으로 정렬 후 분류:
+`nodes` 배열을 `position` 기준으로 분류:
 
-| 조건 | 배치 위치 |
-| ---- | --------- |
-| `type: "common"` + name에 "navbar" 포함 | body 시작 직후 (header 영역) |
-| `type: "common"` + name에 "footer" 포함 | body 종료 직전 (footer 영역) |
-| `type: "section"` | main 내부 (order 순서대로) |
+| position 패턴 | 배치 위치 |
+| ------------- | --------- |
+| `fixed-top` | body 시작 직후 (header 영역) |
+| `fixed-bottom` | body 끝, footer 앞 |
+| `fixed-bottom-right` | body 끝 (FAB) |
+| `fixed-bottom-left` | body 끝 (FAB) |
+| `fixed-left` | body 시작 직후 (사이드바) |
+| `fixed-right` | body 시작 직후 (사이드바) |
+| `flow-*` | main 내부 (숫자 순서대로) |
+
+### flow 노드 정렬
+
+`position: "flow-N"` 형태의 노드들을 N 값으로 정렬:
+
+```javascript
+flowNodes.sort((a, b) => {
+  const aNum = parseInt(a.position.replace('flow-', ''));
+  const bNum = parseInt(b.position.replace('flow-', ''));
+  return aNum - bNum;
+});
+```
 
 ### Navbar 오버레이 배치 규칙 (중요)
 
 Navbar는 첫 번째 섹션 위에 **overlay**로 배치됩니다:
 
-- Navbar: `position: fixed; top: 0; z-index: 1000;`
+- Navbar: `position: fixed;` + 피그마 좌표값
+- z-index: 1000 (레이어링용)
 - 첫 번째 섹션(Hero 등)은 화면 최상단부터 시작
 - Navbar가 첫 번째 섹션 위에 겹쳐짐
 - **첫 번째 섹션에 padding-top 추가하지 않음**
 
 이 규칙은 navbar가 투명/반투명 배경인 경우 Hero 이미지가 navbar 뒤로 보여야 하기 때문입니다.
+
+**참고**: `position` 필드는 분류 힌트이며, 실제 CSS 좌표값은 피그마 데이터에서 추출됨
 
 ---
 
@@ -115,7 +134,13 @@ Glob {pageName}/*.php
 정렬 규칙:
 
 - 파일명 prefix 숫자순 (01-, 02-, ...)
-- 체크리스트 `nodes[].order`와 매칭 확인
+- 체크리스트 `nodes[].position` (flow-N)과 매칭 확인
+
+**파일명 ↔ position 매핑:**
+- `flow-1` → `01-{slug}.php`
+- `flow-2` → `02-{slug}.php`
+- `fixed-top` → `includes/navbar.php` (include 사용)
+- `fixed-bottom-right` → `includes/fab-{slug}.php`
 
 ---
 
@@ -146,23 +171,24 @@ Glob {pageName}/*.php
   <link rel="stylesheet" href="css/{pageName}.css">
 </head>
 <body>
-  <!-- Header Components (Navbar) -->
+  <!-- Fixed Top Components (Navbar) -->
   <?php include_once 'includes/{navbar-filename}.php'; ?>
-  <!-- Additional navbar components if any (e.g., navbar-index) -->
-  <?php include_once 'includes/{navbar-index-filename}.php'; ?>
 
   <main class="page-{pageName}">
-    <!-- Section 1: {section.name} (id: {section.id}) -->
+    <!-- flow-1: {section.name} (id: {section.id}) -->
     {section1 content - 직접 병합}
 
-    <!-- Section 2: {section.name} (id: {section.id}) -->
+    <!-- flow-2: {section.name} (id: {section.id}) -->
     {section2 content - 직접 병합}
 
     <!-- ... -->
   </main>
 
-  <!-- Footer Components -->
-  <?php include_once 'includes/{footer-filename}.php'; ?>
+  <!-- Fixed Bottom Components -->
+  <?php include_once 'includes/{reservation-bar}.php'; ?>
+
+  <!-- Fixed Bottom-Right (FAB) -->
+  <?php include_once 'includes/{fab-filename}.php'; ?>
 
   <!-- Scripts -->
   <script src="js/common.js"></script>
@@ -226,12 +252,12 @@ failed|{ISO timestamp}|{error reason}
 각 섹션 PHP 파일 내용을 직접 읽어서 통합 (include 아님):
 
 ```php
-<!-- Section 1: Hero Section (id: hero) -->
+<!-- flow-1: Hero Section (id: hero) -->
 <section class="hero-section" data-section-id="hero">
   ...섹션 내용...
 </section>
 
-<!-- Section 2: Features (id: features) -->
+<!-- flow-2: Features (id: features) -->
 <section class="features-section" data-section-id="features">
   ...섹션 내용...
 </section>
@@ -247,18 +273,34 @@ failed|{ISO timestamp}|{error reason}
 - `Navbar` → `includes/navbar.php`
 - `Navbar_index` → `includes/navbar-index.php`
 - `Footer` → `includes/footer.php`
+- `Quick Booking FAB` → `includes/fab-quick-booking.php`
+- `Reservation Bar` → `includes/reservation-bar.php`
 
 이유: 여러 페이지에서 재사용, 수정 시 한 곳만 변경
 
-### Navbar 계열 배치 순서
-
-여러 navbar 관련 컴포넌트가 있을 경우 `order` 순서대로 배치:
+### position별 배치 순서
 
 ```php
-<!-- order: 1 -->
-<?php include_once 'includes/navbar.php'; ?>
-<!-- order: 2 -->
-<?php include_once 'includes/navbar-index.php'; ?>
+<body>
+  <!-- position: fixed-top -->
+  <?php include_once 'includes/navbar.php'; ?>
+
+  <!-- position: fixed-left (있는 경우) -->
+  <?php include_once 'includes/sidebar-left.php'; ?>
+
+  <main class="page-{pageName}">
+    <!-- position: flow-1, flow-2, ... (순서대로) -->
+  </main>
+
+  <!-- position: fixed-bottom -->
+  <?php include_once 'includes/reservation-bar.php'; ?>
+
+  <!-- position: fixed-bottom-right -->
+  <?php include_once 'includes/fab-booking.php'; ?>
+
+  <!-- position: fixed-right (있는 경우) -->
+  <?php include_once 'includes/sidebar-right.php'; ?>
+</body>
 ```
 
 ---
@@ -268,21 +310,21 @@ failed|{ISO timestamp}|{error reason}
 ### 섹션 파일 누락
 
 ```php
-<!-- Section 3: Missing Section (id: about) -->
+<!-- flow-3: Missing Section (id: about) -->
 <!-- ERROR: File {pageName}/03-about.php not found -->
 ```
 
 ### 실패 마커 섹션
 
 ```php
-<!-- Section 5: Business Areas (id: business) - SKIPPED (marker: .failed) -->
+<!-- flow-5: Business Areas (id: business) - SKIPPED (marker: .failed) -->
 <!-- TODO: Re-implement this section -->
 ```
 
 ### 마커 없는 섹션
 
 ```php
-<!-- Section 7: Statistics (id: stats) - SKIPPED (no marker) -->
+<!-- flow-7: Statistics (id: stats) - SKIPPED (no marker) -->
 <!-- WARNING: This section was not yet implemented -->
 ```
 

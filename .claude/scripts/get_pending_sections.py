@@ -12,8 +12,8 @@ pending 상태인 섹션만 추출하여 간단한 형식으로 출력
   python get_pending_sections.py home --batch-size 5 --batch-index 1  # 두 번째 배치
 
 출력 형식:
-  pageName|order|sectionSlug|nodeId|fileKey
-  home|01|header-hero-section|2413:13489|YOUR_FILE_KEY
+  pageName|position|sectionSlug|nodeId|fileKey
+  home|flow-1|header-hero-section|2413:13489|YOUR_FILE_KEY
 """
 
 import sys
@@ -25,7 +25,7 @@ import math
 # 프로젝트 루트 기준 경로
 SCRIPT_DIR = Path(__file__).parent
 PROJECT_ROOT = SCRIPT_DIR.parent.parent
-CHECKLIST_DIR = PROJECT_ROOT / ".claude" / "checklist"
+CHECKLIST_DIR = PROJECT_ROOT / ".claude" / "checklists"
 MARKERS_DIR = PROJECT_ROOT / ".claude" / "markers"
 
 # utils.py import
@@ -52,9 +52,41 @@ def slugify(name: str) -> str:
     return slug.strip('-')
 
 
-def has_marker(page_name: str, order: int, section_slug: str) -> bool:
+def get_position_order(position: str) -> int:
+    """position에서 순서 번호 추출 (flow-N → N, 그 외 → 0)"""
+    if position.startswith('flow-'):
+        try:
+            return int(position.replace('flow-', ''))
+        except ValueError:
+            return 0
+    return 0
+
+
+def get_marker_filename(position: str, section_slug: str) -> str:
+    """position에 따라 마커 파일명 생성
+
+    flow-N → {N:02d}-{slug}.done
+    fixed-* → fixed-{anchor}-{slug}.done
+    """
+    if position.startswith('flow-'):
+        order = get_position_order(position)
+        return f"{order:02d}-{section_slug}.done"
+    elif position.startswith('fixed-'):
+        anchor = position.replace('fixed-', '')
+        return f"fixed-{anchor}-{section_slug}.done"
+    else:
+        # v5 fallback (order로 간주)
+        try:
+            order = int(position)
+            return f"{order:02d}-{section_slug}.done"
+        except ValueError:
+            return f"{section_slug}.done"
+
+
+def has_marker(page_name: str, position: str, section_slug: str) -> bool:
     """마커 파일 존재 여부 확인"""
-    marker_path = MARKERS_DIR / page_name / f"{order:02d}-{section_slug}.done"
+    marker_filename = get_marker_filename(position, section_slug)
+    marker_path = MARKERS_DIR / page_name / marker_filename
     return marker_path.exists()
 
 
@@ -76,6 +108,21 @@ def has_common_marker(name: str) -> bool:
     slug = name.lower().replace(' ', '-')
     marker_path = MARKERS_DIR / "common" / f"{slug}.done"
     return marker_path.exists()
+
+
+def normalize_position(node: dict) -> str:
+    """v5/v6 호환: order 또는 position 필드에서 position 값 추출
+
+    v6: position 필드 사용 (flow-1, fixed-top 등)
+    v5: order 필드 사용 → flow-{order}로 변환
+    """
+    if 'position' in node:
+        return node['position']
+    elif 'order' in node:
+        # v5 fallback
+        return f"flow-{node['order']}"
+    else:
+        return 'flow-0'
 
 
 def get_pending_sections(target_page: str = None):
@@ -114,22 +161,46 @@ def get_pending_sections(target_page: str = None):
                 continue
             name = section.get("name", "")
             node_id = section.get("nodeId", "")
-            order = section.get("order", 0)
+            position = normalize_position(section)
             section_slug = slugify(name)
 
             # 마커 파일로 이미 완료됐는지 확인
-            if has_marker(page_name, order, section_slug):
+            if has_marker(page_name, position, section_slug):
                 continue
 
             results.append({
                 "pageName": page_name,
-                "order": order,
+                "position": position,
                 "sectionSlug": section_slug,
                 "nodeId": node_id,
                 "fileKey": file_key
             })
 
+    # flow-N 기준으로 정렬
+    results.sort(key=lambda x: (x['pageName'], get_position_order(x['position'])))
+
     return results
+
+
+def get_common_component_position(comp: dict) -> str:
+    """공통 컴포넌트의 position 추출
+
+    우선순위:
+    1. 컴포넌트 레벨 position 필드
+    2. 첫 번째 occurrence의 position 필드
+    3. fallback: "fixed-top"
+    """
+    # 컴포넌트 레벨 position
+    if 'position' in comp:
+        return comp['position']
+
+    # occurrence 레벨 position
+    occurrences = comp.get('occurrences', [])
+    if occurrences and 'position' in occurrences[0]:
+        return occurrences[0]['position']
+
+    # fallback
+    return 'fixed-top'
 
 
 def get_pending_common_components():
@@ -156,6 +227,9 @@ def get_pending_common_components():
         if has_common_marker(name):
             continue
 
+        # position 추출 (동적)
+        position = get_common_component_position(comp)
+
         # occurrences에서 첫 번째 nodeId 추출
         occurrences = comp.get("occurrences", [])
         node_id = occurrences[0].get("nodeId", "") if occurrences else ""
@@ -163,6 +237,7 @@ def get_pending_common_components():
 
         results.append({
             "name": name,
+            "position": position,
             "nodeId": node_id,
             "fileKey": file_key
         })
@@ -205,7 +280,7 @@ def main():
             print("# Common components (pending)")
 
         for comp in components:
-            print(f"common|00|{comp['name'].lower()}|{comp['nodeId']}|{comp['fileKey']}")
+            print(f"common|{comp['position']}|{comp['name'].lower()}|{comp['nodeId']}|{comp['fileKey']}")
         return
 
     # 페이지 지정 또는 전체
@@ -225,12 +300,12 @@ def main():
         start = args.batch_index * args.batch_size
         end = start + args.batch_size
         sections = sections[start:end]
-        print(f"# Pending sections (batch {args.batch_index + 1}/{total_batches}, {len(sections)} items): pageName|order|sectionSlug|nodeId|fileKey")
+        print(f"# Pending sections (batch {args.batch_index + 1}/{total_batches}, {len(sections)} items): pageName|position|sectionSlug|nodeId|fileKey")
     else:
-        print("# Pending sections: pageName|order|sectionSlug|nodeId|fileKey")
+        print("# Pending sections: pageName|position|sectionSlug|nodeId|fileKey")
 
     for s in sections:
-        print(f"{s['pageName']}|{s['order']:02d}|{s['sectionSlug']}|{s['nodeId']}|{s['fileKey']}")
+        print(f"{s['pageName']}|{s['position']}|{s['sectionSlug']}|{s['nodeId']}|{s['fileKey']}")
 
 
 if __name__ == "__main__":

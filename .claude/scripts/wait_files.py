@@ -5,7 +5,7 @@
 
 사용법:
   # glob 패턴으로 파일 개수 대기
-  python wait_files.py --path .claude/checklist --glob "*.json" --count 2
+  python wait_files.py --path .claude/checklists --glob "*.json" --count 2
   python wait_files.py --path .claude/markers/home --glob "*.done" --count 5
 
   # 마커 모드 (*.done + *.failed 자동 카운팅)
@@ -13,7 +13,7 @@
 
   # 특정 파일 대기
   python wait_files.py --path .claude/markers/home --file merged.done
-  python wait_files.py --path .claude/checklist --file home.json
+  python wait_files.py --path .claude/checklistss --file home.json
 
   # 옵션
   --timeout: 최대 대기 시간 (초, 기본값: 600)
@@ -145,7 +145,7 @@ def main():
         epilog='''
 예시:
   # 체크리스트 JSON 파일 2개 대기
-  python wait_files.py --path .claude/checklist --glob "*.json" --count 2
+  python wait_files.py --path .claude/checklists --glob "*.json" --count 2
 
   # 마커 파일 5개 대기 (*.done + *.failed)
   python wait_files.py --path .claude/markers/home --mode marker --count 5

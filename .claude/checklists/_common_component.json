@@ -1,0 +1,54 @@
+{
+  "$schema": "common-components-v3",
+  "metadata": {
+    "totalPages": 2,
+    "generatedAt": "2026-01-19T05:12:33.619856"
+  },
+  "components": [
+    {
+      "name": "Navbar",
+      "nodeId": "143:644",
+      "position": "fixed-top",
+      "occurrences": [
+        {
+          "page": "main",
+          "nodeId": "143:644",
+          "fileKey": "YOUR_FILE_KEY",
+          "position": "fixed-top"
+        },
+        {
+          "page": "dental-intro-m-dental",
+          "nodeId": "143:692",
+          "fileKey": "YOUR_FILE_KEY",
+          "position": "fixed-top"
+        }
+      ]
+    },
+    {
+      "name": "Footer",
+      "nodeId": "40:714",
+      "position": "flow-6",
+      "occurrences": [
+        {
+          "page": "main",
+          "nodeId": "40:714",
+          "fileKey": "YOUR_FILE_KEY",
+          "position": "flow-6"
+        }
+      ]
+    },
+    {
+      "name": "Quick Contact FAB - SNS 바로가기",
+      "nodeId": "11:1833",
+      "position": "fixed-bottom-right",
+      "occurrences": [
+        {
+          "page": "main",
+          "nodeId": "11:1833",
+          "fileKey": "YOUR_FILE_KEY",
+          "position": "fixed-bottom-right"
+        }
+      ]
+    }
+  ]
+}

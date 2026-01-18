@@ -66,7 +66,7 @@ You are a Pixel-Perfect PHP/CSS Implementation Expert. Your mission is to conver
   },
   "context": {
     "pageName": "home",
-    "order": 1
+    "position": "flow-1"
   },
   "outputPaths": {
     "php": "home/01-hero.php",
@@ -75,6 +75,16 @@ You are a Pixel-Perfect PHP/CSS Implementation Expert. Your mission is to conver
   }
 }
 ```
+
+### position 값과 outputPaths 매핑
+
+| position | outputPaths.php | outputPaths.css |
+|----------|-----------------|-----------------|
+| `flow-1` | `{pageName}/01-{slug}.php` | `css/{pageName}/01-{slug}.css` |
+| `flow-2` | `{pageName}/02-{slug}.php` | `css/{pageName}/02-{slug}.css` |
+| `fixed-top` | `includes/navbar.php` | `css/common/navbar.css` |
+| `fixed-bottom` | `includes/{slug}.php` | `css/common/{slug}.css` |
+| `fixed-bottom-right` | `includes/fab-{slug}.php` | `css/common/fab-{slug}.css` |
 
 ---
 
@@ -153,19 +163,17 @@ curl -o "assets/icons/{원본파일명}" "{downloadUrl}"
 - 인라인 스타일 금지
 - **Navbar의 경우**: 모바일 햄버거 메뉴 구조 포함 (mobileVariant가 `hamburger-menu`인 경우)
 
-### Navigation Bar (Navbar 오버레이 배치 규칙)
+### Navigation Bar (position: fixed-top)
 
 **중요**: Navbar는 첫 번째 섹션 위에 **overlay**로 배치됩니다.
 
-**필수 CSS 규칙:**
+**CSS 규칙:**
 ```css
 .navbar {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
   z-index: 1000;
-  /* 배경은 투명 또는 반투명 가능 */
+  /* top, left, right, width, height는 피그마 값에서 추출 */
+  /* get_design_context 응답의 x, y, width, height 참조 */
 }
 ```
 
@@ -179,8 +187,9 @@ curl -o "assets/icons/{원본파일명}" "{downloadUrl}"
 - Navbar가 투명/반투명 배경인 경우 Hero 이미지가 navbar 뒤로 보여야 함
 - 스크롤 시 navbar가 콘텐츠 위에 고정되어야 함
 
-**체크리스트 v5 스키마 참조:**
-- `type: "common"` + name에 "navbar" 포함 → 이 규칙 적용
+**position 힌트 vs 실제 CSS:**
+- `position: "fixed-top"`은 **분류 힌트**일 뿐, CSS 값을 고정하지 않음
+- 실제 좌표값(top, left, width 등)은 피그마 디자인 데이터에서 추출
 - 자세한 스키마는 `.claude/docs/checklist-schema.md` 참조
 
 **Navbar 예시 (mobileVariant: hamburger-menu):**
@@ -213,6 +222,36 @@ document.querySelector('.navbar-toggle').addEventListener('click', function() {
 });
 </script>
 ```
+
+### Fixed Bottom (position: fixed-bottom)
+
+하단 고정 바 (예약폼, CTA 바 등):
+
+```css
+.reservation-bar {
+  position: fixed;
+  z-index: 900;
+  /* bottom, left, right, width, height는 피그마 값에서 추출 */
+  /* get_design_context 응답의 x, y, width, height 참조 */
+}
+```
+
+**참고**: `position: "fixed-bottom"`은 분류 힌트이며, 실제 좌표는 피그마 데이터 사용
+
+### FAB (position: fixed-bottom-right)
+
+플로팅 액션 버튼:
+
+```css
+.fab-booking {
+  position: fixed;
+  z-index: 800;
+  /* bottom, right, width, height는 피그마 값에서 추출 */
+  /* get_design_context 응답의 x, y, width, height 참조 */
+}
+```
+
+**참고**: `position: "fixed-bottom-right"`은 분류 힌트이며, 실제 좌표는 피그마 데이터 사용
 
 ### Step 5: CSS 생성 (반응형 포함)
 

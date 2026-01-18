@@ -14,7 +14,7 @@ You are a Common Component Merger Agent. Your job is to consolidate duplicate co
 - **프로젝트 구조**: `.claude/docs/project-structure.md`
   - 파일명 변환 규칙 참조 (Figma 컴포넌트명 → PHP 파일명)
 - **체크리스트 스키마**: `.claude/docs/checklist-schema.md`
-  - v5 스키마의 nodes 배열 구조 이해
+  - v5/v6 스키마의 nodes 배열 구조 이해
 
 ---
 
@@ -44,13 +44,13 @@ You are a Common Component Merger Agent. Your job is to consolidate duplicate co
 
 `_common_component.json` 파일에서 **동일하지만 다르게 표기된 컴포넌트**를 찾아 병합합니다.
 
-## 입력 스키마 (v5)
+## 입력 스키마 (v5/v6)
 
-체크리스트 파일들은 v5 스키마를 사용합니다:
+체크리스트 파일들은 v5 또는 v6 스키마를 사용합니다:
 
 ```json
 {
-  "$schema": "checklist-v5",
+  "$schema": "checklist-v6",
   "metadata": { ... },
   "nodes": [
     {
@@ -58,14 +58,21 @@ You are a Common Component Merger Agent. Your job is to consolidate duplicate co
       "type": "common",
       "name": "Navbar",
       "nodeId": "2413:18106",
-      "order": 1
+      "position": "fixed-top"
     },
     {
       "id": "header-section",
       "type": "section",
       "name": "Header Section",
       "nodeId": "2413:12134",
-      "order": 3
+      "position": "flow-1"
+    },
+    {
+      "id": "footer",
+      "type": "common",
+      "name": "Footer",
+      "nodeId": "2508:10671",
+      "position": "flow-3"
     },
     ...
   ]
@@ -73,6 +80,10 @@ You are a Common Component Merger Agent. Your job is to consolidate duplicate co
 ```
 
 **추출 대상**: `type: "common"`인 노드만 추출
+
+### v5 하위 호환
+
+v5 스키마(`order` 필드 사용)도 지원됩니다. `order: N` → `flow-N`으로 자동 변환됩니다.
 
 ---
 
@@ -97,7 +108,7 @@ You are a Common Component Merger Agent. Your job is to consolidate duplicate co
 
 ### 1단계: 체크리스트 파일 읽기
 
-`.claude/checklist/*.json` 파일들을 읽습니다 (_common_component.json 제외).
+`.claude/checklists/*.json` 파일들을 읽습니다 (_common_component.json 제외).
 
 ### 2단계: 공통 컴포넌트 추출
 
@@ -140,7 +151,7 @@ common_nodes = [node for node in data.get('nodes', []) if node.get('type') == 'c
 
 ```json
 {
-  "$schema": "common-components-v2",
+  "$schema": "common-components-v3",
   "metadata": {
     "totalPages": 20,
     "generatedAt": "2025-01-03T12:30:00Z"
@@ -149,32 +160,43 @@ common_nodes = [node for node in data.get('nodes', []) if node.get('type') == 'c
     {
       "name": "Navigation Bar",
       "nodeId": "143:644",
+      "position": "fixed-top",
       "occurrences": [
         {
           "page": "Home",
           "nodeId": "143:644",
-          "fileKey": "YOUR_FILE_KEY"
+          "fileKey": "YOUR_FILE_KEY",
+          "position": "fixed-top"
         },
         {
           "page": "About NIBEC",
           "nodeId": "143:644",
-          "fileKey": "YOUR_FILE_KEY"
+          "fileKey": "YOUR_FILE_KEY",
+          "position": "fixed-top"
         }
       ]
     },
     {
       "name": "Footer",
       "nodeId": "40:714",
+      "position": "flow-5",
       "occurrences": [...]
     },
     {
       "name": "Navbar_index",
       "nodeId": "150:200",
+      "position": "fixed-top",
       "occurrences": [...]
     }
   ]
 }
 ```
+
+### position 필드 설명
+
+- **컴포넌트 레벨 position**: 첫 번째 occurrence의 position 값 (대표값)
+- **occurrence 레벨 position**: 각 페이지에서의 실제 position 값
+- **값 형식**: `fixed-*` (고정 요소) 또는 `flow-N` (스크롤 콘텐츠)
 
 ## 에러 처리
 
