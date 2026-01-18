@@ -9,7 +9,7 @@
 ### 기술 스택
 
 - **바닐라 환경**: 순수 PHP, CSS, JS만 사용
-- **경로 참조**: 상대 경로 또는 절대 경로 직접 사용
+- **경로 참조**: **상대 경로만 사용** (절대 경로 `/assets/...` 금지)
 
 ---
 
@@ -84,6 +84,17 @@ root/
 ### 다운로드 방법
 
 - figma mcp tool의 get_design_context 함수에서 전달받은 url들을 통해 다운로드.
+
+### HTML 참조 규칙 (중요!)
+
+| 상황 | 올바른 경로 | 잘못된 경로 |
+|------|------------|------------|
+| PHP에서 이미지 | `assets/images/{pageName}/...` | `/assets/images/...` |
+| CSS에서 배경 | `../assets/images/...` | `/assets/images/...` |
+
+**절대경로 사용 금지 이유:**
+- XAMPP 서브디렉토리 환경(`localhost/figma-to-code/`)에서 404 오류 발생
+- `/assets/...`는 `localhost/assets/...`로 해석되어 프로젝트 폴더를 건너뜀
 
 ---
 

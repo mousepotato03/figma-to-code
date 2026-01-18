@@ -48,7 +48,7 @@ color: yellow
 
 ```json
 {
-  "checklistFile": "Home.json",
+  "checklistFile": "home.json",
   "pageName": "home",
   "outputFile": "home.php"
 }
@@ -56,7 +56,7 @@ color: yellow
 
 | 필드            | 설명                            | 예시        |
 | --------------- | ------------------------------- | ----------- |
-| `checklistFile` | 체크리스트 파일명               | `Home.json` |
+| `checklistFile` | 체크리스트 파일명               | `home.json` |
 | `pageName`      | 정규화된 페이지명 (섹션 폴더명) | `home`      |
 | `outputFile`    | 출력 PHP 파일 경로              | `home.php`  |
 
@@ -71,25 +71,38 @@ Read .claude/docs/project-structure.md
 Read .claude/checklist/{checklistFile}
 ```
 
-**체크리스트에서 추출할 정보:**
+**체크리스트에서 추출할 정보 (v5 스키마):**
 
-| 필드                           | 용도               |
-| ------------------------------ | ------------------ |
-| `metadata.pageName`            | 페이지 제목        |
-| `commonComponents[].name`      | 컴포넌트 이름      |
-| `sections[].order`             | 섹션 순서          |
-| `sections[].id`                | 섹션 식별자        |
+| 필드                      | 용도                   |
+| ------------------------- | ---------------------- |
+| `metadata.pageName`       | 페이지 제목            |
+| `nodes[].type`            | common/section 구분    |
+| `nodes[].name`            | 컴포넌트/섹션 이름     |
+| `nodes[].id`              | 섹션 식별자            |
+| `nodes[].order`           | 배치 순서              |
 
 ---
 
-### Step 2: 공통 컴포넌트 분류
+### Step 2: 노드 분류 (v5 스키마 기반)
 
-`commonComponents`를 이름으로 분류:
+`nodes` 배열을 `order` 기준으로 정렬 후 분류:
 
-| 이름 패턴 | 배치 위치 |
-| --------- | --------- |
-| Navigation, Navbar, Header | body 시작 직후 |
-| Footer | body 종료 직전 |
+| 조건 | 배치 위치 |
+| ---- | --------- |
+| `type: "common"` + name에 "navbar" 포함 | body 시작 직후 (header 영역) |
+| `type: "common"` + name에 "footer" 포함 | body 종료 직전 (footer 영역) |
+| `type: "section"` | main 내부 (order 순서대로) |
+
+### Navbar 오버레이 배치 규칙 (중요)
+
+Navbar는 첫 번째 섹션 위에 **overlay**로 배치됩니다:
+
+- Navbar: `position: fixed; top: 0; z-index: 1000;`
+- 첫 번째 섹션(Hero 등)은 화면 최상단부터 시작
+- Navbar가 첫 번째 섹션 위에 겹쳐짐
+- **첫 번째 섹션에 padding-top 추가하지 않음**
+
+이 규칙은 navbar가 투명/반투명 배경인 경우 Hero 이미지가 navbar 뒤로 보여야 하기 때문입니다.
 
 ---
 
@@ -102,7 +115,7 @@ Glob {pageName}/*.php
 정렬 규칙:
 
 - 파일명 prefix 숫자순 (01-, 02-, ...)
-- 체크리스트 `sections[].order`와 매칭 확인
+- 체크리스트 `nodes[].order`와 매칭 확인
 
 ---
 
@@ -133,8 +146,10 @@ Glob {pageName}/*.php
   <link rel="stylesheet" href="css/{pageName}.css">
 </head>
 <body>
-  <!-- Header Components -->
-  <?php include_once 'includes/{header-component-filename}.php'; ?>
+  <!-- Header Components (Navbar) -->
+  <?php include_once 'includes/{navbar-filename}.php'; ?>
+  <!-- Additional navbar components if any (e.g., navbar-index) -->
+  <?php include_once 'includes/{navbar-index-filename}.php'; ?>
 
   <main class="page-{pageName}">
     <!-- Section 1: {section.name} (id: {section.id}) -->
@@ -147,7 +162,7 @@ Glob {pageName}/*.php
   </main>
 
   <!-- Footer Components -->
-  <?php include_once 'includes/{footer-component-filename}.php'; ?>
+  <?php include_once 'includes/{footer-filename}.php'; ?>
 
   <!-- Scripts -->
   <script src="js/common.js"></script>
@@ -228,11 +243,23 @@ failed|{ISO timestamp}|{error reason}
 <?php include_once 'includes/{component-filename}.php'; ?>
 ```
 
-**파일명은 체크리스트 `commonComponents[].name` 기반으로 생성:**
+**파일명은 체크리스트 `nodes[].name` 기반으로 생성:**
 - `Navbar` → `includes/navbar.php`
+- `Navbar_index` → `includes/navbar-index.php`
 - `Footer` → `includes/footer.php`
 
 이유: 여러 페이지에서 재사용, 수정 시 한 곳만 변경
+
+### Navbar 계열 배치 순서
+
+여러 navbar 관련 컴포넌트가 있을 경우 `order` 순서대로 배치:
+
+```php
+<!-- order: 1 -->
+<?php include_once 'includes/navbar.php'; ?>
+<!-- order: 2 -->
+<?php include_once 'includes/navbar-index.php'; ?>
+```
 
 ---
 

@@ -13,6 +13,8 @@ You are a Common Component Merger Agent. Your job is to consolidate duplicate co
 
 - **프로젝트 구조**: `.claude/docs/project-structure.md`
   - 파일명 변환 규칙 참조 (Figma 컴포넌트명 → PHP 파일명)
+- **체크리스트 스키마**: `.claude/docs/checklist-schema.md`
+  - v5 스키마의 nodes 배열 구조 이해
 
 ---
 
@@ -42,6 +44,38 @@ You are a Common Component Merger Agent. Your job is to consolidate duplicate co
 
 `_common_component.json` 파일에서 **동일하지만 다르게 표기된 컴포넌트**를 찾아 병합합니다.
 
+## 입력 스키마 (v5)
+
+체크리스트 파일들은 v5 스키마를 사용합니다:
+
+```json
+{
+  "$schema": "checklist-v5",
+  "metadata": { ... },
+  "nodes": [
+    {
+      "id": "navbar",
+      "type": "common",
+      "name": "Navbar",
+      "nodeId": "2413:18106",
+      "order": 1
+    },
+    {
+      "id": "header-section",
+      "type": "section",
+      "name": "Header Section",
+      "nodeId": "2413:12134",
+      "order": 3
+    },
+    ...
+  ]
+}
+```
+
+**추출 대상**: `type: "common"`인 노드만 추출
+
+---
+
 ## 중복 판단 기준
 
 다음 패턴들은 **동일한 컴포넌트**로 간주:
@@ -61,11 +95,20 @@ You are a Common Component Merger Agent. Your job is to consolidate duplicate co
 
 ## 작업 프로세스
 
-### 1단계: 파일 읽기
+### 1단계: 체크리스트 파일 읽기
 
-`.claude/checklist/_common_component.json` 파일을 읽습니다.
+`.claude/checklist/*.json` 파일들을 읽습니다 (_common_component.json 제외).
 
-### 2단계: 중복 식별
+### 2단계: 공통 컴포넌트 추출
+
+각 체크리스트에서 `nodes` 배열 중 `type: "common"`인 노드만 추출:
+
+```python
+# v5 스키마에서 공통 컴포넌트 추출
+common_nodes = [node for node in data.get('nodes', []) if node.get('type') == 'common']
+```
+
+### 3단계: 중복 식별
 
 각 컴포넌트의 `name` 필드를 분석하여 동일 컴포넌트 그룹을 식별합니다.
 
@@ -79,7 +122,7 @@ You are a Common Component Merger Agent. Your job is to consolidate duplicate co
 "Navbar_index" → "Navbar_index" (별개)
 ```
 
-### 3단계: 병합
+### 4단계: 병합
 
 각 그룹을 하나의 항목으로 통합:
 
@@ -89,7 +132,7 @@ You are a Common Component Merger Agent. Your job is to consolidate duplicate co
 3. **occurrences**: 모든 출처 정보 합침 (중복 제거)
    - `page`, `nodeId`, `fileKey` 필드 필수 보존
 
-### 4단계: 파일 덮어쓰기
+### 5단계: 파일 덮어쓰기
 
 병합된 결과로 `_common_component.json`를 덮어씁니다.
 
@@ -110,12 +153,12 @@ You are a Common Component Merger Agent. Your job is to consolidate duplicate co
         {
           "page": "Home",
           "nodeId": "143:644",
-          "fileKey": "YOUR_FILE_KEY",
+          "fileKey": "YOUR_FILE_KEY"
         },
         {
           "page": "About NIBEC",
           "nodeId": "143:644",
-          "fileKey": "YOUR_FILE_KEY",
+          "fileKey": "YOUR_FILE_KEY"
         }
       ]
     },

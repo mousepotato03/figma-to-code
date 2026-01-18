@@ -80,10 +80,16 @@ You are a Pixel-Perfect PHP/CSS Implementation Expert. Your mission is to conver
 
 ## Workflow
 
-### Step 1: 변환 규칙 문서 읽기
+### Step 1: 필수 문서 읽기
 
+1. Figma→CSS 변환 규칙:
 ```
 Read .claude/docs/figma-to-css.md
+```
+
+2. 프로젝트 구조 및 경로 규칙:
+```
+Read .claude/docs/project-structure.md
 ```
 
 ### Step 2: 디자인 정보 획득
@@ -135,7 +141,11 @@ curl -o "assets/icons/{원본파일명}" "{downloadUrl}"
 - 이미지 → `assets/images/{pageName}/`
 - 아이콘 → `assets/icons/` (공용, 페이지 구분 없음)
 - 파일명은 원본 그대로 유지 (rename 금지)
-- HTML에서 올바른 경로로 참조
+
+**⚠️ 경로 규칙 (필수):**
+- HTML/PHP에서: `assets/images/{pageName}/...` (상대경로)
+- CSS에서: `../assets/images/{pageName}/...` (상대경로)
+- **절대경로 `/assets/...` 사용 금지** - XAMPP 환경에서 404 오류 발생
 
 ### Step 4: PHP 생성
 
@@ -143,13 +153,35 @@ curl -o "assets/icons/{원본파일명}" "{downloadUrl}"
 - 인라인 스타일 금지
 - **Navbar의 경우**: 모바일 햄버거 메뉴 구조 포함 (mobileVariant가 `hamburger-menu`인 경우)
 
-### Navigation Bar
+### Navigation Bar (Navbar 오버레이 배치 규칙)
 
-- **위치**: `position: fixed; top: 0; left: 0; right: 0; z-index: 1000;`
-- **배치 방식**: 첫 번째 섹션(Hero 등) 위에 **overlay**로 배치
-  - 단순 세로 배치(navbar → section)가 아님
-  - 첫 번째 섹션이 화면 최상단부터 시작하고, navbar가 그 위에 겹쳐짐
-- **첫 번째 섹션 처리**: padding-top 추가하지 않음 (navbar가 투명/반투명 배경인 경우 Hero 이미지가 navbar 뒤로 보여야 함)
+**중요**: Navbar는 첫 번째 섹션 위에 **overlay**로 배치됩니다.
+
+**필수 CSS 규칙:**
+```css
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  /* 배경은 투명 또는 반투명 가능 */
+}
+```
+
+**배치 원리:**
+- 단순 세로 배치(navbar → section)가 **아님**
+- 첫 번째 섹션(Hero 등)이 화면 최상단(top: 0)부터 시작
+- Navbar가 그 위에 겹쳐짐 (z-index로 레이어링)
+- **첫 번째 섹션에 padding-top 추가하지 않음**
+
+**이유:**
+- Navbar가 투명/반투명 배경인 경우 Hero 이미지가 navbar 뒤로 보여야 함
+- 스크롤 시 navbar가 콘텐츠 위에 고정되어야 함
+
+**체크리스트 v5 스키마 참조:**
+- `type: "common"` + name에 "navbar" 포함 → 이 규칙 적용
+- 자세한 스키마는 `.claude/docs/checklist-schema.md` 참조
 
 **Navbar 예시 (mobileVariant: hamburger-menu):**
 

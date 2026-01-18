@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 """
-공통 컴포넌트 병합 스크립트 (JSON 버전)
+공통 컴포넌트 병합 스크립트 (v5 스키마 지원)
 
-체크리스트 JSON 파일들에서 공통 컴포넌트를 추출하여
+체크리스트 JSON 파일들에서 공통 컴포넌트(type: "common")를 추출하여
 _common_component.json으로 통합합니다.
 """
 
@@ -12,8 +12,19 @@ from pathlib import Path
 from utils import find_checklist_files, load_json_safe, save_json
 
 
-def extract_common_components(data: dict) -> list[dict]:
-    """JSON 데이터에서 commonComponents 추출"""
+def extract_common_components_v5(data: dict) -> list[dict]:
+    """
+    v5 스키마: nodes 배열에서 type='common'인 항목 추출
+    v4 스키마 (하위 호환): commonComponents 배열 추출
+    """
+    # v5 스키마 확인
+    if data.get('$schema') == 'checklist-v5' and 'nodes' in data:
+        return [
+            node for node in data.get('nodes', [])
+            if node.get('type') == 'common'
+        ]
+
+    # v4 스키마 (하위 호환)
     return data.get('commonComponents', [])
 
 
@@ -31,13 +42,13 @@ def merge_components(all_data: list[dict]) -> list[dict]:
 
     for page_data in all_data:
         page_name = page_data['page']
-        file_key = page_data.get('fileKey', '')  # 페이지 메타데이터에서 fileKey 가져옴
+        file_key = page_data.get('fileKey', '')
         for comp in page_data['components']:
             name = comp.get('name', 'Unknown')
             if name not in merged:
                 merged[name] = {
                     'name': name,
-                    'nodeId': comp.get('nodeId', ''),  # 첫 번째 occurrence의 nodeId를 대표로 사용
+                    'nodeId': comp.get('nodeId', ''),
                     'occurrences': [],
                 }
 
@@ -51,24 +62,6 @@ def merge_components(all_data: list[dict]) -> list[dict]:
             merged[name]['occurrences'].append(occurrence)
 
     return list(merged.values())
-
-
-def update_source_file(filepath: Path, data: dict) -> bool:
-    """
-    원본 파일의 commonComponents를 참조 형태로 변환
-    reference 필드 추가하여 통합됨을 표시
-    """
-    modified = False
-
-    for comp in data.get('commonComponents', []):
-        if comp.get('reference') != '_common_component.json':
-            comp['reference'] = '_common_component.json'
-            modified = True
-
-    if modified:
-        return save_json(filepath, data)
-
-    return False
 
 
 def generate_output(merged: list[dict], page_count: int) -> dict:
@@ -100,27 +93,23 @@ def main():
         sys.exit(0)
 
     all_data = []
-    modified_files = []
 
     for filepath in files:
         data = load_json_safe(filepath)
 
         if data:
-            components = extract_common_components(data)
+            # v5 또는 v4 스키마에서 공통 컴포넌트 추출
+            components = extract_common_components_v5(data)
             metadata = data.get('metadata', {})
             page_name = metadata.get('pageName', filepath.stem)
-            file_key = metadata.get('fileKey', '')  # 페이지 메타데이터에서 fileKey 추출
+            file_key = metadata.get('fileKey', '')
 
             if components:
                 all_data.append({
                     'page': page_name,
-                    'fileKey': file_key,  # fileKey 포함
+                    'fileKey': file_key,
                     'components': components
                 })
-
-                # 원본 파일 업데이트 (참조 형태로 변환)
-                if update_source_file(filepath, data):
-                    modified_files.append(filepath.name)
 
     if not all_data:
         print("No common components found.")
@@ -136,7 +125,7 @@ def main():
 
     # 결과 출력
     print(f"Done: _common_component.json")
-    print(f"Components: {len(merged)} | Modified files: {len(modified_files)}")
+    print(f"Components: {len(merged)}")
 
 
 if __name__ == "__main__":

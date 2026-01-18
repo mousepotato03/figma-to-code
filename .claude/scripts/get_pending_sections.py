@@ -105,9 +105,13 @@ def get_pending_sections(target_page: str = None):
 
         metadata = data.get("metadata", {})
         file_key = metadata.get("fileKey", "")
-        sections = data.get("sections", [])
+        # nodes 또는 sections 키 지원
+        sections = data.get("nodes", data.get("sections", []))
 
         for section in sections:
+            # common 타입은 건너뜀 (section 타입만 처리)
+            if section.get("type") == "common":
+                continue
             name = section.get("name", "")
             node_id = section.get("nodeId", "")
             order = section.get("order", 0)

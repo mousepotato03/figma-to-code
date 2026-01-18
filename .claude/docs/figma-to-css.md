@@ -8,14 +8,8 @@
 
 `get_design_context`가 반환하는 Tailwind 클래스의 값을 **절대 임의로 변경하지 마세요.**
 
-- `flex` → `display: flex`
-- `flex-row` → `flex-direction: row`
-- `flex-col` → `flex-direction: column`
-- `gap-[35px]` → `gap: 2.1875rem`
-- `items-center` → `align-items: center`
-- `justify-between` → `justify-content: space-between`
-
-이 문서의 모든 규칙은 **Figma API가 명시하지 않은 경우**에만 적용되는 fallback입니다.
+**단, 다음 예외 적용:**
+- 섹션 9의 "이미지 Crop/Mask 처리 규칙"에 해당하는 경우, 하드코딩된 좌표값 대신 정상적인 이미지 배치 방식을 사용합니다.
 
 ---
 
@@ -35,13 +29,12 @@
 
 피그마의 Auto Layout 속성을 CSS로 변환할 때는 다음 매핑 테이블을 따릅니다.
 
-| 피그마 속성 (Figma) | CSS 속성 (CSS)                   | 구현 가이드 및 주의사항                                                                                                               |
-| :------------------ | :------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------ |
-| **Direction**       | `flex-direction`                 | **Figma API 값 그대로 사용.** 반응형 미디어쿼리에서만 Mobile First 원칙 적용 (좁은 화면에서 `column` 전환 고려).                      |
-| **Hug Contents**    | `width: max-content`             | 상황에 따라 `fit-content` 사용 가능.                                                                                                  |
-| **Fill Container**  | `flex: 1`                        | **필수:** 자식 요소가 컨테이너를 뚫고 나가는 것을 방지하기 위해 `min-width: 0` (가로) 또는 `min-height: 0` (세로)를 반드시 함께 선언. |
-| **Space Between**   | `justify-content: space-between` | **경고:** 줄바꿈(Wrap)이 발생하는 경우 사용 금지 (하단 2.2 참조).                                                                     |
-| **Item Spacing**    | `gap`                            | `margin`으로 간격을 벌리는 방식 금지. `rem` 단위 변환 권장.                                                                           |
+| 피그마 속성 (Figma) | CSS 속성 (CSS) | 구현 가이드 및 주의사항 |
+| --- | --- | --- |
+| **Hug Contents** | `width: max-content` | 상황에 따라 `fit-content` 사용 가능. |
+| **Fill Container** | `flex: 1` | **필수:** 자식 요소가 컨테이너를 뚫고 나가는 것을 방지하기 위해 `min-width: 0` (가로) 또는 `min-height: 0` (세로)를 반드시 함께 선언. |
+| **Space Between** | `justify-content: space-between` | **경고:** 줄바꿈(Wrap)이 발생하는 경우 사용 금지 |
+| **Item Spacing** | `gap` | `margin`으로 간격을 벌리는 방식 금지.|
 
 ### 2.2 줄바꿈(Wrap) 처리 전략
 
@@ -49,8 +42,8 @@
 
 - **금지:** Wrapping Collection(카드 리스트 등)에 `justify-content: space-between` 사용 금지.
 - **해결:**
-  1.  **CSS Grid 사용 (권장):** `grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));`.
-  2.  **Flexbox 대안:** `gap`을 사용하고 마지막 요소에 `margin-right: auto` 적용.
+    1. **CSS Grid 사용 (권장):** `grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));`.
+    2. **Flexbox 대안:** `gap`을 사용하고 마지막 요소에 `margin-right: auto` 적용.
 
 ---
 
@@ -62,8 +55,8 @@
 
 - **적용 대상:** 24px 이상의 폰트 사이즈 및 주요 레이아웃 간격.
 - **공식:** $Size = clamp(MIN, SLOPE + INTERCEPT, MAX)$.
-  - _예시:_ 모바일(375px)에서 24px, 데스크톱(1920px)에서 40px인 경우
-  - `font-size: clamp(1.5rem, 1.03vw + 1.25rem, 2.5rem);`.
+    - *예시:* 모바일(375px)에서 24px, 데스크톱(1920px)에서 40px인 경우
+    - `font-size: clamp(1.5rem, 1.03vw + 1.25rem, 2.5rem);`.
 
 ---
 
@@ -73,13 +66,9 @@
 
 - **문제:** 피그마는 행간을 px로 정의하지만, CSS에서 절대 단위(px, rem) 행간은 상속 문제를 일으킵니다.
 - **규칙:** 반드시 **단위 없는 비율(Unitless Ratio)**로 변환합니다.
-  - _공식:_ `피그마 행간(px) / 피그마 폰트 사이즈(px) = CSS 값`
-  - _예시:_ 16px/24px → `line-height: 1.5;`
+    - *공식:* `피그마 행간(px) / 피그마 폰트 사이즈(px) = CSS 값`
+    - *예시:* 16px/24px → `line-height: 1.5;`
 
-### 4.2 수직 정렬 (Vertical Alignment)
-
-- **규칙:** 텍스트 수직 정렬을 위해 `padding-top` 등을 미세 조정하여 픽셀을 맞추지 마십시오. 브라우저 렌더링 엔진 차이로 인해 실패할 확률이 높습니다.
-- **해결:** Flexbox의 `align-items: center`를 사용하여 브라우저가 텍스트 렌더링 높이를 기준으로 중앙을 잡도록 유도합니다.
 
 ---
 
@@ -88,8 +77,8 @@
 뷰포트(화면 전체)가 아닌, 컴포넌트가 놓인 **부모 공간의 크기**에 반응해야 합니다.
 
 - **규칙:**
-  - **Media Query (@media):** 전체 페이지 레이아웃 변경(사이드바 숨김 등)에만 사용.
-  - **Container Query (@container):** 컴포넌트 내부의 배치 변경(카드형 UI 스택 변경 등)에 사용.
+    - **Media Query (@media):** 전체 페이지 레이아웃 변경(사이드바 숨김 등)에만 사용.
+    - **Container Query (@container):** 컴포넌트 내부의 배치 변경(카드형 UI 스택 변경 등)에 사용.
 - **단위:** 유동적 컴포넌트 내부에서는 `vw` 대신 `cqi` (Container Query Inline-size) 단위를 사용합니다.
 
 ```css
@@ -101,6 +90,7 @@
     flex-direction: column;
   } /* 공간이 좁으면 세로 배치 */
 }
+
 ```
 
 ---
@@ -109,49 +99,176 @@
 
 Figma의 부모-자식 관계는 HTML에서도 **반드시 유지**해야 합니다. Figma API(`get_design_context`)가 반환하는 React+Tailwind 코드의 중첩 구조를 그대로 HTML로 변환하세요.
 
-### 6.1 필수 중첩 조건
+---
 
-다음 조건 중 하나라도 해당되면 HTML에서 부모-자식 구조를 **반드시** 유지:
+## 7. Overflow 및 Clipping 규칙 (Overflow & Clipping)
 
-| 조건                 | 설명                                                                                                    |
-| -------------------- | ------------------------------------------------------------------------------------------------------- |
-| **투명도 배경 조합** | 부모에 불투명 배경(`bg-black`, `bg-[#xxx]`)이 있고, 자식에 투명도 배경(`rgba()`, `opacity`)이 있는 경우 |
-| **overflow: hidden** | 부모가 `overflow: hidden`인 경우, 자식이 잘림 처리됨                                                    |
-| **시각적 종속 관계** | 부모의 그림자, 테두리, 둥근 모서리가 자식에 영향을 미치는 경우                                          |
+### 7.1 Clip Content 변환 원칙
 
-### 6.2 변환 예시
+피그마의 "Clip content" 옵션이 켜져 있어도 **무조건 `overflow: hidden`을 적용하지 마세요.**
 
-**Figma API 응답 (React+Tailwind):**
+| 요소 유형 | overflow 적용 | 이유 |
+|-----------|---------------|------|
+| 이미지 컨테이너 | ✅ `overflow: hidden` | 이미지가 영역을 벗어나면 잘라야 함 |
+| 텍스트 컨테이너 | ❌ 금지 | 반응형에서 텍스트 줄 수가 변함 |
+| 데코레이션/애니메이션 | ✅ 허용 | 시각적 효과 제어 목적 |
+| 레이아웃 섹션 | ⚠️ 주의 | 자식 요소가 동적 높이면 금지 |
 
-```jsx
-<div className="bg-black">
-  {" "}
-  {/* 부모: 검정 배경 */}
-  <div className="bg-[rgba(255,255,255,0.1)]">
-    {" "}
-    {/* 자식: 10% 흰색 */}
-    ...
-  </div>
-</div>
+### 7.2 텍스트 컨테이너 규칙
+
+**텍스트를 포함하는 컨테이너에는 절대로:**
+1. `overflow: hidden` 사용 금지
+2. `height` 고정값 사용 금지 (max-height는 허용)
+3. 부모-자식 모두에 overflow 중첩 적용 금지
+
+**대신 사용할 것:**
+- `min-height`: 최소 높이 보장
+- `height: auto`: 내용물에 따른 유동 높이
+
+```css
+/* ❌ 잘못된 예 - 텍스트가 잘릴 수 있음 */
+.text-container {
+  height: 25rem;
+  overflow: hidden;
+}
+
+/* ✅ 올바른 예 - 텍스트 양에 따라 확장 */
+.text-container {
+  min-height: 25rem;
+  height: auto;
+}
 ```
 
-**✅ 올바른 HTML 변환:**
+---
 
-```html
-<div class="parent">
-  <!-- background: #000 -->
-  <div class="child">
-    <!-- background: rgba(255,255,255,0.1) -->
-    ...
-  </div>
-</div>
+## 8. 고정 크기 vs 유동 크기 결정 기준 (Fixed vs Fluid Sizing)
+
+### 8.1 높이(Height) 결정 매트릭스
+
+| 컨테이너 내용물 | 권장 높이 설정 | 예시 |
+|----------------|----------------|------|
+| 텍스트만 | `height: auto` + `min-height` | 타이틀, 본문 영역 |
+| 이미지만 | `height` 고정 또는 `aspect-ratio` | 썸네일, 배너 |
+| 텍스트 + 이미지 혼합 | `min-height` + `height: auto` | 카드 컴포넌트 |
+| 비디오/iframe | `padding-bottom` 비율 또는 `aspect-ratio` | 비디오 플레이어 |
+
+### 8.2 반응형 높이 오버라이드 규칙
+
+미디어 쿼리에서 `min-height`를 사용할 때, 기존 `height` 고정값을 반드시 해제하세요:
+
+```css
+/* ❌ 잘못된 예 - height: 25rem이 여전히 적용됨 */
+.container { height: 25rem; }
+@media (max-width: 768px) {
+  .container { min-height: 12.5rem; }
+}
+
+/* ✅ 올바른 예 - 기존 고정값 해제 */
+.container { height: 25rem; }
+@media (max-width: 768px) {
+  .container {
+    height: auto;
+    min-height: 12.5rem;
+  }
+}
 ```
 
-**❌ 잘못된 HTML 변환 (금지):**
+### 8.3 속성 매핑 테이블 보강
 
-```html
-<div class="parent"></div>
-<!-- 여기서 닫힘 -->
-<div class="child">...</div>
-<!-- 형제로 분리됨 - rgba가 제대로 렌더링 안됨! -->
+| 피그마 속성 (Figma) | CSS 속성 (CSS) | 구현 가이드 및 주의사항 |
+|---------------------|----------------|-------------------------|
+| **Clip content (ON)** | 상황별 판단 필요 | 이미지 컨테이너에만 `overflow: hidden` 적용. 텍스트 컨테이너는 금지. |
+| **Fixed height** | `height` 또는 `min-height` | 텍스트 컨테이너는 `min-height` + `height: auto` 조합 권장 |
+
+---
+
+## 9. 이미지 Crop/Mask 처리 규칙 (Image Crop & Mask Handling)
+
+### 9.1 문제 상황
+
+디자이너가 Figma에서 원본 이미지의 **특정 영역만** 보여주기 위해:
+- 이미지를 큰 음수 좌표(`top: -200px`, `left: -150px` 등)로 배치
+- 부모 컨테이너로 clip 처리
+- CSS mask를 사용하여 특정 영역만 노출
+
+이러한 하드코딩된 좌표값을 그대로 CSS로 변환하면 레이아웃이 깨집니다.
+
+### 9.2 판별 기준
+
+다음 조건 중 하나라도 해당하면 **"Crop된 이미지"**로 판단:
+
+| 조건 | 예시 |
+|------|------|
+| 이미지의 top/left가 **-50px 이하** | `top: -213px`, `left: -140px` |
+| 이미지 크기가 **컨테이너보다 150% 이상** | 컨테이너 1920px, 이미지 2500px |
+| **mask-position**에 음수 값 존재 | `mask-position: -81px -7px` |
+| 이미지가 **부모 영역 밖으로 크게 벗어남** | `width: 200%`, `height: 130%` |
+
+### 9.3 처리 규칙
+
+**Crop된 이미지로 판단되면:**
+
+1. **하드코딩된 좌표값 무시** - 음수 top/left, mask-position 등 사용하지 않음
+
+2. **정상적인 이미지 배치 적용:**
+   ```css
+   .image-container {
+     position: relative;
+     overflow: hidden;
+   }
+
+   .image-container img {
+     width: 100%;
+     height: 100%;
+     object-fit: cover;
+     object-position: center; /* 또는 디자인 의도에 맞게 조정 */
+   }
+   ```
+
+3. **마커 파일에 후처리 필요 메모 추가:**
+   ```
+   completed|{timestamp}|{php}|{css}|IMAGE_CROP_NEEDED:{이미지파일명}
+   ```
+
+### 9.4 예외 케이스
+
+다음 경우는 **절대 좌표 사용 허용:**
+
+| 케이스 | 설명 |
+|--------|------|
+| 장식 요소 | 배경 패턴, 그라데이션 오버레이 등 |
+| 의도적 오버플로우 | 카드 모서리를 벗어나는 배지 등 |
+| 애니메이션 시작점 | 슬라이드 인 등 모션 효과 |
+
+### 9.5 올바른 구현 예시
+
+**❌ 잘못된 예 - Figma 값 그대로 사용:**
+```css
+.about-visual-masked {
+  position: absolute;
+  top: -213px;
+  left: -140px;
+  width: 1810px;
+  height: 1207px;
+  mask-image: url('mask.png');
+  mask-size: 1938px 1304px;
+  mask-position: -81px -7px;
+}
 ```
+
+**✅ 올바른 예 - 정상적인 배치:**
+```css
+.about-visual-bg {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.about-visual-bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+```
+
