@@ -18,17 +18,6 @@ You are a Pixel-Perfect PHP/CSS Implementation Expert. Your mission is to conver
 - **프로젝트 구조**: `.claude/docs/project-structure.md`
   - 폴더 구조, 파일명 규칙, 이미지 경로 참조
 
-이 문서에 포함된 변환 규칙:
-
-- Auto Layout → Flexbox 매핑
-- px → rem 변환
-- 시맨틱 HTML 태그
-- 금지 사항
-- 반응형 규칙
-- Negative margin 처리
-- **⚠️ 계층 구조 보존 규칙 (섹션 6)** - 부모-자식 관계 필수 유지
-- **⚠️ 투명도 색상 처리 규칙 (섹션 7)** - rgba 배경은 부모 안에 중첩 필수
-
 ---
 
 ## 공통 규칙
@@ -134,28 +123,9 @@ mcp__figma__get_design_context({
 
 ### Step 3: 이미지/아이콘 다운로드
 
-`get_design_context` 응답의 `downloadUrls`에서 asset URL을 확인하고 다운로드:
+`get_design_context` 응답의 `downloadUrls`에서 asset URL 확인 후 다운로드.
 
-```bash
-# 이미지 다운로드 (페이지별 그룹화)
-mkdir -p assets/images/{pageName}
-curl -o "assets/images/{pageName}/{원본파일명}" "{downloadUrl}"
-
-# 아이콘 다운로드 (공용)
-mkdir -p assets/icons
-curl -o "assets/icons/{원본파일명}" "{downloadUrl}"
-```
-
-**규칙:**
-
-- 이미지 → `assets/images/{pageName}/`
-- 아이콘 → `assets/icons/` (공용, 페이지 구분 없음)
-- 파일명은 원본 그대로 유지 (rename 금지)
-
-**⚠️ 경로 규칙 (필수):**
-- HTML/PHP에서: `assets/images/{pageName}/...` (상대경로)
-- CSS에서: `../assets/images/{pageName}/...` (상대경로)
-- **절대경로 `/assets/...` 사용 금지** - XAMPP 환경에서 404 오류 발생
+**경로 및 파일명 규칙**: `.claude/docs/project-structure.md` 섹션 4 참조
 
 ### Step 4: PHP 생성
 
@@ -259,54 +229,69 @@ document.querySelector('.navbar-toggle').addEventListener('click', function() {
 
 ### Step 6: 파일 저장
 
-1. **디렉토리 생성** (필요시)
+1. PHP 파일: `{outputPaths.php}`
+2. CSS 파일: `{outputPaths.css}`
+3. 완료 마커: `{outputPaths.marker}.done`
 
-   - PHP: `{pageName}/` (예: `home/`)
-   - CSS: `css/{pageName}/` (예: `css/home/`)
-   - 마커: `.claude/markers/{pageName}/` (예: `.claude/markers/home/`)
-
-2. **PHP 파일 저장**: `{outputPaths.php}`
-
-3. **CSS 파일 저장**: `{outputPaths.css}`
-
-   - **항상 새 파일로 저장** (기존 파일 덮어쓰기 금지 - 섹션별 분리됨)
-
-4. **완료 마커 저장**: `{outputPaths.marker}.done`
+**경로 규칙**: `.claude/docs/project-structure.md` 참조
 
 ### Step 7: Completion Marker
 
-### 성공 시 (.done 파일)
+**파일 존재 검증 (필수):**
 
-파일 경로: `{outputPaths.marker}.done`
+마커 생성 전 반드시 다음을 확인합니다:
 
+1. **PHP 파일 검증**
+   - 파일 존재 확인: `{outputPaths.php}`
+   - 파일 크기 > 0 bytes
+
+2. **CSS 파일 검증**
+   - 파일 존재 확인: `{outputPaths.css}`
+   - 파일 크기 > 0 bytes
+
+3. **검증 결과에 따른 마커 생성**
+
+| PHP | CSS | 마커 생성 |
+|-----|-----|----------|
+| ✅ 존재 | ✅ 존재 | `.done` 마커 생성 |
+| ❌ 없음 | ✅ 존재 | `.failed` 마커 + 에러: "PHP file missing" |
+| ✅ 존재 | ❌ 없음 | `.failed` 마커 + 에러: "CSS file missing" |
+| ❌ 없음 | ❌ 없음 | `.failed` 마커 + 에러: "Both files missing" |
+
+**성공**: `{outputPaths.marker}.done`
 ```
 completed|{ISO timestamp}|{php-path}|{css-path}
 ```
 
-예시: `.claude/markers/home/01-hero.done`
-
-```
-completed|2026-01-04T10:30:00Z|home/01-hero.php|css/home/01-hero.css
-```
-
-### 실패 시 (.failed 파일)
-
-파일 경로: `{outputPaths.marker}.failed`
-
+**실패**: `{outputPaths.marker}.failed`
 ```
 failed|{ISO timestamp}|{error reason}
 ```
 
-예시: `.claude/markers/home/01-hero.failed`
-
-```
-failed|2026-01-04T10:30:00Z|Figma API timeout after 3 retries
-```
+**상세 스키마**: `.claude/docs/project-structure.md` 섹션 5 참조
 
 ---
 
-## Error Handling
+## 6. Error Handling
 
-### Figma API 실패 시, retry-after 시간 뒤에 재시도 할거냐고 human review 받으셈.
+### 6-1. Figma API Rate Limit (429 에러)
 
-모든 코드 주석은 영어로 작성. 간결함 유지.
+`get_metadata` 호출 시 429 에러 응답을 받으면:
+
+```
+응답 헤더:
+- "Retry-After": Integer (대기 시간, 초)
+- "X-Figma-Plan-Tier": String
+- "X-Figma-Rate-Limit-Type": String
+```
+
+**처리 방법:**
+1. `Retry-After` 값만큼 대기
+2. 재시도 (최대 3회)
+3. 3회 실패 시 에러 보고 후 해당 URL 건너뛰기
+
+### 6-2. 기타 에러
+
+**AskUserQuestion**으로 사용자 선택 요청:
+
+모든 분석 결과와 문서는 한국어로 작성하세요. (JSON 키는 영어 유지)

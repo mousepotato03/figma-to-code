@@ -136,11 +136,25 @@ Glob {pageName}/*.php
 - 파일명 prefix 숫자순 (01-, 02-, ...)
 - 체크리스트 `nodes[].position` (flow-N)과 매칭 확인
 
-**파일명 ↔ position 매핑:**
-- `flow-1` → `01-{slug}.php`
-- `flow-2` → `02-{slug}.php`
-- `fixed-top` → `includes/navbar.php` (include 사용)
-- `fixed-bottom-right` → `includes/fab-{slug}.php`
+### 파일명 ↔ position 매핑
+
+| position | flowNum | PHP 경로 | CSS 경로 |
+|----------|---------|----------|----------|
+| `flow-1` | 01 | `{pageName}/01-{slug}.php` | `css/{pageName}/01-{slug}.css` |
+| `flow-2` | 02 | `{pageName}/02-{slug}.php` | `css/{pageName}/02-{slug}.css` |
+| `flow-N` | N (2자리) | `{pageName}/{NN}-{slug}.php` | `css/{pageName}/{NN}-{slug}.css` |
+| `fixed-top` | - | `includes/{slug}.php` | `css/common/{slug}.css` |
+| `fixed-bottom` | - | `includes/{slug}.php` | `css/common/{slug}.css` |
+| `fixed-bottom-right` | - | `includes/fab-{slug}.php` | `css/common/fab-{slug}.css` |
+| `fixed-bottom-left` | - | `includes/fab-{slug}.php` | `css/common/fab-{slug}.css` |
+
+**예시 (home 페이지):**
+
+| 섹션 | position | PHP | CSS |
+|------|----------|-----|-----|
+| Hero Section | flow-1 | home/01-hero-section.php | css/home/01-hero-section.css |
+| About Section | flow-2 | home/02-about-section.php | css/home/02-about-section.css |
+| Footer | flow-3 | home/03-footer.php | css/home/03-footer.css |
 
 ---
 

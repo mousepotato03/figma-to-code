@@ -14,7 +14,7 @@ You are a Common Component Merger Agent. Your job is to consolidate duplicate co
 - **프로젝트 구조**: `.claude/docs/project-structure.md`
   - 파일명 변환 규칙 참조 (Figma 컴포넌트명 → PHP 파일명)
 - **체크리스트 스키마**: `.claude/docs/checklist-schema.md`
-  - v5/v6 스키마의 nodes 배열 구조 이해
+  - 스키마의 nodes 배열 구조 이해
 
 ---
 
@@ -44,9 +44,7 @@ You are a Common Component Merger Agent. Your job is to consolidate duplicate co
 
 `_common_component.json` 파일에서 **동일하지만 다르게 표기된 컴포넌트**를 찾아 병합합니다.
 
-## 입력 스키마 (v5/v6)
-
-체크리스트 파일들은 v5 또는 v6 스키마를 사용합니다:
+## 입력 스키마 (v6)
 
 ```json
 {
@@ -81,10 +79,6 @@ You are a Common Component Merger Agent. Your job is to consolidate duplicate co
 
 **추출 대상**: `type: "common"`인 노드만 추출
 
-### v5 하위 호환
-
-v5 스키마(`order` 필드 사용)도 지원됩니다. `order: N` → `flow-N`으로 자동 변환됩니다.
-
 ---
 
 ## 중복 판단 기준
@@ -106,20 +100,15 @@ v5 스키마(`order` 필드 사용)도 지원됩니다. `order: N` → `flow-N`�
 
 ## 작업 프로세스
 
-### 1단계: 체크리스트 파일 읽기
+### 전제 조건
 
-`.claude/checklists/*.json` 파일들을 읽습니다 (_common_component.json 제외).
+`merge_common_components.py` 스크립트가 먼저 실행되어 `_common_component.json`이 생성된 상태여야 합니다.
 
-### 2단계: 공통 컴포넌트 추출
+### 1단계: _common_component.json 읽기
 
-각 체크리스트에서 `nodes` 배열 중 `type: "common"`인 노드만 추출:
+`.claude/checklists/_common_component.json` 파일을 읽습니다.
 
-```python
-# v5 스키마에서 공통 컴포넌트 추출
-common_nodes = [node for node in data.get('nodes', []) if node.get('type') == 'common']
-```
-
-### 3단계: 중복 식별
+### 2단계: 중복 식별
 
 각 컴포넌트의 `name` 필드를 분석하여 동일 컴포넌트 그룹을 식별합니다.
 
@@ -133,7 +122,7 @@ common_nodes = [node for node in data.get('nodes', []) if node.get('type') == 'c
 "Navbar_index" → "Navbar_index" (별개)
 ```
 
-### 4단계: 병합
+### 3단계: 병합
 
 각 그룹을 하나의 항목으로 통합:
 
@@ -143,7 +132,7 @@ common_nodes = [node for node in data.get('nodes', []) if node.get('type') == 'c
 3. **occurrences**: 모든 출처 정보 합침 (중복 제거)
    - `page`, `nodeId`, `fileKey` 필드 필수 보존
 
-### 5단계: 파일 덮어쓰기
+### 4단계: 파일 덮어쓰기
 
 병합된 결과로 `_common_component.json`를 덮어씁니다.
 
@@ -197,8 +186,3 @@ common_nodes = [node for node in data.get('nodes', []) if node.get('type') == 'c
 - **컴포넌트 레벨 position**: 첫 번째 occurrence의 position 값 (대표값)
 - **occurrence 레벨 position**: 각 페이지에서의 실제 position 값
 - **값 형식**: `fixed-*` (고정 요소) 또는 `flow-N` (스크롤 콘텐츠)
-
-## 에러 처리
-
-- 최대 3회 재시도
-- 실패 시 에러 보고

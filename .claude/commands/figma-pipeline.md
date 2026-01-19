@@ -18,72 +18,56 @@ reset.css가 없으면 자동 생성됨
 
 # 2단계: Checklist 생성
 
-## 2-1. URL 데이터 로드
-
-`.claude/figma-urls.json`에서 URL 목록을 읽어와.
-
-전체 URL 사용
-
-## 2-2. 페이지 분석 (배치 병렬 실행)
-
-URL들을 10개씩 배치로 나누어 **병렬 실행** (시간 기반 연속 실행):
+## 실행 흐름
 
 ```
+# 설정
 BATCH_SIZE = 10
 BATCH_INTERVAL = 60  # 초
 
-batches = split(urls, BATCH_SIZE)  # URL을 10개씩 그룹화
+# 2-1. URL 로드
+urls = load(".claude/figma-urls.json")
+totalCount = len(urls)
+batches = split(urls, BATCH_SIZE)
 
+# 2-2. 페이지 분석 (배치 병렬)
 for i, batch in enumerate(batches):
-  1. 배치 내 모든 URL 병렬 실행:
-     for each URL in batch (parallel):
-       Task 도구 호출:
-         - subagent_type: "figma-page-analyzer"
-         - prompt: URL
-         - run_in_background: true
+  # 배치 내 병렬 실행
+  for url in batch (parallel):
+    Task(subagent_type="figma-page-analyzer", prompt=url, run_in_background=true)
 
-  2. if i < len(batches) - 1:  # 다음 배치가 있을 때만 대기
-     60초 대기:
-     ```bash
-     python -c "import time; time.sleep(60)"
-     ```
+  # 다음 배치 대기 (마지막 배치 제외)
+  if i < len(batches) - 1:
+    sleep(60)
 
-  3. 다음 배치로 진행
+# 분석 완료 대기 (반드시 포그라운드에서 실행. **백그라운드 실행 금지**)
+wait_files.py --path .claude/checklists --glob "*.json" --count {totalCount}
 
-# 모든 배치 실행 후
-4. 전체 완료 대기:
-   ```bash
-   python .claude/scripts/wait_files.py --path .claude/checklists --glob "*.json" --count {total_url_count} --timeout 120
-   ```
+# 2-3. 공통 컴포넌트 1차 병합
+python .claude/scripts/merge_common_components.py
+
+# 2-4. 공통 컴포넌트 중복 정리
+Task(subagent_type="common-component-merger")
 ```
 
 **중요: TaskOutput 호출 금지**
 
-## 2-3. 공통 컴포넌트 1차 병합 (순차 실행)
+## 세부 단계 설명
 
-2-2의 모든 체크리스트가 생성된 후에, 아래 파이썬 스크립트를 실행하여 공통 컴포넌트를 추출해줘:
+### 2-1. URL 데이터 로드
+- 소스: `.claude/figma-urls.json`
+- 전체 URL 사용
 
-```bash
-python .claude/scripts/merge_common_components.py
-```
+### 2-2. 페이지 분석
+- Task: `figma-page-analyzer`
+- 출력: `.claude/checklists/{pageName}.json`
 
-**동작**:
-- 각 체크리스트 JSON의 commonComponents를 참조 형태로 변환
-- `_common_component.json`에 모든 공통 컴포넌트 수집
+### 2-3. 공통 컴포넌트 1차 병합
+- 각 체크리스트의 `type: "common"` 노드 추출
+- 출력: `_common_component.json`
 
-**중요**: 이 단계는 반드시 2-2가 완료된 후에 실행
-
-## 2-4. 공통 컴포넌트 중복 정리
-
-2-3 완료 후, common-component-merger 에이전트를 실행해줘.
-
-```
-Task 도구 호출 시:
-- subagent_type: "common-component-merger"
-```
-
-**동작**:
-- 예를들어 `Navbar`, `Navbar (상단 네비게이션)`, `Navbar [Instance]` → 컴포넌트 하나로 통합
+### 2-4. 공통 컴포넌트 중복 정리
+- 유사 이름 컴포넌트 통합 (예: `Navbar`, `Navbar (상단 네비게이션)`, `Navbar [Instance]` → 하나로)
 - 사용 페이지 목록과 출처별 메타데이터 병합
 
 ---
@@ -92,40 +76,10 @@ Task 도구 호출 시:
 
 체크리스트 기반으로 Figma 디자인을 PHP/CSS로 구현합니다.
 
-**컨텍스트 절약 규칙**:
-- API 응답 원본 출력 금지
-- 생성 코드 미리보기 금지
-- 작업 예고/중간 설명 금지
-- TaskOutput 호출 금지
-
-### 정규화 규칙
-| 대상 | 규칙 |
-|------|------|
-| pageName | prefix(`A_`, `B_`) 제거, 특수문자(`•`, `>`, `/`) → 하이픈, 공백 → 하이픈, 소문자, 연속 하이픈 제거 |
-| slug | 괄호 제거, 공백 → 하이픈, 소문자 |
-
-**예시**:
-- `A_Home • Desktop` → `home`
-- `About NIBEC > History` → `about-nibec-history`
-- `Header (Hero Section)` → `header-hero-section`
-
-### 배치 처리 공통 흐름 (시간 기반 연속 실행)
+## 설정값
 ```
-1. get_pending_sections.py --count-only → totalBatches = ceil(count / BATCH_SIZE)
-2. while batchIndex < totalBatches:
-   a. get_pending_sections.py --batch-size 10 --batch-index {batchIndex}
-   b. 배치 내 모든 Task 병렬 호출 (단일 메시지에서 동시!)
-   c. batchIndex += 1
-   d. if batchIndex < totalBatches:  # 다음 배치가 있을 때만 대기
-      90초 대기:
-      ```bash
-      python -c "import time; time.sleep(90)"
-      ```
-3. 모든 배치 실행 후 전체 완료 대기:
-   ```bash
-   python .claude/scripts/wait_files.py --path {마커경로} --mode marker --count {total_count}
-   ```
-4. 완료 마커 생성
+BATCH_SIZE = 10
+BATCH_INTERVAL = 60  # 초
 ```
 
 ## 헬퍼 스크립트
@@ -133,17 +87,21 @@ Task 도구 호출 시:
 | 스크립트 | 용도 | 사용법 |
 |---------|------|--------|
 | `wait_files.py` | 파일 폴링 대기 | `python .claude/scripts/wait_files.py --path {경로} --mode marker --count {개수}` |
-| `get_pending_sections.py` | pending 항목 조회 | `python .claude/scripts/get_pending_sections.py {pageName} --batch-size 10 --batch-index 0` |
+| `get_pending_sections.py` | pending 항목 조회 | `python .claude/scripts/get_pending_sections.py --batch-size 10 --batch-index 0` |
 | `merge_section_css.py` | CSS 병합 | `python .claude/scripts/merge_section_css.py {pageName}` |
 
-## 3-0. 준비
+### wait_files.py 옵션
 
-체크리스트 목록 확인:
-```
-Glob .claude/checklists/*.json
-```
-- `_common_component.json`: 공통 컴포넌트
-- 나머지: 페이지별 체크리스트
+| 옵션 | 설명 |
+|------|------|
+| `--path` | **필수** - 대상 디렉토리 경로 |
+| `--mode marker` | *.done + *.failed 자동 카운팅 |
+| `--glob "패턴"` | glob 패턴 (예: `*.json`, `**/*.done`) |
+| `--recursive` | 마커 모드에서 하위 디렉토리 재귀 검색 |
+| `--count N` | 대기할 파일 개수 |
+| `--timeout N` | 최대 대기 시간 (초, 기본값: 600) |
+
+---
 
 ## 3-1. 공통 컴포넌트 구현
 
@@ -155,9 +113,24 @@ Glob .claude/markers/common/components.completed
 - 파일 없음 → 계속 진행
 
 ### 3-1-2. 배치 병렬 구현
-**배치 처리 공통 흐름** 적용:
-- 스크립트: `get_pending_sections.py --common`
-- 마커 경로: `.claude/markers/common`
+```
+totalCount = Bash("python .claude/scripts/get_pending_sections.py --common --count-only")
+totalBatches = ceil(totalCount / BATCH_SIZE)
+
+for batchIndex in range(totalBatches):
+  sections = Bash(f"python .claude/scripts/get_pending_sections.py --common --batch-size {BATCH_SIZE} --batch-index {batchIndex}")
+
+  # 배치 내 모든 Task 병렬 호출 (단일 메시지!)
+  for section in sections (parallel):
+    Task(subagent_type="figma-implementer", prompt={JSON}, run_in_background=true)
+
+  # 다음 배치가 있으면 60초 대기
+  if batchIndex < totalBatches - 1:
+    sleep(60)
+
+# 전체 완료 대기
+wait_files.py --path .claude/markers/common --mode marker --count {totalCount}
+```
 
 **Task prompt JSON**:
 ```json
@@ -192,30 +165,53 @@ Write .claude/markers/common/components.completed:
 completed|{timestamp}|common|{doneCount}|{failedCount}
 ```
 
-## 3-2. 체크리스트 선택
+---
 
-### 3-2-1. 마커로 사전 필터링
+## 3-2. 전체 섹션 풀 수집
+
+모든 페이지의 pending 섹션을 하나의 풀로 수집합니다.
+
+### 3-2-1. 총 섹션 수 확인
 ```bash
-# 각 페이지의 완료 마커 확인
-Glob .claude/markers/{pageName}/page.completed
+python .claude/scripts/get_pending_sections.py --count-only
 ```
-- 마커 존재 → 건너뛰기 (체크리스트 읽기 불필요)
-- 마커 없음 → 처리 대상
+- 결과: `totalCount`
+- 배치 수: `totalBatches = ceil(totalCount / BATCH_SIZE)`
 
-### 3-2-2. 처리 대상 선택
-`_common_component.json` 제외, 알파벳순 처리
-
-## 3-3. 섹션 배치 병렬 구현
-
-### 3-3-1. 디렉토리 생성
+### 3-2-2. 필요 디렉토리 생성 (병렬)
+pending 섹션에서 고유 페이지 목록 추출 후 디렉토리 생성:
 ```bash
-mkdir -p css/{pageName} .claude/markers/{pageName} {pageName}
+# 페이지 목록 확인
+python .claude/scripts/get_pending_sections.py --pages-only
+
+# 각 페이지별 디렉토리 생성 (병렬 Bash)
+for pageName in pageNames (parallel):
+  mkdir -p css/{pageName} .claude/markers/{pageName} {pageName}
 ```
 
-### 3-3-2. 배치 병렬 실행
-**배치 처리 공통 흐름** 적용:
-- 스크립트: `get_pending_sections.py {pageName}`
-- 마커 경로: `.claude/markers/{pageName}`
+---
+
+## 3-3. 배치 병렬 구현 (시간 기반)
+
+전체 섹션을 배치 단위로 실행합니다. **완료 여부와 무관하게 60초마다 다음 배치 실행**.
+
+```
+for batchIndex in range(totalBatches):
+  # 현재 배치 섹션 조회
+  sections = Bash(f"python .claude/scripts/get_pending_sections.py --batch-size {BATCH_SIZE} --batch-index {batchIndex}")
+
+  # 배치 내 모든 섹션 병렬 실행 (단일 메시지!)
+  for section in sections (parallel):
+    Task(
+      subagent_type="figma-implementer",
+      prompt={JSON},
+      run_in_background=true
+    )
+
+  # 마지막 배치가 아니면 60초 대기
+  if batchIndex < totalBatches - 1:
+    sleep(60)
+```
 
 **Task prompt JSON**:
 ```json
@@ -239,59 +235,82 @@ mkdir -p css/{pageName} .claude/markers/{pageName} {pageName}
 }
 ```
 
-**position → 파일명 변환 규칙**:
-| position | flowNum | PHP 경로 |
-|----------|---------|----------|
-| `flow-1` | 01 | `{pageName}/01-{slug}.php` |
-| `flow-2` | 02 | `{pageName}/02-{slug}.php` |
-| `fixed-top` | - | `includes/navbar.php` (공통 컴포넌트) |
-| `fixed-bottom-right` | - | `includes/fab-{slug}.php` (공통 컴포넌트) |
+---
 
-**예시 (home 페이지)**:
-| 섹션 | position | PHP | CSS |
-|------|----------|-----|-----|
-| Hero Section | flow-1 | home/01-hero-section.php | css/home/01-hero-section.css |
-| About Section | flow-2 | home/02-about-section.php | css/home/02-about-section.css |
-| Footer | flow-3 | home/03-footer.php | css/home/03-footer.css |
+## 3-4. 전체 섹션 완료 대기
 
-## 3-4. CSS/PHP 병합
+모든 배치 실행 후, 전체 섹션 마커 완료 대기.
 
-**순차 실행 (백그라운드 작업 누락 방지):**
+### 카운트 계산
+```
+# 공통 컴포넌트 개수 (3-1에서 이미 계산됨)
+commonCount = Bash("python .claude/scripts/get_pending_sections.py --common --count-only")
 
-1. **CSS 병합** (foreground):
-   ```bash
-   python .claude/scripts/merge_section_css.py {pageName}
-   ```
+# 일반 섹션 개수 (3-2에서 이미 계산됨)
+sectionCount = Bash("python .claude/scripts/get_pending_sections.py --count-only")
 
-2. **PHP 병합** (Task, background):
-   ```json
-   {
-     "checklistFile": "{체크리스트 파일명}",
-     "pageName": "{정규화된 페이지명}",
-     "outputFile": "{pageName}.php"
-   }
-   ```
-   - subagent_type: `section-merger`
+# 전체 마커 대기 개수
+totalCount = commonCount + sectionCount
+```
 
-3. **PHP 병합 완료 대기** (`page.completed` 마커):
-   ```bash
-   python .claude/scripts/wait_files.py --path .claude/markers/{pageName} --file page.completed --timeout 180
-   ```
-
-## 3-5. 정리 및 다음 진행
-
-### 3-5-1. 섹션별 파일 삭제
+### 대기 명령 (두 가지 방법 중 택일)
 ```bash
-rm -rf {pageName}/
+# 방법 1: --recursive 플래그 사용
+python .claude/scripts/wait_files.py --path .claude/markers --mode marker --recursive --count {totalCount}
+
+# 방법 2: glob 패턴 사용
+python .claude/scripts/wait_files.py --path .claude/markers --glob "**/*.done" --count {totalCount}
 ```
 
-### 3-5-2. 페이지 완료 마커 생성
+**주의**: `--path`는 필수 인자입니다.
+
+---
+
+## 3-5. CSS/PHP 병합 (모든 페이지 병렬)
+
+### 3-5-1. CSS 병합 (병렬 Bash)
+스크립트 기반이므로 Bash로 병렬 실행:
 ```
-Write .claude/markers/{pageName}/page.completed:
-completed|{timestamp}|{pageName}|{doneCount}|{failedCount}
+for pageName in pageNames (parallel):
+  Bash(f"python .claude/scripts/merge_section_css.py {pageName}")
 ```
 
-### 3-5-3. 최종 파일 구조
+### 3-5-2. PHP 병합 (병렬 Task)
+서브에이전트 기반이므로 Task로 병렬 실행:
+```
+for pageName in pageNames (parallel):
+  Task(
+    subagent_type="section-merger",
+    prompt={JSON},
+    run_in_background=true
+  )
+```
+
+**Task prompt JSON**:
+```json
+{
+  "checklistFile": "{pageName}.json",
+  "pageName": "{정규화된 페이지명}",
+  "outputFile": "{pageName}.php"
+}
+```
+
+### 3-5-3. PHP 병합 완료 대기
+```bash
+python .claude/scripts/wait_files.py --path .claude/markers --glob "*/page.completed" --count {len(pageNames)}
+```
+
+---
+
+## 3-6. 정리
+
+### 3-6-1. 섹션별 파일 삭제
+```bash
+for pageName in pageNames:
+  rm -rf {pageName}/
+```
+
+### 3-6-2. 최종 파일 구조
 ```
 프로젝트/
 ├── {pageName}.php          ← 최종 통합 페이지
@@ -300,9 +319,6 @@ completed|{timestamp}|{pageName}|{doneCount}|{failedCount}
 ├── .claude/markers/        ← 작업 이력
 └── includes/               ← 공통 컴포넌트
 ```
-
-### 3-5-4. 다음 체크리스트
-3-2로 돌아가 다음 체크리스트 처리
 
 ---
 

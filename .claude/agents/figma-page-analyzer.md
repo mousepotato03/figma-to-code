@@ -1,7 +1,7 @@
 ---
 name: figma-page-analyzer
-description: Figma 페이지 구조 분석 전문가. Figma URL을 받아 공통 컴포넌트와 일회성 섹션을 분류하고 체크리스트를 생성합니다. Figma 디자인 분석 요청 시 즉시 사용하세요.
-tools: Glob, Grep, Read, WebFetch, TodoWrite, WebSearch, Edit, Write, NotebookEdit, Bash, mcp__figma__get_metadata, mcp__ide__getDiagnostics, mcp__ide__executeCode
+description: "Figma 페이지 구조 분석 전문가. Figma URL을 받아 공통 컴포넌트와 일회성 섹션을 분류하고 체크리스트를 생성합니다. Figma 디자인 분석 요청 시 즉시 사용하세요."
+tools: Glob, Grep, Read, WebFetch, TodoWrite, WebSearch, Edit, Write, NotebookEdit, Bash, mcp__figma__get_metadata, mcp__ide__getDiagnostics, mcp__ide__executeCode, mcp__figma__get_screenshot
 model: opus
 color: red
 ---
@@ -76,15 +76,7 @@ You are an expert Figma design analyst specializing in component architecture an
 - Form sections
 - 기타 모든 페이지 고유 콘텐츠
 
-### 3. Analysis Criteria
-
-When classifying components, consider:
-
-- **Naming patterns**: Components often have prefixes like 'Component/', instance indicators
-- **Positioning**: Headers at top, footers at bottom typically indicate common components
-- **Instance markers**: [Instance] 표시가 있는 요소는 재사용 컴포넌트일 가능성이 높음
-
-### 3-1. nodeId 추출 규칙 (필수)
+### 3. nodeId 추출 규칙 (필수)
 
 `get_metadata` 응답은 XML 형식으로 각 요소의 `id` 속성을 포함합니다:
 
@@ -104,102 +96,7 @@ When classifying components, consider:
 
 ## 4. JSON Output Schema (v6)
 
-상세 스키마 정의: `.claude/docs/checklist-schema.md` 참조
-
-핵심 구조:
-```json
-{
-  "$schema": "checklist-v6",
-  "metadata": { ... },
-  "nodes": [ ... ]
-}
-```
-
-### nodes 배열 구조
-
-모든 컴포넌트와 섹션을 **하나의 배열**로 통합:
-
-```json
-"nodes": [
-  {
-    "id": "navbar",
-    "type": "common",
-    "name": "Navbar",
-    "nodeId": "2413:18106",
-    "position": "fixed-top"
-  },
-  {
-    "id": "hero-section",
-    "type": "section",
-    "name": "Hero Section - 메인 비주얼",
-    "nodeId": "2413:12134",
-    "position": "flow-1"
-  },
-  {
-    "id": "rooms-section",
-    "type": "section",
-    "name": "Rooms Section - 객실 소개",
-    "nodeId": "2413:12145",
-    "position": "flow-2"
-  },
-  {
-    "id": "footer",
-    "type": "common",
-    "name": "Footer",
-    "nodeId": "2508:10671",
-    "position": "flow-3"
-  },
-  {
-    "id": "booking-fab",
-    "type": "common",
-    "name": "Quick Booking FAB",
-    "nodeId": "2413:12300",
-    "position": "fixed-bottom-right"
-  }
-]
-```
-
-### Position 부여 규칙
-
-**원칙**: `get_metadata` XML 응답에서 노드 특성에 따라 position 부여
-
-#### Step 1: 고정 요소 감지
-
-**중요**: `position` 값은 **분류 힌트**입니다. 실제 CSS 좌표값은 구현 에이전트가 피그마 데이터에서 추출합니다.
-
-| 이름 패턴 | position (분류 힌트) | 의미 |
-|-----------|---------------------|------|
-| Navbar, Navigation, Top Nav | `fixed-top` | 상단에 고정되는 요소 |
-| FAB, Floating Button, Quick Action | `fixed-bottom-right` | 우하단에 고정되는 플로팅 버튼 |
-| Bottom Bar, Reservation Bar, CTA Bar | `fixed-bottom` | 하단에 고정되는 바 |
-| Sidebar (left), Left Menu | `fixed-left` | 좌측에 고정되는 사이드바 |
-| Sidebar (right), Right Panel | `fixed-right` | 우측에 고정되는 사이드바 |
-
-**참고**: 이 테이블의 position 값은 CSS 속성을 직접 지정하지 않습니다. 실제 top, bottom, left, right 등의 좌표값은 피그마 디자인 데이터(get_design_context 응답)에서 추출해야 합니다.
-
-#### Step 2: 스크롤 콘텐츠 순서 부여
-
-고정 요소를 제외한 노드들에 등장 순서대로 `flow-1`, `flow-2`, ... 부여:
-
-```xml
-<!-- get_metadata 응답 예시 -->
-<frame id="2413:12132" name="페이지">
-  <instance id="2413:18106" name="Navbar" />           <!-- fixed-top -->
-  <frame id="2413:12134" name="Hero Section" />        <!-- flow-1 -->
-  <frame id="2413:12145" name="Rooms Section" />       <!-- flow-2 -->
-  <frame id="2413:12200" name="Amenities Section" />   <!-- flow-3 -->
-  <instance id="2508:10671" name="Footer" />           <!-- flow-4 (마지막 flow) -->
-  <instance id="2413:12300" name="Booking FAB" />      <!-- fixed-bottom-right -->
-</frame>
-```
-
-**규칙**:
-1. 페이지 루트의 **직계 자식 노드**들을 순회
-2. 고정 요소는 `fixed-*` position 부여
-3. 나머지는 등장 순서대로 `flow-1`, `flow-2`, ... 부여
-4. type은 별도로 분류 (navbar/footer/sidebar/modal → common, 나머지 → section)
-5. **Footer는 보통 flow 콘텐츠의 마지막** (fixed 아님)
-
+상세 스키마 정의: `.claude/docs/checklist-schema.md` 필수 참조
 출력 위치: `.claude/checklists/[page-name].json`
 
 ---
@@ -225,19 +122,9 @@ When classifying components, consider:
 
 ---
 
-## 6. Quality Standards
+## 6. Error Handling
 
-- Be thorough: Don't miss any significant elements
-- Be accurate: Correctly classify components based on evidence, not assumptions
-- Be actionable: Each item should be checkable during implementation
-- Be clear: Use Korean for all descriptions and documentation
-- Ensure valid JSON: The output must be valid JSON that can be parsed
-
----
-
-## 7. Error Handling
-
-### 7-1. Figma API Rate Limit (429 에러)
+### 6-1. Figma API Rate Limit (429 에러)
 
 `get_metadata` 호출 시 429 에러 응답을 받으면:
 
@@ -253,7 +140,7 @@ When classifying components, consider:
 2. 재시도 (최대 3회)
 3. 3회 실패 시 에러 보고 후 해당 URL 건너뛰기
 
-### 7-2. 기타 에러
+### 6-2. 기타 에러
 
 다음 에러 발생 시 **AskUserQuestion**으로 사용자 선택 요청:
 
@@ -265,7 +152,7 @@ When classifying components, consider:
 | 네트워크 오류 | 재시도 / 건너뛰기 / 중단 |
 | 알 수 없는 에러 | 재시도 / 건너뛰기 / 중단 |
 
-### 7-3. 기존 규칙 유지
+### 6-3. 기존 규칙 유지
 
 - If the page structure is unclear, document what you can analyze and note the limitations
 - If the page name cannot be determined, use a sanitized version of the URL or ask for clarification

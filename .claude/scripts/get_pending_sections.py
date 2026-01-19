@@ -7,9 +7,10 @@ pending 상태인 섹션만 추출하여 간단한 형식으로 출력
   python get_pending_sections.py              # 모든 페이지의 pending 섹션
   python get_pending_sections.py home         # 특정 페이지만
   python get_pending_sections.py --common     # 공통 컴포넌트만
-  python get_pending_sections.py home --count-only           # 개수만 출력
-  python get_pending_sections.py home --batch-size 5         # 5개씩 첫 배치
-  python get_pending_sections.py home --batch-size 5 --batch-index 1  # 두 번째 배치
+  python get_pending_sections.py --count-only               # 개수만 출력
+  python get_pending_sections.py --pages-only               # 고유 페이지 목록만 출력
+  python get_pending_sections.py --batch-size 5             # 5개씩 첫 배치
+  python get_pending_sections.py --batch-size 5 --batch-index 1  # 두 번째 배치
 
 출력 형식:
   pageName|position|sectionSlug|nodeId|fileKey
@@ -252,6 +253,7 @@ def main():
     parser.add_argument('page', nargs='?', default=None, help='특정 페이지만 (생략시 전체)')
     parser.add_argument('--common', action='store_true', help='공통 컴포넌트만')
     parser.add_argument('--count-only', action='store_true', help='개수만 출력')
+    parser.add_argument('--pages-only', action='store_true', help='고유 페이지 목록만 출력')
     parser.add_argument('--batch-size', type=int, default=0, help='배치당 최대 개수 (0=무제한)')
     parser.add_argument('--batch-index', type=int, default=0, help='배치 인덱스 (0부터 시작)')
 
@@ -285,6 +287,13 @@ def main():
 
     # 페이지 지정 또는 전체
     sections = get_pending_sections(args.page)
+
+    # --pages-only 옵션: 고유 페이지 목록만 출력
+    if args.pages_only:
+        unique_pages = sorted(set(s['pageName'] for s in sections))
+        for page in unique_pages:
+            print(page)
+        return
 
     if args.count_only:
         print(len(sections))
