@@ -1,0 +1,57 @@
+/* Navbar Index Sub Navigation - Medical Device Division Product */
+
+.navbar-index-sub-navigation {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  width: 100%;
+  padding: 30px 320px;
+  background-color: #ffffff;
+  box-sizing: border-box;
+}
+
+.navbar-index-sub-navigation .breadcrumb-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.navbar-index-sub-navigation .breadcrumb-text {
+  font-family: 'Poppins', sans-serif;
+  font-size: 24px;
+  line-height: 1.75;
+  color: rgba(0, 0, 0, 0.7);
+  margin: 0;
+}
+
+.navbar-index-sub-navigation .breadcrumb-parent {
+  font-weight: 400;
+}
+
+.navbar-index-sub-navigation .breadcrumb-current {
+  font-weight: 600;
+}
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .navbar-index-sub-navigation {
+    padding: 24px 60px;
+  }
+
+  .navbar-index-sub-navigation .breadcrumb-text {
+    font-size: 20px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .navbar-index-sub-navigation {
+    padding: 20px 24px;
+  }
+
+  .navbar-index-sub-navigation .breadcrumb-text {
+    font-size: 16px;
+  }
+}

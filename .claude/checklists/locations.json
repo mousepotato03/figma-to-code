@@ -1,0 +1,54 @@
+{
+  "$schema": "checklist-v6",
+  "metadata": {
+    "pageName": "locations",
+    "figmaUrl": "https://www.figma.com/design/YOUR_FILE_KEY/NIBEC_%EB%B3%B8%EC%9E%91%EC%97%85?node-id=2543-12156",
+    "fileKey": "YOUR_FILE_KEY",
+    "nodeId": "2543:12156",
+    "analyzedAt": "2026-01-20T00:00:00Z"
+  },
+  "nodes": [
+    {
+      "id": "navbar",
+      "type": "common",
+      "name": "Navbar",
+      "nodeId": "2543:12537",
+      "position": "fixed-top"
+    },
+    {
+      "id": "header-section",
+      "type": "section",
+      "name": "Header",
+      "nodeId": "2543:12158",
+      "position": "flow-1"
+    },
+    {
+      "id": "location-korea-hq",
+      "type": "section",
+      "name": "Korea Headquarters (본사)",
+      "nodeId": "2543:12186",
+      "position": "flow-2"
+    },
+    {
+      "id": "location-branch-1",
+      "type": "section",
+      "name": "Branch Office 1 (지사 1)",
+      "nodeId": "2543:12722",
+      "position": "flow-3"
+    },
+    {
+      "id": "location-branch-2",
+      "type": "section",
+      "name": "Branch Office 2 (지사 2)",
+      "nodeId": "2543:12799",
+      "position": "flow-4"
+    },
+    {
+      "id": "footer",
+      "type": "common",
+      "name": "Footer",
+      "nodeId": "2543:13311",
+      "position": "flow-5"
+    }
+  ]
+}

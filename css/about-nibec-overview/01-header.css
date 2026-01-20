@@ -1,0 +1,202 @@
+/* Header Section - about-nibec-overview */
+
+.header-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  max-width: 1920px;
+  margin: 0 auto;
+}
+
+/* Title Area */
+.header-title-area {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-end;
+  width: 100%;
+  height: 400px;
+  padding: 0 319px 40px;
+  background-color: #ffffff;
+  box-sizing: border-box;
+}
+
+.header-title-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 35px;
+  padding: 6px 0;
+}
+
+.header-title-accent {
+  width: 10px;
+  height: 100%;
+  min-height: 72px;
+  background-color: #006241;
+  align-self: stretch;
+}
+
+.header-title {
+  font-family: 'Paperlogy', sans-serif;
+  font-weight: 700;
+  font-size: clamp(2rem, 2.5vw + 1rem, 3.75rem);
+  line-height: 1.2;
+  color: #006241;
+  margin: 0;
+  text-transform: capitalize;
+  max-width: 961px;
+}
+
+/* Visual Area */
+.header-visual-area {
+  position: relative;
+  width: 100%;
+  height: 360px;
+  background-color: #006241;
+  overflow: hidden;
+}
+
+.header-visual-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.header-visual-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+}
+
+.header-visual-gradient {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 400px;
+  background: linear-gradient(
+    to right,
+    rgba(25, 49, 21, 0.7) 2.691%,
+    rgba(62, 130, 37, 0.7) 33.1%,
+    rgba(177, 237, 97, 0.42) 70.994%
+  );
+  mix-blend-mode: multiply;
+  filter: blur(50px);
+}
+
+.header-visual-blur {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 78.177%;
+  height: 400px;
+  backdrop-filter: blur(10px);
+  background: linear-gradient(
+    -81.45deg,
+    rgba(22, 190, 76, 0) 42.304%,
+    rgba(1, 142, 68, 0.5) 87.844%
+  );
+}
+
+.header-visual-text {
+  position: absolute;
+  top: 50%;
+  left: 328px;
+  transform: translateY(-50%);
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 600;
+  font-size: 1.375rem;
+  line-height: 1.4;
+  letter-spacing: -0.44px;
+  color: #ffffff;
+  text-transform: capitalize;
+}
+
+.header-visual-text p {
+  margin: 0;
+}
+
+/* Responsive - Tablet */
+@media (max-width: 1024px) {
+  .header-title-area {
+    height: auto;
+    min-height: 280px;
+    padding: 0 60px 30px;
+  }
+
+  .header-title-wrapper {
+    gap: 20px;
+  }
+
+  .header-title-accent {
+    width: 8px;
+    min-height: 50px;
+  }
+
+  .header-title {
+    max-width: 100%;
+  }
+
+  .header-visual-area {
+    height: 300px;
+  }
+
+  .header-visual-gradient {
+    height: 300px;
+  }
+
+  .header-visual-blur {
+    width: 100%;
+    height: 300px;
+  }
+
+  .header-visual-text {
+    left: 60px;
+    right: 60px;
+    font-size: 1.125rem;
+  }
+}
+
+/* Responsive - Mobile */
+@media (max-width: 768px) {
+  .header-title-area {
+    min-height: 200px;
+    padding: 0 20px 24px;
+  }
+
+  .header-title-wrapper {
+    gap: 15px;
+  }
+
+  .header-title-accent {
+    width: 6px;
+    min-height: 40px;
+  }
+
+  .header-title {
+    font-size: clamp(1.5rem, 5vw + 0.5rem, 2rem);
+  }
+
+  .header-visual-area {
+    height: 260px;
+  }
+
+  .header-visual-gradient {
+    height: 260px;
+  }
+
+  .header-visual-blur {
+    height: 260px;
+  }
+
+  .header-visual-text {
+    left: 20px;
+    right: 20px;
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+}

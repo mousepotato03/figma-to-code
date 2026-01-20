@@ -1,0 +1,203 @@
+/* Header Section - medical-device-division-product */
+
+.header-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  position: relative;
+}
+
+/* Header Title Area */
+.header-title-area {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-end;
+  width: 100%;
+  height: 25rem; /* 400px */
+  padding: 0 clamp(1.25rem, 12.45vw + 0.25rem, 19.9375rem); /* 20px ~ 319px */
+  padding-bottom: 2.5rem; /* 40px */
+  background-color: #ffffff;
+  box-sizing: border-box;
+}
+
+.title-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 2.1875rem; /* 35px */
+  overflow: hidden;
+}
+
+.title-accent-bar {
+  width: 0.625rem; /* 10px */
+  height: 100%;
+  min-height: 4.5rem; /* 72px - 60px * 1.2 line-height */
+  background-color: #006241;
+  flex-shrink: 0;
+  align-self: stretch;
+}
+
+.header-title {
+  font-family: 'Paperlogy', sans-serif;
+  font-weight: 700;
+  font-size: clamp(2rem, 2.08vw + 1.5rem, 3.75rem); /* 32px ~ 60px */
+  line-height: 1.2;
+  color: #006241;
+  text-transform: capitalize;
+  margin: 0;
+}
+
+/* Visual Banner Area */
+.header-visual-area {
+  position: relative;
+  width: 100%;
+  height: 22.5rem; /* 360px */
+  overflow: hidden;
+  background: linear-gradient(179.4deg, rgba(76, 142, 189, 1) 5.66%, rgba(176, 211, 245, 1) 97.31%);
+}
+
+/* Background images */
+.visual-bg-image {
+  position: absolute;
+  overflow: hidden;
+}
+
+.visual-bg-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+.visual-bg-image-1 {
+  width: 76.5625%; /* 1470px / 1920px */
+  height: 271.67%; /* 978px / 360px */
+  left: 24.11%; /* 463px / 1920px */
+  top: -108.61%; /* -391px / 360px */
+  filter: blur(50px);
+}
+
+.visual-bg-image-2 {
+  width: 54.7%; /* 1050.211px / 1920px */
+  height: 164.17%; /* 591px / 360px */
+  left: -6%; /* -115.21px / 1920px */
+  top: -44.44%; /* -160px / 360px */
+  transform: rotate(180deg) scaleY(-1);
+  filter: blur(15px);
+}
+
+.visual-bg-image-3 {
+  width: 54.7%; /* 1050.211px / 1920px */
+  height: 164.17%; /* 591px / 360px */
+  left: 45.31%; /* 870px / 1920px */
+  top: -41.67%; /* -150px / 360px */
+  filter: blur(25px);
+}
+
+/* Overlay gradients */
+.visual-overlay {
+  position: absolute;
+}
+
+.visual-overlay-1 {
+  width: 100%;
+  height: 111.11%; /* 400px / 360px */
+  left: 0;
+  top: 0;
+  background: linear-gradient(266.51deg, rgba(4, 188, 255, 0.2) 42.3%, rgba(136, 107, 255, 0.4) 99.28%);
+  transform: rotate(180deg) scaleY(-1);
+}
+
+.visual-overlay-2 {
+  width: 63.65%; /* 1222px / 1920px */
+  height: 111.11%; /* 400px / 360px */
+  left: 0;
+  top: 0;
+  background: linear-gradient(-40.49deg, rgba(22, 190, 76, 0) 44.48%, rgba(1, 142, 68, 0.6) 90.86%);
+  backdrop-filter: blur(5px);
+}
+
+/* Description text */
+.header-description {
+  position: absolute;
+  left: clamp(1.25rem, 14.27vw + 0.25rem, 20.5rem); /* 20px ~ 328px */
+  top: 50%;
+  transform: translateY(-50%);
+  width: clamp(20rem, 24.27vw + 14rem, 47.125rem); /* 320px ~ 754px */
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 600;
+  font-size: clamp(1rem, 0.52vw + 0.875rem, 1.375rem); /* 16px ~ 22px */
+  line-height: 1.4;
+  letter-spacing: -0.0275rem; /* -0.44px */
+  color: #ffffff;
+  text-transform: capitalize;
+  margin: 0;
+}
+
+/* =============================================
+   Responsive Styles
+   ============================================= */
+
+/* Tablet (768px ~ 1024px) */
+@media screen and (max-width: 1024px) {
+  .header-title-area {
+    height: auto;
+    min-height: 15rem; /* 240px */
+    padding: 2rem 1.5rem;
+    padding-bottom: 1.5rem;
+  }
+
+  .title-wrapper {
+    gap: 1.5rem;
+  }
+
+  .title-accent-bar {
+    width: 0.5rem;
+    min-height: 3rem;
+  }
+
+  .header-visual-area {
+    height: 18rem; /* 288px */
+  }
+
+  .visual-overlay-2 {
+    width: 80%;
+  }
+}
+
+/* Mobile (max-width: 767px) */
+@media screen and (max-width: 767px) {
+  .header-title-area {
+    min-height: 10rem; /* 160px */
+    padding: 1.5rem 1rem;
+    padding-bottom: 1.25rem;
+  }
+
+  .title-wrapper {
+    gap: 1rem;
+  }
+
+  .title-accent-bar {
+    width: 0.375rem;
+    min-height: 2.5rem;
+  }
+
+  .header-visual-area {
+    height: 16rem; /* 256px */
+  }
+
+  .visual-overlay-2 {
+    width: 100%;
+  }
+
+  .header-description {
+    left: 1rem;
+    right: 1rem;
+    width: auto;
+  }
+
+  .header-description br {
+    display: none;
+  }
+}

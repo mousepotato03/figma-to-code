@@ -1,0 +1,246 @@
+/* PEPTARDEL-T Section */
+.peptardel-t-section {
+  width: 100%;
+  min-height: 60.9375rem; /* 975px */
+  background-color: #fff;
+  display: flex;
+  justify-content: center;
+  padding: 0;
+}
+
+.peptardel-t-container {
+  width: 100%;
+  max-width: 120rem; /* 1920px */
+  padding: 0 20rem; /* 320px side padding */
+  display: flex;
+  flex-direction: column;
+  gap: 5rem; /* 80px */
+}
+
+/* Header */
+.peptardel-t-header {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem; /* 40px */
+}
+
+.peptardel-t-title {
+  font-family: 'Pretendard', sans-serif;
+  font-size: clamp(1.75rem, 1.03vw + 1.5rem, 2.5rem);
+  font-weight: 700;
+  line-height: 1.5;
+  color: #1a1a1a;
+  margin: 0;
+}
+
+.peptardel-t-description {
+  font-family: 'Pretendard', sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.625;
+  color: #333;
+  margin: 0;
+  max-width: 80rem; /* 1280px */
+}
+
+/* Cards Row */
+.peptardel-t-cards {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+}
+
+.peptardel-t-card {
+  width: 26.625rem; /* 426px */
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.peptardel-t-card-image {
+  width: 100%;
+  height: 21.25rem; /* 340px */
+  background-color: #f5f5f5;
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.peptardel-t-illustration {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.peptardel-t-card-content {
+  padding: 2.5rem 2.625rem 0; /* 40px 42px 0 */
+  display: flex;
+  flex-direction: column;
+  gap: 3.375rem; /* 54px between heading and text */
+}
+
+.peptardel-t-card:last-of-type .peptardel-t-card-content {
+  padding: 2.5rem 1.875rem 0; /* 40px 30px 0 for third column */
+}
+
+.peptardel-t-card-heading {
+  font-family: 'Pretendard', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1.4;
+  color: #1a1a1a;
+  margin: 0;
+}
+
+.peptardel-t-card-text {
+  font-family: 'Pretendard', sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #666;
+  margin: 0;
+}
+
+/* Arrow */
+.peptardel-t-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #0066cc;
+  flex-shrink: 0;
+  margin: 0 -0.5rem;
+  margin-top: -6rem; /* Position at card image level */
+}
+
+.peptardel-t-arrow svg {
+  width: 2.1875rem; /* 35px */
+  height: 2.1875rem; /* 35px */
+}
+
+/* Bottom Section */
+.peptardel-t-bottom {
+  width: 100%;
+  max-width: 80rem; /* 1280px */
+  min-height: 16rem; /* 256px */
+  position: relative;
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.peptardel-t-bottom-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 25.5rem; /* 408px - extends beyond visible area */
+  background-color: #e8f4fc;
+  z-index: 0;
+}
+
+.peptardel-t-bottom-text {
+  position: relative;
+  z-index: 1;
+  padding: 5rem 3.75rem; /* 80px 60px */
+  font-family: 'Pretendard', sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #333;
+  margin: 0;
+  max-width: 72.5rem; /* 1160px */
+}
+
+/* Responsive - Tablet */
+@media (max-width: 1280px) {
+  .peptardel-t-container {
+    padding: 0 5rem;
+  }
+
+  .peptardel-t-cards {
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+  }
+
+  .peptardel-t-card {
+    width: calc(50% - 2rem);
+    min-width: 20rem;
+  }
+
+  .peptardel-t-arrow {
+    display: none;
+  }
+}
+
+/* Responsive - Mobile */
+@media (max-width: 768px) {
+  .peptardel-t-section {
+    min-height: auto;
+    padding: 3rem 0;
+  }
+
+  .peptardel-t-container {
+    padding: 0 1.5rem;
+    gap: 2.5rem;
+  }
+
+  .peptardel-t-title {
+    font-size: 1.5rem;
+  }
+
+  .peptardel-t-description {
+    font-size: 0.875rem;
+    line-height: 1.6;
+  }
+
+  .peptardel-t-cards {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .peptardel-t-card {
+    width: 100%;
+    min-width: auto;
+  }
+
+  .peptardel-t-card-image {
+    height: 15rem;
+  }
+
+  .peptardel-t-card-content {
+    padding: 1.5rem 1rem 0;
+    gap: 1rem;
+  }
+
+  .peptardel-t-card:last-of-type .peptardel-t-card-content {
+    padding: 1.5rem 1rem 0;
+  }
+
+  .peptardel-t-card-heading {
+    font-size: 1.25rem;
+  }
+
+  .peptardel-t-card-text {
+    font-size: 0.875rem;
+  }
+
+  .peptardel-t-bottom {
+    min-height: auto;
+    border-radius: 0.25rem;
+  }
+
+  .peptardel-t-bottom-image {
+    height: 100%;
+  }
+
+  .peptardel-t-bottom-text {
+    padding: 2rem 1.5rem;
+    font-size: 0.875rem;
+    line-height: 1.6;
+  }
+}

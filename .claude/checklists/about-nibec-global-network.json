@@ -1,0 +1,19 @@
+{
+  "$schema": "checklist-v6",
+  "metadata": {
+    "pageName": "about-nibec-global-network",
+    "figmaUrl": "https://www.figma.com/design/YOUR_FILE_KEY/NIBEC_%EB%B3%B8%EC%9E%91%EC%97%85?node-id=2413-12858&m=dev",
+    "fileKey": "YOUR_FILE_KEY",
+    "nodeId": "2413:12858",
+    "analyzedAt": "2026-01-20T00:00:00Z"
+  },
+  "nodes": [
+    { "id": "navbar", "type": "common", "name": "Navbar", "nodeId": "2413:12962", "position": "fixed-top" },
+    { "id": "header-section", "type": "section", "name": "Header Section", "nodeId": "2413:12860", "position": "flow-1" },
+    { "id": "navbar-index", "type": "section", "name": "Navbar Index", "nodeId": "2413:12871", "position": "flow-2" },
+    { "id": "global-strategy-section", "type": "section", "name": "Global Strategy Section", "nodeId": "2413:12872", "position": "flow-3" },
+    { "id": "partnership-achievements-section", "type": "section", "name": "Partnership Achievements Section", "nodeId": "2413:12899", "position": "flow-4" },
+    { "id": "global-partnership-section", "type": "section", "name": "Global Partnership Section", "nodeId": "2413:12941", "position": "flow-5" },
+    { "id": "footer", "type": "common", "name": "Footer", "nodeId": "2508:11019", "position": "flow-6" }
+  ]
+}

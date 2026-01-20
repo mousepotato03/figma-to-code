@@ -1,0 +1,75 @@
+{
+  "$schema": "checklist-v6",
+  "metadata": {
+    "pageName": "drug-discovery-core-technology",
+    "figmaUrl": "https://www.figma.com/design/YOUR_FILE_KEY/NIBEC_%EB%B3%B8%EC%9E%91%EC%97%85?node-id=2776-7304&m=dev",
+    "fileKey": "YOUR_FILE_KEY",
+    "nodeId": "2776:7304",
+    "analyzedAt": "2026-01-20T00:00:00Z"
+  },
+  "nodes": [
+    {
+      "id": "navbar",
+      "type": "common",
+      "name": "Navbar",
+      "nodeId": "2776:8527",
+      "position": "fixed-top"
+    },
+    {
+      "id": "header-section",
+      "type": "section",
+      "name": "Header Section",
+      "nodeId": "2776:7306",
+      "position": "flow-1"
+    },
+    {
+      "id": "navbar-index",
+      "type": "common",
+      "name": "Navbar Index",
+      "nodeId": "2776:7318",
+      "position": "flow-2"
+    },
+    {
+      "id": "peptide-discovery-section",
+      "type": "section",
+      "name": "Peptide Discovery Section",
+      "nodeId": "2776:7320",
+      "position": "flow-3"
+    },
+    {
+      "id": "peptardel-platform-section",
+      "type": "section",
+      "name": "PEPTARDEL Platform Section",
+      "nodeId": "2776:7340",
+      "position": "flow-4"
+    },
+    {
+      "id": "peptardel-t-section",
+      "type": "section",
+      "name": "PEPTARDEL-T Section",
+      "nodeId": "2776:7365",
+      "position": "flow-5"
+    },
+    {
+      "id": "peptardel-s-section",
+      "type": "section",
+      "name": "PEPTARDEL-S Section",
+      "nodeId": "2776:8033",
+      "position": "flow-6"
+    },
+    {
+      "id": "peptardel-o-section",
+      "type": "section",
+      "name": "PEPTARDEL-O Section",
+      "nodeId": "2776:8370",
+      "position": "flow-7"
+    },
+    {
+      "id": "footer",
+      "type": "common",
+      "name": "Footer",
+      "nodeId": "2776:8526",
+      "position": "flow-8"
+    }
+  ]
+}

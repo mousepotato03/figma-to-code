@@ -1,0 +1,261 @@
+/* ==========================================================================
+   Features Section - 아이콘 4개 그리드
+   ========================================================================== */
+
+.features-section {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 150px 320px 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  width: 100%;
+  max-width: 1280px;
+}
+
+/* ==========================================================================
+   Feature Card - Base
+   ========================================================================== */
+
+.feature-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 300px;
+  padding: 40px 30px;
+  box-sizing: border-box;
+  overflow: hidden;
+  position: relative;
+}
+
+/* ==========================================================================
+   Feature Card - Green Variant
+   ========================================================================== */
+
+.feature-card--green {
+  background-color: #006241;
+  gap: 20px;
+}
+
+/* ==========================================================================
+   Feature Card - Image Variant
+   ========================================================================== */
+
+.feature-card--image {
+  background-image: var(--bg-image);
+  background-size: cover;
+  background-position: center;
+}
+
+.feature-card--image-overlay::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.1);
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   Feature Icon
+   ========================================================================== */
+
+.feature-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.feature-icon__circle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+
+.feature-icon__img {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+}
+
+/* ==========================================================================
+   Feature Card Title
+   ========================================================================== */
+
+.feature-card__title {
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 600;
+  font-size: 22px;
+  line-height: 1.4;
+  letter-spacing: -0.44px;
+  text-align: center;
+  color: #ffffff;
+  text-transform: capitalize;
+  margin: 0;
+}
+
+/* ==========================================================================
+   Feature Card Number
+   ========================================================================== */
+
+.feature-card__number {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 100px;
+  line-height: 1.2;
+  text-align: center;
+  color: #ffffff;
+  text-transform: capitalize;
+  position: relative;
+  z-index: 1;
+}
+
+.feature-card__number--mixed {
+  font-size: 100px;
+}
+
+.feature-card__percent {
+  font-size: 70px;
+}
+
+/* ==========================================================================
+   Responsive - Tablet (1024px 이하)
+   ========================================================================== */
+
+@media (max-width: 1024px) {
+  .features-section {
+    padding: 100px 60px 0;
+  }
+
+  .features-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .feature-card {
+    height: 260px;
+    padding: 30px 24px;
+  }
+
+  .feature-card__number {
+    font-size: 80px;
+  }
+
+  .feature-card__number--mixed {
+    font-size: 80px;
+  }
+
+  .feature-card__percent {
+    font-size: 56px;
+  }
+
+  .feature-card__title {
+    font-size: 20px;
+  }
+}
+
+/* ==========================================================================
+   Responsive - Mobile (768px 이하)
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  .features-section {
+    padding: 80px 20px 0;
+  }
+
+  .features-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .feature-card {
+    height: 200px;
+    padding: 24px 16px;
+    gap: 12px;
+  }
+
+  .feature-icon__circle {
+    width: 60px;
+    height: 60px;
+  }
+
+  .feature-icon__img {
+    width: 40px;
+    height: 40px;
+  }
+
+  .feature-card__title {
+    font-size: 16px;
+    letter-spacing: -0.32px;
+  }
+
+  .feature-card__number {
+    font-size: 56px;
+  }
+
+  .feature-card__number--mixed {
+    font-size: 56px;
+  }
+
+  .feature-card__percent {
+    font-size: 40px;
+  }
+}
+
+/* ==========================================================================
+   Responsive - Small Mobile (480px 이하)
+   ========================================================================== */
+
+@media (max-width: 480px) {
+  .features-section {
+    padding: 60px 16px 0;
+  }
+
+  .features-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .feature-card {
+    height: 180px;
+    padding: 20px 16px;
+  }
+
+  .feature-icon__circle {
+    width: 50px;
+    height: 50px;
+  }
+
+  .feature-icon__img {
+    width: 32px;
+    height: 32px;
+  }
+
+  .feature-card__title {
+    font-size: 16px;
+  }
+
+  .feature-card__number {
+    font-size: 48px;
+  }
+
+  .feature-card__number--mixed {
+    font-size: 48px;
+  }
+
+  .feature-card__percent {
+    font-size: 34px;
+  }
+}

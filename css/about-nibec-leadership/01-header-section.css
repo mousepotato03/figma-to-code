@@ -1,0 +1,268 @@
+/* Header Section - about-nibec-leadership */
+
+.header-section {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 1920px;
+  margin: 0 auto;
+}
+
+/* 상단 타이틀 영역 */
+.header-title-area {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-end;
+  background-color: #ffffff;
+  height: 400px;
+  padding: 0 319px 40px;
+}
+
+.header-title-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 35px;
+  padding: 6px 0;
+}
+
+.header-title-accent {
+  width: 10px;
+  height: 100%;
+  min-height: 72px;
+  background-color: #006241;
+  align-self: stretch;
+}
+
+.header-title {
+  font-family: 'Paperlogy', sans-serif;
+  font-weight: 700;
+  font-size: 60px;
+  line-height: 1.2;
+  color: #006241;
+  text-transform: capitalize;
+  margin: 0;
+}
+
+/* 하단 콘텐츠 영역 */
+.header-content-area {
+  position: relative;
+  width: 100%;
+  height: 360px;
+  background-color: #006241;
+  overflow: hidden;
+}
+
+/* 배경 이미지 (우측) */
+.header-bg-image {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 54%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.header-bg-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* 배경 이미지 (좌측 블러) */
+.header-bg-blur {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 60%;
+  height: 100%;
+  overflow: hidden;
+  transform: scaleX(-1);
+  filter: blur(40px);
+  opacity: 0.6;
+}
+
+.header-bg-blur img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* 그라데이션 오버레이 */
+.header-gradient-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to right,
+    rgba(36, 113, 23, 0.3) 2.69%,
+    rgba(98, 206, 59, 0.3) 33.1%,
+    rgba(197, 255, 119, 0.21) 71%
+  );
+  mix-blend-mode: multiply;
+  filter: blur(50px);
+}
+
+.header-gradient-overlay-secondary {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 63.6%;
+  height: 100%;
+  background: linear-gradient(
+    -40.5deg,
+    rgba(22, 190, 76, 0) 44.48%,
+    rgba(1, 142, 68, 0.7) 90.86%
+  );
+  backdrop-filter: blur(5px);
+}
+
+/* 설명 텍스트 */
+.header-description {
+  position: absolute;
+  top: 50%;
+  left: 328px;
+  transform: translateY(-50%);
+  width: 889px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 600;
+  font-size: 22px;
+  line-height: 1.4;
+  letter-spacing: -0.44px;
+  color: #ffffff;
+  text-transform: capitalize;
+}
+
+.header-description p {
+  margin: 0;
+}
+
+/* ========================================
+   반응형 스타일
+   ======================================== */
+
+/* 태블릿 (1024px 이하) */
+@media (max-width: 1024px) {
+  .header-title-area {
+    height: auto;
+    min-height: 280px;
+    padding: 60px 40px 30px;
+  }
+
+  .header-title-wrapper {
+    gap: 20px;
+  }
+
+  .header-title-accent {
+    width: 6px;
+    min-height: 50px;
+  }
+
+  .header-title {
+    font-size: clamp(28px, 5vw, 48px);
+  }
+
+  .header-content-area {
+    height: auto;
+    min-height: 300px;
+    padding: 40px 0;
+  }
+
+  .header-description {
+    position: relative;
+    top: auto;
+    left: auto;
+    transform: none;
+    width: auto;
+    padding: 0 40px;
+    font-size: 18px;
+    z-index: 10;
+  }
+
+  .header-bg-image {
+    width: 70%;
+  }
+
+  .header-gradient-overlay-secondary {
+    width: 80%;
+  }
+}
+
+/* 모바일 (768px 이하) */
+@media (max-width: 768px) {
+  .header-title-area {
+    min-height: 200px;
+    padding: 40px 20px 24px;
+  }
+
+  .header-title-wrapper {
+    gap: 15px;
+  }
+
+  .header-title-accent {
+    width: 4px;
+    min-height: 40px;
+  }
+
+  .header-title {
+    font-size: clamp(22px, 6vw, 32px);
+  }
+
+  .header-content-area {
+    min-height: 260px;
+    padding: 30px 0;
+  }
+
+  .header-description {
+    padding: 0 20px;
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  .header-bg-image {
+    width: 100%;
+    opacity: 0.3;
+  }
+
+  .header-bg-blur {
+    display: none;
+  }
+
+  .header-gradient-overlay-secondary {
+    width: 100%;
+  }
+}
+
+/* 소형 모바일 (480px 이하) */
+@media (max-width: 480px) {
+  .header-title-area {
+    min-height: 160px;
+    padding: 30px 16px 20px;
+  }
+
+  .header-title-wrapper {
+    gap: 12px;
+  }
+
+  .header-title-accent {
+    width: 3px;
+    min-height: 32px;
+  }
+
+  .header-title {
+    font-size: 20px;
+  }
+
+  .header-content-area {
+    min-height: 220px;
+    padding: 24px 0;
+  }
+
+  .header-description {
+    padding: 0 16px;
+    font-size: 14px;
+  }
+}

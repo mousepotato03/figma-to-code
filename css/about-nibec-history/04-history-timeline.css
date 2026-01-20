@@ -1,0 +1,389 @@
+/* ==========================================================================
+   History Timeline Section
+   ========================================================================== */
+
+.history-timeline {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 150px 320px;
+  background-color: #fff;
+  width: 100%;
+}
+
+.timeline-container {
+  display: flex;
+  gap: 60px;
+  align-items: flex-start;
+  width: 100%;
+  max-width: 1280px;
+}
+
+/* Timeline Content (Left Side)
+   ========================================================================== */
+
+.timeline-content {
+  display: flex;
+  flex-direction: column;
+  gap: 100px;
+  width: 858px;
+  flex-shrink: 0;
+}
+
+/* Timeline Year Block
+   ========================================================================== */
+
+.timeline-year-block {
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+  width: 100%;
+  background-color: #fff;
+}
+
+.timeline-year {
+  font-family: 'Paperlogy', sans-serif;
+  font-weight: 700;
+  font-size: 48px;
+  line-height: 1.4;
+  letter-spacing: -0.96px;
+  color: #14483c;
+  flex-shrink: 0;
+  text-transform: capitalize;
+}
+
+/* Timeline Marker (Dot + Line)
+   ========================================================================== */
+
+.timeline-marker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 15px;
+  width: 20px;
+  flex-shrink: 0;
+  align-self: stretch;
+  position: relative;
+}
+
+.timeline-dot {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: #14483c;
+  flex-shrink: 0;
+  z-index: 1;
+}
+
+.timeline-line {
+  width: 1px;
+  flex: 1;
+  background-color: #14483c;
+  margin-top: -10px;
+}
+
+/* Timeline Events
+   ========================================================================== */
+
+.timeline-events {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  padding-top: 10px;
+  flex: 1;
+  min-width: 0;
+}
+
+.timeline-event {
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 1.6;
+  letter-spacing: -0.4px;
+  color: #14483c;
+  margin: 0;
+  text-transform: capitalize;
+}
+
+.timeline-event--highlight {
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 1.4;
+  letter-spacing: -0.44px;
+}
+
+.timeline-event strong {
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 1.4;
+  letter-spacing: -0.44px;
+}
+
+/* 2018년 블록 - 갭 조정 */
+.timeline-year-block:nth-child(8) .timeline-events {
+  gap: 20px;
+}
+
+/* Timeline Gallery (Right Side)
+   ========================================================================== */
+
+.timeline-gallery {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  align-items: flex-end;
+  flex: 1;
+  min-width: 0;
+  align-self: stretch;
+}
+
+.timeline-gallery__image {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.timeline-gallery__image img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  display: block;
+}
+
+.timeline-gallery__spacer {
+  width: 89px;
+  flex-shrink: 0;
+  align-self: flex-end;
+}
+
+.timeline-gallery__images-pair {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+/* ==========================================================================
+   Responsive Styles
+   ========================================================================== */
+
+/* Tablet */
+@media (max-width: 1440px) {
+  .history-timeline {
+    padding: 100px 80px;
+  }
+
+  .timeline-container {
+    gap: 40px;
+  }
+
+  .timeline-content {
+    width: 600px;
+    gap: 80px;
+  }
+
+  .timeline-year-block {
+    gap: 30px;
+  }
+
+  .timeline-year {
+    font-size: 40px;
+  }
+
+  .timeline-event {
+    font-size: 18px;
+  }
+
+  .timeline-event--highlight,
+  .timeline-event strong {
+    font-size: 20px;
+  }
+}
+
+/* Small Tablet */
+@media (max-width: 1024px) {
+  .history-timeline {
+    padding: 80px 40px;
+  }
+
+  .timeline-container {
+    flex-direction: column;
+    gap: 60px;
+  }
+
+  .timeline-content {
+    width: 100%;
+    gap: 60px;
+  }
+
+  .timeline-year-block {
+    gap: 24px;
+  }
+
+  .timeline-year {
+    font-size: 36px;
+    min-width: 80px;
+  }
+
+  .timeline-marker {
+    width: 16px;
+  }
+
+  .timeline-dot {
+    width: 16px;
+    height: 16px;
+  }
+
+  .timeline-events {
+    gap: 24px;
+  }
+
+  .timeline-event {
+    font-size: 16px;
+  }
+
+  .timeline-event--highlight,
+  .timeline-event strong {
+    font-size: 18px;
+  }
+
+  /* 갤러리 그리드 레이아웃 */
+  .timeline-gallery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    width: 100%;
+  }
+
+  .timeline-gallery__spacer {
+    display: none;
+  }
+
+  .timeline-gallery__images-pair {
+    display: contents;
+  }
+
+  .timeline-gallery__image {
+    aspect-ratio: 16 / 10;
+  }
+
+  .timeline-gallery__image img {
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .history-timeline {
+    padding: 60px 20px;
+  }
+
+  .timeline-container {
+    gap: 40px;
+  }
+
+  .timeline-content {
+    gap: 48px;
+  }
+
+  .timeline-year-block {
+    gap: 16px;
+  }
+
+  .timeline-year {
+    font-size: 28px;
+    min-width: 60px;
+  }
+
+  .timeline-marker {
+    width: 12px;
+    padding-top: 10px;
+  }
+
+  .timeline-dot {
+    width: 12px;
+    height: 12px;
+  }
+
+  .timeline-line {
+    margin-top: -6px;
+  }
+
+  .timeline-events {
+    gap: 16px;
+    padding-top: 6px;
+  }
+
+  .timeline-event {
+    font-size: 14px;
+    line-height: 1.5;
+    letter-spacing: -0.28px;
+  }
+
+  .timeline-event--highlight,
+  .timeline-event strong {
+    font-size: 15px;
+  }
+
+  /* 갤러리 2열 레이아웃 */
+  .timeline-gallery {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+  .history-timeline {
+    padding: 40px 16px;
+  }
+
+  .timeline-content {
+    gap: 40px;
+  }
+
+  .timeline-year-block {
+    gap: 12px;
+  }
+
+  .timeline-year {
+    font-size: 24px;
+    min-width: 50px;
+  }
+
+  .timeline-marker {
+    width: 10px;
+    padding-top: 8px;
+  }
+
+  .timeline-dot {
+    width: 10px;
+    height: 10px;
+  }
+
+  .timeline-events {
+    gap: 12px;
+    padding-top: 4px;
+  }
+
+  .timeline-event {
+    font-size: 13px;
+  }
+
+  .timeline-event--highlight,
+  .timeline-event strong {
+    font-size: 14px;
+  }
+
+  /* 갤러리 1열 레이아웃 */
+  .timeline-gallery {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .timeline-gallery__image {
+    aspect-ratio: 16 / 9;
+  }
+}

@@ -1,0 +1,161 @@
+/* Branch Office Research Section */
+.branch-office-research {
+  width: 100%;
+  border-top: 1px solid #e0e0e0;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.branch-office-research .branch-office-content {
+  display: flex;
+  gap: 80px;
+  align-items: flex-start;
+  padding: 80px 0;
+  max-width: 1920px;
+  margin: 0 auto;
+}
+
+.branch-office-research .branch-office-info {
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
+  width: 420px;
+  flex-shrink: 0;
+}
+
+.branch-office-research .branch-office-title {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+}
+
+.branch-office-research .branch-office-heading {
+  font-family: 'Paperlogy', sans-serif;
+  font-weight: 700;
+  font-size: 34px;
+  line-height: 1.3;
+  color: #14483c;
+  margin: 0;
+}
+
+.branch-office-research .branch-office-subtitle {
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 1.6;
+  letter-spacing: -0.4px;
+  color: #283c36;
+  text-transform: capitalize;
+  margin: 0;
+}
+
+.branch-office-research .branch-office-contact {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+.branch-office-research .contact-row {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.branch-office-research .contact-row-address {
+  align-items: flex-start;
+}
+
+.branch-office-research .contact-icon {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+.branch-office-research .contact-text {
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 1.6;
+  letter-spacing: -0.4px;
+  color: #283c36;
+}
+
+.branch-office-research .branch-office-map {
+  flex: 1;
+  min-width: 0;
+  height: 440px;
+  overflow: hidden;
+  background-color: #7b7b7b;
+}
+
+.branch-office-research .map-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .branch-office-research .branch-office-content {
+    flex-direction: column;
+    gap: 40px;
+    padding: 60px 40px;
+  }
+
+  .branch-office-research .branch-office-info {
+    width: 100%;
+    gap: 40px;
+  }
+
+  .branch-office-research .branch-office-map {
+    width: 100%;
+    height: 360px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .branch-office-research .branch-office-content {
+    gap: 32px;
+    padding: 40px 20px;
+  }
+
+  .branch-office-research .branch-office-info {
+    gap: 32px;
+  }
+
+  .branch-office-research .branch-office-title {
+    gap: 16px;
+  }
+
+  .branch-office-research .branch-office-heading {
+    font-size: clamp(1.5rem, 2vw + 1rem, 2.125rem);
+  }
+
+  .branch-office-research .branch-office-subtitle {
+    font-size: 16px;
+  }
+
+  .branch-office-research .branch-office-contact {
+    gap: 12px;
+  }
+
+  .branch-office-research .contact-row {
+    gap: 12px;
+  }
+
+  .branch-office-research .contact-icon {
+    width: 20px;
+    height: 20px;
+  }
+
+  .branch-office-research .contact-text {
+    font-size: 16px;
+  }
+
+  .branch-office-research .branch-office-map {
+    height: 280px;
+  }
+}

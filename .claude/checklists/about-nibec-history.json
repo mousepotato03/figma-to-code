@@ -1,0 +1,18 @@
+{
+  "$schema": "checklist-v6",
+  "metadata": {
+    "pageName": "about-nibec-history",
+    "figmaUrl": "https://www.figma.com/design/YOUR_FILE_KEY/NIBEC_%EB%B3%B8%EC%9E%91%EC%97%85?node-id=2413-12335",
+    "fileKey": "YOUR_FILE_KEY",
+    "nodeId": "2413:12335",
+    "analyzedAt": "2026-01-20T00:00:00Z"
+  },
+  "nodes": [
+    { "id": "navbar", "type": "common", "name": "Navbar", "nodeId": "2413:12669", "position": "fixed-top" },
+    { "id": "header-section", "type": "section", "name": "Header Section", "nodeId": "2413:12338", "position": "flow-1" },
+    { "id": "hero-banner", "type": "section", "name": "Hero Banner", "nodeId": "2413:12343", "position": "flow-2" },
+    { "id": "navbar-index", "type": "common", "name": "Navbar Index", "nodeId": "2413:12348", "position": "flow-3" },
+    { "id": "history-timeline", "type": "section", "name": "History Timeline", "nodeId": "2413:12349", "position": "flow-4" },
+    { "id": "footer", "type": "common", "name": "Footer", "nodeId": "2508:10758", "position": "flow-5" }
+  ]
+}

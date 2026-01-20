@@ -1,0 +1,68 @@
+{
+  "$schema": "checklist-v6",
+  "metadata": {
+    "pageName": "about-nibec-overview",
+    "figmaUrl": "https://www.figma.com/design/YOUR_FILE_KEY/NIBEC_%EB%B3%B8%EC%9E%91%EC%97%85?node-id=2413-12132&m=dev",
+    "fileKey": "YOUR_FILE_KEY",
+    "nodeId": "2413:12132",
+    "analyzedAt": "2026-01-20T00:00:00Z"
+  },
+  "nodes": [
+    {
+      "id": "navbar",
+      "type": "common",
+      "name": "Navbar",
+      "nodeId": "2413:18106",
+      "position": "fixed-top"
+    },
+    {
+      "id": "header-section",
+      "type": "section",
+      "name": "Header",
+      "nodeId": "2413:12134",
+      "position": "flow-1"
+    },
+    {
+      "id": "navbar-index",
+      "type": "section",
+      "name": "Navbar Index (Sub Navigation)",
+      "nodeId": "2413:12144",
+      "position": "flow-2"
+    },
+    {
+      "id": "vision-section",
+      "type": "section",
+      "name": "Vision",
+      "nodeId": "2413:12145",
+      "position": "flow-3"
+    },
+    {
+      "id": "core-values-section",
+      "type": "section",
+      "name": "Our Core Values",
+      "nodeId": "2413:12173",
+      "position": "flow-4"
+    },
+    {
+      "id": "innovation-pillars-section",
+      "type": "section",
+      "name": "Innovation Pillars (3 Columns)",
+      "nodeId": "2413:12257",
+      "position": "flow-5"
+    },
+    {
+      "id": "video-section",
+      "type": "section",
+      "name": "Video Section",
+      "nodeId": "2413:12281",
+      "position": "flow-6"
+    },
+    {
+      "id": "footer",
+      "type": "common",
+      "name": "Footer",
+      "nodeId": "2508:10671",
+      "position": "flow-7"
+    }
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "$schema": "checklist-v6",
+  "metadata": {
+    "pageName": "contact",
+    "figmaUrl": "https://www.figma.com/design/YOUR_FILE_KEY/NIBEC_%EB%B3%B8%EC%9E%91%EC%97%85?node-id=2402-6175&m=dev",
+    "fileKey": "YOUR_FILE_KEY",
+    "nodeId": "2402:6175",
+    "analyzedAt": "2026-01-20T00:00:00Z"
+  },
+  "nodes": [
+    {
+      "id": "navbar",
+      "type": "common",
+      "name": "Navbar",
+      "nodeId": "2413:18608",
+      "position": "fixed-top"
+    },
+    {
+      "id": "header-section",
+      "type": "section",
+      "name": "Header Section",
+      "nodeId": "2402:6178",
+      "position": "flow-1"
+    },
+    {
+      "id": "sub-navigation",
+      "type": "section",
+      "name": "Sub Navigation",
+      "nodeId": "2402:6182",
+      "position": "flow-2"
+    },
+    {
+      "id": "contact-info-section",
+      "type": "section",
+      "name": "Contact Info Section",
+      "nodeId": "2508:5193",
+      "position": "flow-3"
+    },
+    {
+      "id": "contact-form-section",
+      "type": "section",
+      "name": "Contact Form Section",
+      "nodeId": "2402:6261",
+      "position": "flow-4"
+    },
+    {
+      "id": "footer",
+      "type": "common",
+      "name": "Footer",
+      "nodeId": "2543:12585",
+      "position": "flow-5"
+    }
+  ]
+}

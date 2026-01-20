@@ -191,26 +191,19 @@ for pageName in pageNames (parallel):
 
 ---
 
-## 3-3. 배치 병렬 구현 (시간 기반)
+## 3-3. 순차 구현
 
-전체 섹션을 배치 단위로 실행합니다. **완료 여부와 무관하게 60초마다 다음 배치 실행**.
+전체 섹션을 하나씩 순차적으로 실행합니다.
 
 ```
-for batchIndex in range(totalBatches):
-  # 현재 배치 섹션 조회
-  sections = Bash(f"python .claude/scripts/get_pending_sections.py --batch-size {BATCH_SIZE} --batch-index {batchIndex}")
+sections = Bash("python .claude/scripts/get_pending_sections.py")
 
-  # 배치 내 모든 섹션 병렬 실행 (단일 메시지!)
-  for section in sections (parallel):
-    Task(
-      subagent_type="figma-implementer",
-      prompt={JSON},
-      run_in_background=true
-    )
-
-  # 마지막 배치가 아니면 60초 대기
-  if batchIndex < totalBatches - 1:
-    sleep(60)
+for section in sections:
+  Task(
+    subagent_type="figma-implementer",
+    prompt={JSON}
+  )
+  # 각 Task 완료 후 다음 진행
 ```
 
 **Task prompt JSON**:
@@ -239,7 +232,7 @@ for batchIndex in range(totalBatches):
 
 ## 3-4. 전체 섹션 완료 대기
 
-모든 배치 실행 후, 전체 섹션 마커 완료 대기.
+모든 섹션 실행 후, 전체 섹션 마커 완료 확인.
 
 ### 카운트 계산
 ```

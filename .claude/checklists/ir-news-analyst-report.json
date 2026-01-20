@@ -1,0 +1,47 @@
+{
+  "$schema": "checklist-v6",
+  "metadata": {
+    "pageName": "ir-news-analyst-report",
+    "figmaUrl": "https://www.figma.com/design/YOUR_FILE_KEY/NIBEC_%EB%B3%B8%EC%9E%91%EC%97%85?node-id=2325-7750&m=dev",
+    "fileKey": "YOUR_FILE_KEY",
+    "nodeId": "2325:7750",
+    "analyzedAt": "2026-01-20T00:00:00Z"
+  },
+  "nodes": [
+    {
+      "id": "navbar",
+      "type": "common",
+      "name": "Navbar",
+      "nodeId": "2413:18476",
+      "position": "fixed-top"
+    },
+    {
+      "id": "header-section",
+      "type": "section",
+      "name": "Header Section",
+      "nodeId": "2325:7753",
+      "position": "flow-1"
+    },
+    {
+      "id": "sub-navigation-section",
+      "type": "section",
+      "name": "Sub Navigation Section",
+      "nodeId": "2325:7762",
+      "position": "flow-2"
+    },
+    {
+      "id": "analyst-report-list-section",
+      "type": "section",
+      "name": "Analyst Report List Section",
+      "nodeId": "2325:7827",
+      "position": "flow-3"
+    },
+    {
+      "id": "footer",
+      "type": "common",
+      "name": "Footer",
+      "nodeId": "2508:11802",
+      "position": "flow-4"
+    }
+  ]
+}

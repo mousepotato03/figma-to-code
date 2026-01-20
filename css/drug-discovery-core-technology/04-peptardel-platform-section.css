@@ -1,0 +1,302 @@
+/* ==============================================
+   PEPTARDEL Platform Section
+   drug-discovery-core-technology/04-peptardel-platform-section
+   ============================================== */
+
+.peptardel-platform-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 80px;
+  padding: 150px 0;
+  width: 100%;
+  background-color: #f6f5f2;
+}
+
+/* Header Area */
+.peptardel-platform-header {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  width: 100%;
+  padding: 0 320px;
+  box-sizing: border-box;
+}
+
+.peptardel-platform-title {
+  font-family: 'Paperlogy', sans-serif;
+  font-weight: 700;
+  font-size: 42px;
+  line-height: 1.3;
+  color: #14483c;
+  text-transform: capitalize;
+  margin: 0;
+}
+
+.peptardel-platform-description {
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 1.6;
+  letter-spacing: -0.4px;
+  color: #14483c;
+  text-transform: capitalize;
+}
+
+.peptardel-platform-description p {
+  margin: 0;
+}
+
+/* Cards Row */
+.peptardel-cards-row {
+  display: flex;
+  gap: 42px;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 0 110px;
+  box-sizing: border-box;
+}
+
+/* Individual Card */
+.peptardel-card {
+  display: flex;
+  flex-direction: column;
+  width: 500px;
+  background-color: #006241;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+/* Card Image Container */
+.peptardel-card-image {
+  position: relative;
+  width: 100%;
+  height: 378px;
+  overflow: hidden;
+}
+
+.peptardel-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.peptardel-card-image--rotated img {
+  transform: rotate(180deg) scaleY(-1);
+}
+
+.peptardel-card-image--capsules {
+  position: relative;
+}
+
+.peptardel-card-image--capsules .device-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.peptardel-card-image--capsules .capsules-image {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Card Content */
+.peptardel-card-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 40px 42px;
+  text-align: center;
+  min-height: 192px;
+}
+
+.peptardel-card-title {
+  font-family: 'Paperlogy', sans-serif;
+  font-weight: 700;
+  font-size: 34px;
+  line-height: 1.3;
+  color: #ffffff;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 78px;
+}
+
+.peptardel-card-description {
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 600;
+  font-size: 22px;
+  line-height: 1.4;
+  letter-spacing: -0.44px;
+  color: #f9f3e2;
+  text-transform: capitalize;
+  margin: 0;
+}
+
+/* ==============================================
+   Responsive Styles
+   ============================================== */
+
+/* Tablet */
+@media (max-width: 1400px) {
+  .peptardel-platform-header {
+    padding: 0 80px;
+  }
+
+  .peptardel-cards-row {
+    padding: 0 40px;
+    gap: 24px;
+  }
+
+  .peptardel-card {
+    width: calc((100% - 48px) / 3);
+    min-width: 300px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .peptardel-platform-section {
+    gap: 60px;
+    padding: 100px 0;
+  }
+
+  .peptardel-platform-header {
+    padding: 0 60px;
+  }
+
+  .peptardel-platform-title {
+    font-size: clamp(1.75rem, 2vw + 1rem, 2.625rem);
+  }
+
+  .peptardel-platform-description {
+    font-size: 18px;
+  }
+
+  .peptardel-cards-row {
+    flex-wrap: wrap;
+    padding: 0 40px;
+  }
+
+  .peptardel-card {
+    width: calc(50% - 12px);
+    min-width: 280px;
+  }
+
+  .peptardel-card-image {
+    height: 300px;
+  }
+
+  .peptardel-card-title {
+    font-size: 28px;
+    height: auto;
+  }
+
+  .peptardel-card-description {
+    font-size: 18px;
+  }
+
+  .peptardel-card-content {
+    padding: 30px 24px;
+    min-height: auto;
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .peptardel-platform-section {
+    gap: 40px;
+    padding: 60px 0;
+  }
+
+  .peptardel-platform-header {
+    padding: 0 20px;
+    gap: 24px;
+  }
+
+  .peptardel-platform-title {
+    font-size: 24px;
+  }
+
+  .peptardel-platform-description {
+    font-size: 16px;
+  }
+
+  .peptardel-cards-row {
+    flex-direction: column;
+    padding: 0 20px;
+    gap: 24px;
+  }
+
+  .peptardel-card {
+    width: 100%;
+    min-width: unset;
+  }
+
+  .peptardel-card-image {
+    height: 250px;
+  }
+
+  .peptardel-card-title {
+    font-size: 24px;
+  }
+
+  .peptardel-card-description {
+    font-size: 16px;
+  }
+
+  .peptardel-card-content {
+    padding: 24px 20px;
+  }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+  .peptardel-platform-section {
+    padding: 40px 0;
+  }
+
+  .peptardel-platform-header {
+    padding: 0 16px;
+  }
+
+  .peptardel-platform-title {
+    font-size: 20px;
+  }
+
+  .peptardel-platform-description {
+    font-size: 14px;
+  }
+
+  .peptardel-cards-row {
+    padding: 0 16px;
+    gap: 20px;
+  }
+
+  .peptardel-card-image {
+    height: 200px;
+  }
+
+  .peptardel-card-title {
+    font-size: 20px;
+  }
+
+  .peptardel-card-description {
+    font-size: 14px;
+  }
+
+  .peptardel-card-content {
+    padding: 20px 16px;
+  }
+}

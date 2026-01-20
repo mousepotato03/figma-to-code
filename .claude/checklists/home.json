@@ -1,0 +1,89 @@
+{
+  "$schema": "checklist-v6",
+  "metadata": {
+    "pageName": "home",
+    "figmaUrl": "https://www.figma.com/design/YOUR_FILE_KEY/NIBEC_%EB%B3%B8%EC%9E%91%EC%97%85?node-id=2413-13474",
+    "fileKey": "YOUR_FILE_KEY",
+    "nodeId": "2413:13474",
+    "analyzedAt": "2026-01-20T00:00:00Z"
+  },
+  "nodes": [
+    {
+      "id": "navbar",
+      "type": "common",
+      "name": "Navbar",
+      "nodeId": "2413:13984",
+      "position": "fixed-top"
+    },
+    {
+      "id": "hero-section",
+      "type": "section",
+      "name": "Hero Section (Header)",
+      "nodeId": "2413:13476",
+      "position": "flow-1"
+    },
+    {
+      "id": "about-section",
+      "type": "section",
+      "name": "About Section (Frame 12)",
+      "nodeId": "2413:13489",
+      "position": "flow-2"
+    },
+    {
+      "id": "research-domains-section",
+      "type": "section",
+      "name": "Research Domains Section (Layout 145)",
+      "nodeId": "2413:13585",
+      "position": "flow-3"
+    },
+    {
+      "id": "drug-delivery-section",
+      "type": "section",
+      "name": "Drug Delivery Platform Section (Frame 53)",
+      "nodeId": "2413:13670",
+      "position": "flow-4"
+    },
+    {
+      "id": "business-areas-section",
+      "type": "section",
+      "name": "Business Areas Section (Layout 369 - First)",
+      "nodeId": "2413:13757",
+      "position": "flow-5"
+    },
+    {
+      "id": "business-areas-section-2",
+      "type": "section",
+      "name": "Business Areas Section 2 (Layout 369 - Second)",
+      "nodeId": "2413:13799",
+      "position": "flow-6"
+    },
+    {
+      "id": "statistics-section",
+      "type": "section",
+      "name": "Statistics Section (Frame 59)",
+      "nodeId": "2413:13905",
+      "position": "flow-7"
+    },
+    {
+      "id": "ir-heading-section",
+      "type": "section",
+      "name": "IR Heading Section (Frame 19)",
+      "nodeId": "2413:13943",
+      "position": "flow-8"
+    },
+    {
+      "id": "ir-news-section",
+      "type": "section",
+      "name": "IR & News Section (Layout 369 - Third)",
+      "nodeId": "2413:13949",
+      "position": "flow-9"
+    },
+    {
+      "id": "footer",
+      "type": "common",
+      "name": "Footer",
+      "nodeId": "2489:7702",
+      "position": "flow-10"
+    }
+  ]
+}

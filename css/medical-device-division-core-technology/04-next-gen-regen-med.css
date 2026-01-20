@@ -1,0 +1,217 @@
+/* ==========================================================================
+   04-next-gen-regen-med.css
+   차세대 재생의학 혁신 라인업 섹션
+   ========================================================================== */
+
+.next-gen-regen-med {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+  width: 100%;
+  background-color: #ffffff;
+}
+
+/* --------------------------------------------------------------------------
+   Section Header
+   -------------------------------------------------------------------------- */
+.next-gen-regen-med .section-header {
+  padding: 0 20rem;
+}
+
+.next-gen-regen-med .section-title {
+  font-family: 'Paperlogy', sans-serif;
+  font-weight: 700;
+  font-size: clamp(1.75rem, 1.03vw + 1.25rem, 2.625rem);
+  line-height: 1.3;
+  color: #14483c;
+  text-transform: capitalize;
+  margin: 0;
+}
+
+/* --------------------------------------------------------------------------
+   Product List
+   -------------------------------------------------------------------------- */
+.next-gen-regen-med .product-list {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+/* --------------------------------------------------------------------------
+   Product Item (Shared)
+   -------------------------------------------------------------------------- */
+.next-gen-regen-med .product-item {
+  display: flex;
+  height: 26.875rem;
+  width: 100%;
+  background-color: #ffffff;
+}
+
+/* --------------------------------------------------------------------------
+   Product Image Container
+   -------------------------------------------------------------------------- */
+.next-gen-regen-med .product-image {
+  flex: 1 0 0;
+  min-width: 0;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.next-gen-regen-med .product-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* --------------------------------------------------------------------------
+   Product Content Container
+   -------------------------------------------------------------------------- */
+.next-gen-regen-med .product-content {
+  flex: 1 0 0;
+  min-width: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.next-gen-regen-med .product-content--green {
+  background-color: #006241;
+  padding: 6.875rem 20rem 6.875rem 5rem;
+}
+
+.next-gen-regen-med .product-content--light {
+  background-color: #f6f5f2;
+  padding: 6.875rem 5rem 6.875rem 20rem;
+}
+
+/* --------------------------------------------------------------------------
+   Product Text
+   -------------------------------------------------------------------------- */
+.next-gen-regen-med .product-text {
+  display: flex;
+  flex-direction: column;
+  gap: 1.875rem;
+  width: 100%;
+}
+
+.next-gen-regen-med .product-title {
+  font-family: 'Paperlogy', sans-serif;
+  font-weight: 700;
+  font-size: clamp(1.5rem, 0.65vw + 1.25rem, 2.125rem);
+  line-height: 1.3;
+  color: #ffffff;
+  margin: 0;
+}
+
+.next-gen-regen-med .product-title--green {
+  color: #006241;
+}
+
+.next-gen-regen-med .product-description {
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 400;
+  font-size: clamp(1rem, 0.26vw + 0.875rem, 1.25rem);
+  line-height: 1.6;
+  letter-spacing: -0.025rem;
+  color: #f9f3e2;
+  margin: 0;
+  text-transform: capitalize;
+}
+
+.next-gen-regen-med .product-description--dark {
+  color: #283c36;
+}
+
+/* ==========================================================================
+   Responsive - Tablet (max-width: 1024px)
+   ========================================================================== */
+@media (max-width: 1024px) {
+  .next-gen-regen-med {
+    gap: 2rem;
+  }
+
+  .next-gen-regen-med .section-header {
+    padding: 0 3rem;
+  }
+
+  .next-gen-regen-med .product-item {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .next-gen-regen-med .product-item--right {
+    flex-direction: column-reverse;
+  }
+
+  .next-gen-regen-med .product-image {
+    flex: none;
+    width: 100%;
+    height: 18.75rem;
+  }
+
+  .next-gen-regen-med .product-content {
+    flex: none;
+    width: 100%;
+    height: auto;
+  }
+
+  .next-gen-regen-med .product-content--green {
+    padding: 3rem;
+  }
+
+  .next-gen-regen-med .product-content--light {
+    padding: 3rem;
+  }
+}
+
+/* ==========================================================================
+   Responsive - Mobile (max-width: 768px)
+   ========================================================================== */
+@media (max-width: 768px) {
+  .next-gen-regen-med {
+    gap: 1.5rem;
+  }
+
+  .next-gen-regen-med .section-header {
+    padding: 0 1.5rem;
+  }
+
+  .next-gen-regen-med .product-image {
+    height: 15rem;
+  }
+
+  .next-gen-regen-med .product-content--green,
+  .next-gen-regen-med .product-content--light {
+    padding: 2rem 1.5rem;
+  }
+
+  .next-gen-regen-med .product-text {
+    gap: 1.25rem;
+  }
+}
+
+/* ==========================================================================
+   Responsive - Small Mobile (max-width: 480px)
+   ========================================================================== */
+@media (max-width: 480px) {
+  .next-gen-regen-med .section-header {
+    padding: 0 1rem;
+  }
+
+  .next-gen-regen-med .product-image {
+    height: 12.5rem;
+  }
+
+  .next-gen-regen-med .product-content--green,
+  .next-gen-regen-med .product-content--light {
+    padding: 1.5rem 1rem;
+  }
+
+  .next-gen-regen-med .product-text {
+    gap: 1rem;
+  }
+}

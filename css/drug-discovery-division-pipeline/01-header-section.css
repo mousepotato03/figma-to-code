@@ -1,0 +1,230 @@
+/* Header Section - Drug Discovery Division Pipeline */
+
+.header-section {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+/* Title Area */
+.header-title-area {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-end;
+  width: 100%;
+  height: 400px;
+  padding: 0 319px 60px;
+  background-color: #ffffff;
+  box-sizing: border-box;
+}
+
+.header-title-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 35px;
+}
+
+.title-accent-bar {
+  width: 10px;
+  height: 72px;
+  background-color: #006241;
+  flex-shrink: 0;
+}
+
+.header-title {
+  font-family: 'Paperlogy', sans-serif;
+  font-weight: 700;
+  font-size: 60px;
+  line-height: 1.2;
+  color: #006241;
+  text-transform: capitalize;
+  margin: 0;
+}
+
+/* Visual Area */
+.header-visual-area {
+  position: relative;
+  width: 100%;
+  height: 360px;
+  overflow: hidden;
+  background: linear-gradient(179.4deg, rgba(76, 142, 189, 1) 5.66%, rgba(176, 211, 245, 1) 97.31%);
+}
+
+.visual-bg-layer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(180deg) scaleY(-1);
+  width: 100%;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bg-dna-structure {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.visual-dna-right {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 74.5%;
+  height: auto;
+}
+
+.visual-dna-right .dna-strand-img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.visual-dna-left {
+  position: absolute;
+  left: -25%;
+  top: 50%;
+  transform: translateY(-50%) rotate(180deg) scaleY(-1);
+  width: 74.5%;
+  height: auto;
+}
+
+.visual-dna-left .dna-strand-img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.dna-strand-img.blurred {
+  filter: blur(25px);
+}
+
+.visual-blur-overlay {
+  position: absolute;
+  top: 130px;
+  left: 16.35%;
+  width: 83.65%;
+  height: 270px;
+  background: linear-gradient(90deg, rgba(31, 110, 174, 0.5) 0%, rgba(31, 110, 174, 0) 100%);
+  filter: blur(50px);
+  mix-blend-mode: multiply;
+  border-top-left-radius: 500px;
+}
+
+.visual-gradient-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, rgba(5, 81, 114, 0.8) 2.69%, rgba(0, 153, 204, 0.64) 25.62%, rgba(119, 255, 255, 0.4) 60.7%, rgba(0, 150, 204, 0.4) 100%);
+  mix-blend-mode: multiply;
+}
+
+.visual-green-gradient {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 63.65%;
+  height: 100%;
+  background: linear-gradient(-44.09deg, rgba(70, 226, 70, 0) 47.38%, rgba(70, 226, 70, 0.5) 90.55%);
+}
+
+.header-description {
+  position: absolute;
+  top: 50%;
+  left: 328px;
+  transform: translateY(-50%);
+  width: 754px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 600;
+  font-size: 22px;
+  line-height: 1.4;
+  letter-spacing: -0.44px;
+  color: #ffffff;
+  text-transform: capitalize;
+  margin: 0;
+}
+
+/* Responsive - Tablet */
+@media (max-width: 1280px) {
+  .header-title-area {
+    height: auto;
+    min-height: 300px;
+    padding: 0 80px 40px;
+  }
+
+  .header-title-wrapper {
+    gap: 24px;
+  }
+
+  .title-accent-bar {
+    width: 8px;
+    height: 56px;
+  }
+
+  .header-title {
+    font-size: clamp(2rem, 4vw + 1rem, 3.75rem);
+  }
+
+  .header-visual-area {
+    height: 300px;
+  }
+
+  .header-description {
+    left: 80px;
+    width: calc(100% - 160px);
+    max-width: 600px;
+    font-size: 18px;
+  }
+}
+
+/* Responsive - Mobile */
+@media (max-width: 768px) {
+  .header-title-area {
+    min-height: 200px;
+    padding: 0 24px 32px;
+  }
+
+  .header-title-wrapper {
+    gap: 16px;
+  }
+
+  .title-accent-bar {
+    width: 6px;
+    height: 40px;
+  }
+
+  .header-title {
+    font-size: clamp(1.5rem, 6vw, 2rem);
+  }
+
+  .header-visual-area {
+    height: 280px;
+  }
+
+  .visual-dna-right {
+    width: 100%;
+    right: -20%;
+  }
+
+  .visual-dna-left {
+    display: none;
+  }
+
+  .visual-blur-overlay {
+    top: 80px;
+    height: 200px;
+  }
+
+  .header-description {
+    left: 24px;
+    width: calc(100% - 48px);
+    font-size: 16px;
+    line-height: 1.5;
+  }
+}

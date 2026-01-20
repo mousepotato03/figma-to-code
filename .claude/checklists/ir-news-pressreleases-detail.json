@@ -1,0 +1,40 @@
+{
+  "$schema": "checklist-v6",
+  "metadata": {
+    "pageName": "ir-news-pressreleases-detail",
+    "figmaUrl": "https://www.figma.com/design/YOUR_FILE_KEY/NIBEC_%EB%B3%B8%EC%9E%91%EC%97%85?node-id=2389-2461&m=dev",
+    "fileKey": "YOUR_FILE_KEY",
+    "nodeId": "2389:2461",
+    "analyzedAt": "2026-01-20T00:00:00Z"
+  },
+  "nodes": [
+    {
+      "id": "navbar",
+      "type": "common",
+      "name": "Navbar",
+      "nodeId": "2413:18388",
+      "position": "fixed-top"
+    },
+    {
+      "id": "header-section",
+      "type": "section",
+      "name": "Header Section",
+      "nodeId": "2389:2463",
+      "position": "flow-1"
+    },
+    {
+      "id": "contents-section",
+      "type": "section",
+      "name": "Contents Section",
+      "nodeId": "2389:2538",
+      "position": "flow-2"
+    },
+    {
+      "id": "footer",
+      "type": "common",
+      "name": "Footer",
+      "nodeId": "2508:11628",
+      "position": "flow-3"
+    }
+  ]
+}

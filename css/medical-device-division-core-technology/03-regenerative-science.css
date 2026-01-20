@@ -1,0 +1,173 @@
+/* =====================================================
+   Regenerative Science Section
+   재생과학을 중심으로 구축된 나이벡의 핵심 사업 분야
+   ===================================================== */
+
+.regenerative-science {
+  display: flex;
+  flex-direction: column;
+  gap: 5rem; /* 80px */
+  width: 100%;
+  padding: 5rem 0;
+}
+
+.regenerative-science__container {
+  max-width: 80rem; /* 1280px */
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 1.25rem;
+}
+
+/* Header Section */
+.regenerative-science__header {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem; /* 40px */
+  width: 100%;
+}
+
+.regenerative-science__title {
+  font-family: 'Paperlogy', sans-serif;
+  font-weight: 700;
+  font-size: clamp(1.75rem, 1.36vw + 1.24rem, 2.625rem); /* 28px - 42px */
+  line-height: 1.3;
+  color: #14483c;
+  text-transform: capitalize;
+  margin: 0;
+}
+
+.regenerative-science__description {
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 400;
+  font-size: clamp(1rem, 0.26vw + 0.9rem, 1.25rem); /* 16px - 20px */
+  line-height: 1.6;
+  letter-spacing: -0.025em;
+  color: #14483c;
+  margin: 0;
+}
+
+/* Cards Container */
+.regenerative-science__cards {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  gap: 1.25rem;
+}
+
+/* Individual Card */
+.regenerative-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.875rem; /* 30px */
+  width: 25rem; /* 400px */
+  padding: 0 0.9375rem; /* 15px */
+  flex: 1;
+  max-width: 25rem;
+}
+
+.regenerative-card__title {
+  font-family: 'Paperlogy', sans-serif;
+  font-weight: 700;
+  font-size: clamp(1.5rem, 0.52vw + 1.3rem, 2.125rem); /* 24px - 34px */
+  line-height: 1.3;
+  color: #006241;
+  text-align: center;
+  margin: 0;
+  width: 100%;
+}
+
+.regenerative-card__icon {
+  width: 12.5rem; /* 200px */
+  height: 12.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.regenerative-card__icon img {
+  width: 10rem; /* 160px */
+  height: 10rem;
+  object-fit: contain;
+}
+
+.regenerative-card__text {
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 400;
+  font-size: clamp(1rem, 0.26vw + 0.9rem, 1.25rem); /* 16px - 20px */
+  line-height: 1.6;
+  letter-spacing: -0.025em;
+  color: #14483c;
+  text-align: center;
+  text-transform: capitalize;
+  margin: 0;
+  width: 100%;
+}
+
+/* =====================================================
+   Responsive Styles
+   ===================================================== */
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .regenerative-science {
+    gap: 3.75rem; /* 60px */
+    padding: 3.75rem 0;
+  }
+
+  .regenerative-science__cards {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2.5rem;
+  }
+
+  .regenerative-card {
+    width: calc(50% - 1.25rem);
+    max-width: 20rem;
+  }
+
+  .regenerative-card__icon {
+    width: 10rem;
+    height: 10rem;
+  }
+
+  .regenerative-card__icon img {
+    width: 8rem;
+    height: 8rem;
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .regenerative-science {
+    gap: 2.5rem; /* 40px */
+    padding: 2.5rem 0;
+  }
+
+  .regenerative-science__header {
+    gap: 1.5rem;
+  }
+
+  .regenerative-science__cards {
+    flex-direction: column;
+    gap: 2.5rem;
+  }
+
+  .regenerative-card {
+    width: 100%;
+    max-width: none;
+    gap: 1.25rem;
+  }
+
+  .regenerative-card__icon {
+    width: 8rem;
+    height: 8rem;
+  }
+
+  .regenerative-card__icon img {
+    width: 6.5rem;
+    height: 6.5rem;
+  }
+}
