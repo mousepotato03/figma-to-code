@@ -1,0 +1,1052 @@
+/* about-nibec-leadership.css - Auto-merged from 4 section files */
+/* Do not edit directly - regenerate with merge_section_css.py */
+
+/* ========== 01-header-section ========== */
+/* Header Section - about-nibec-leadership */
+
+.header-section {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 1920px;
+  margin: 0 auto;
+}
+
+/* 상단 타이틀 영역 */
+.header-title-area {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-end;
+  background-color: #ffffff;
+  height: 400px;
+  padding: 0 319px 40px;
+}
+
+.header-title-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 35px;
+  padding: 6px 0;
+}
+
+.header-title-accent {
+  width: 10px;
+  height: 100%;
+  min-height: 72px;
+  background-color: #006241;
+  align-self: stretch;
+}
+
+.header-title {
+  font-family: 'Paperlogy', sans-serif;
+  font-weight: 700;
+  font-size: 60px;
+  line-height: 1.2;
+  color: #006241;
+  text-transform: capitalize;
+  margin: 0;
+}
+
+/* 하단 콘텐츠 영역 */
+.header-content-area {
+  position: relative;
+  width: 100%;
+  height: 360px;
+  background-color: #006241;
+  overflow: hidden;
+}
+
+/* 배경 이미지 (우측) */
+.header-bg-image {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 54%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.header-bg-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* 배경 이미지 (좌측 블러) */
+.header-bg-blur {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 60%;
+  height: 100%;
+  overflow: hidden;
+  transform: scaleX(-1);
+  filter: blur(40px);
+  opacity: 0.6;
+}
+
+.header-bg-blur img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* 그라데이션 오버레이 */
+.header-gradient-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to right,
+    rgba(36, 113, 23, 0.3) 2.69%,
+    rgba(98, 206, 59, 0.3) 33.1%,
+    rgba(197, 255, 119, 0.21) 71%
+  );
+  mix-blend-mode: multiply;
+  filter: blur(50px);
+}
+
+.header-gradient-overlay-secondary {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 63.6%;
+  height: 100%;
+  background: linear-gradient(
+    -40.5deg,
+    rgba(22, 190, 76, 0) 44.48%,
+    rgba(1, 142, 68, 0.7) 90.86%
+  );
+  backdrop-filter: blur(5px);
+}
+
+/* 설명 텍스트 */
+.header-description {
+  position: absolute;
+  top: 50%;
+  left: 328px;
+  transform: translateY(-50%);
+  width: 889px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 600;
+  font-size: 22px;
+  line-height: 1.4;
+  letter-spacing: -0.44px;
+  color: #ffffff;
+  text-transform: capitalize;
+}
+
+.header-description p {
+  margin: 0;
+}
+
+/* ========================================
+   반응형 스타일
+   ======================================== */
+
+/* 태블릿 (1024px 이하) */
+@media (max-width: 1024px) {
+  .header-title-area {
+    height: auto;
+    min-height: 280px;
+    padding: 60px 40px 30px;
+  }
+
+  .header-title-wrapper {
+    gap: 20px;
+  }
+
+  .header-title-accent {
+    width: 6px;
+    min-height: 50px;
+  }
+
+  .header-title {
+    font-size: clamp(28px, 5vw, 48px);
+  }
+
+  .header-content-area {
+    height: auto;
+    min-height: 300px;
+    padding: 40px 0;
+  }
+
+  .header-description {
+    position: relative;
+    top: auto;
+    left: auto;
+    transform: none;
+    width: auto;
+    padding: 0 40px;
+    font-size: 18px;
+    z-index: 10;
+  }
+
+  .header-bg-image {
+    width: 70%;
+  }
+
+  .header-gradient-overlay-secondary {
+    width: 80%;
+  }
+}
+
+/* 모바일 (768px 이하) */
+@media (max-width: 768px) {
+  .header-title-area {
+    min-height: 200px;
+    padding: 40px 20px 24px;
+  }
+
+  .header-title-wrapper {
+    gap: 15px;
+  }
+
+  .header-title-accent {
+    width: 4px;
+    min-height: 40px;
+  }
+
+  .header-title {
+    font-size: clamp(22px, 6vw, 32px);
+  }
+
+  .header-content-area {
+    min-height: 260px;
+    padding: 30px 0;
+  }
+
+  .header-description {
+    padding: 0 20px;
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  .header-bg-image {
+    width: 100%;
+    opacity: 0.3;
+  }
+
+  .header-bg-blur {
+    display: none;
+  }
+
+  .header-gradient-overlay-secondary {
+    width: 100%;
+  }
+}
+
+/* 소형 모바일 (480px 이하) */
+@media (max-width: 480px) {
+  .header-title-area {
+    min-height: 160px;
+    padding: 30px 16px 20px;
+  }
+
+  .header-title-wrapper {
+    gap: 12px;
+  }
+
+  .header-title-accent {
+    width: 3px;
+    min-height: 32px;
+  }
+
+  .header-title {
+    font-size: 20px;
+  }
+
+  .header-content-area {
+    min-height: 220px;
+    padding: 24px 0;
+  }
+
+  .header-description {
+    padding: 0 16px;
+    font-size: 14px;
+  }
+}
+
+/* ========== 02-navbar-index-sub-navigation ========== */
+/* Navbar Index Sub Navigation */
+.navbar-index-sub-navigation {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  width: 100%;
+  padding: 30px 320px;
+  background-color: white;
+  box-sizing: border-box;
+}
+
+.sub-navigation-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.breadcrumb-text {
+  font-family: 'Poppins', sans-serif;
+  font-size: 24px;
+  line-height: 1.75;
+  color: rgba(0, 0, 0, 0.7);
+  margin: 0;
+}
+
+.breadcrumb-path {
+  font-weight: 400;
+}
+
+.breadcrumb-current {
+  font-weight: 600;
+}
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .navbar-index-sub-navigation {
+    padding: 24px 60px;
+  }
+
+  .breadcrumb-text {
+    font-size: 20px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .navbar-index-sub-navigation {
+    padding: 20px 20px;
+  }
+
+  .breadcrumb-text {
+    font-size: 16px;
+    line-height: 1.6;
+  }
+}
+
+/* ========== 03-ceo-message-section ========== */
+/* CEO Message Section */
+.ceo-message-section {
+  background-color: #ffffff;
+  width: 100%;
+  padding: 100px 316px 0;
+  box-sizing: border-box;
+}
+
+.ceo-message-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1280px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.ceo-message-content {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  align-items: flex-end;
+  justify-content: flex-end;
+  padding: 100px 0;
+  width: 780px;
+  flex-shrink: 0;
+}
+
+.ceo-message-header {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.ceo-message-title {
+  display: flex;
+  flex-direction: column;
+  font-family: 'Paperlogy', sans-serif;
+  font-weight: 700;
+  font-size: 42px;
+  line-height: 1.3;
+  color: #14483c;
+  text-transform: capitalize;
+  margin: 0;
+}
+
+.ceo-message-subtitle {
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 600;
+  font-size: 22px;
+  line-height: 1.4;
+  letter-spacing: -0.44px;
+  color: #14483c;
+  text-transform: capitalize;
+  margin: 0;
+}
+
+.ceo-message-quote {
+  display: flex;
+  gap: 35px;
+  align-items: stretch;
+  width: 100%;
+}
+
+.ceo-quote-accent {
+  width: 10px;
+  background-color: #006241;
+  flex-shrink: 0;
+  align-self: stretch;
+}
+
+.ceo-quote-body {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  justify-content: center;
+  flex: 1;
+  min-width: 0;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 400;
+  letter-spacing: -0.4px;
+  text-transform: capitalize;
+}
+
+.ceo-quote-text {
+  font-size: 20px;
+  line-height: 1.6;
+  color: rgba(0, 0, 0, 0.7);
+  margin: 0;
+}
+
+.ceo-signature {
+  font-size: 20px;
+  line-height: 1.6;
+  color: #14483c;
+  margin: 0;
+}
+
+.ceo-title {
+  font-weight: 400;
+}
+
+.ceo-name {
+  font-weight: 600;
+  font-size: 22px;
+  line-height: 1.4;
+  letter-spacing: -0.44px;
+}
+
+.ceo-suffix {
+  font-weight: 400;
+}
+
+.ceo-image-wrapper {
+  display: flex;
+  align-items: center;
+  align-self: stretch;
+}
+
+.ceo-image-container {
+  width: 429px;
+  height: 100%;
+  background-color: #f6f5f2;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.ceo-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* Responsive - Tablet */
+@media (max-width: 1440px) {
+  .ceo-message-section {
+    padding: 80px 60px 0;
+  }
+
+  .ceo-message-content {
+    width: 60%;
+    padding: 80px 0;
+  }
+
+  .ceo-image-container {
+    width: 350px;
+  }
+}
+
+/* Responsive - Mobile */
+@media (max-width: 1024px) {
+  .ceo-message-section {
+    padding: 60px 40px 0;
+  }
+
+  .ceo-message-container {
+    flex-direction: column-reverse;
+    gap: 40px;
+  }
+
+  .ceo-message-content {
+    width: 100%;
+    padding: 40px 0;
+    align-items: flex-start;
+  }
+
+  .ceo-message-title {
+    font-size: clamp(1.75rem, 2vw + 1rem, 2.625rem);
+  }
+
+  .ceo-message-subtitle {
+    font-size: clamp(1rem, 1vw + 0.75rem, 1.375rem);
+  }
+
+  .ceo-quote-text {
+    font-size: clamp(1rem, 1vw + 0.75rem, 1.25rem);
+  }
+
+  .ceo-image-wrapper {
+    width: 100%;
+  }
+
+  .ceo-image-container {
+    width: 100%;
+    height: 400px;
+  }
+}
+
+/* Responsive - Small Mobile */
+@media (max-width: 768px) {
+  .ceo-message-section {
+    padding: 40px 20px 0;
+  }
+
+  .ceo-message-header {
+    gap: 24px;
+  }
+
+  .ceo-message-content {
+    gap: 32px;
+  }
+
+  .ceo-message-quote {
+    gap: 20px;
+  }
+
+  .ceo-quote-accent {
+    width: 6px;
+  }
+
+  .ceo-quote-body {
+    gap: 16px;
+  }
+
+  .ceo-image-container {
+    height: 350px;
+  }
+}
+
+/* ========== 04-vision-section ========== */
+/* ==========================================================================
+   Vision Section - about-nibec-leadership
+   ========================================================================== */
+
+.vision-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+/* ==========================================================================
+   Part 1: Core Values
+   ========================================================================== */
+
+.vision-values {
+  display: flex;
+  align-items: flex-start;
+  padding: 9.375rem 20rem 5rem;
+  width: 100%;
+}
+
+.vision-values__content {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+  flex: 1;
+  min-width: 0;
+}
+
+.vision-values__title {
+  font-family: 'Paperlogy', sans-serif;
+  font-weight: 700;
+  font-size: 2.625rem;
+  line-height: 1.3;
+  color: #14483c;
+  text-transform: capitalize;
+  margin: 0;
+}
+
+.vision-values__subtitle {
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 600;
+  font-size: 1.375rem;
+  line-height: 1.4;
+  letter-spacing: -0.0275rem;
+  color: #14483c;
+  text-transform: capitalize;
+  margin: 0;
+}
+
+/* Value Item */
+.value-item {
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+  width: 80rem;
+  max-width: 100%;
+  border-radius: 33.75rem;
+}
+
+.value-item__label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+  justify-content: center;
+  width: 13.75rem;
+  flex-shrink: 0;
+}
+
+.value-item__en {
+  font-family: 'Paperlogy', sans-serif;
+  font-weight: 700;
+  font-size: 2.5rem;
+  line-height: 1.3;
+  letter-spacing: -0.05rem;
+  color: #006241;
+}
+
+.value-item__kr {
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 600;
+  font-size: 1.875rem;
+  line-height: 1.4;
+  letter-spacing: -0.0375rem;
+  color: #283c36;
+  text-transform: capitalize;
+}
+
+.value-item__icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 12.5rem;
+  height: 12.5rem;
+  border: 1px solid rgba(46, 68, 61, 0.3);
+  border-radius: 18.75rem;
+  padding: 0.9375rem;
+  flex-shrink: 0;
+}
+
+.value-item__icon img {
+  max-width: 7.1875rem;
+  height: auto;
+}
+
+.value-item__desc {
+  flex: 1;
+  min-width: 0;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 400;
+  font-size: 1.25rem;
+  line-height: 1.6;
+  letter-spacing: -0.025rem;
+  color: #283c36;
+  text-transform: capitalize;
+  margin: 0;
+}
+
+/* ==========================================================================
+   Part 2: Leadership
+   ========================================================================== */
+
+.vision-leadership {
+  display: flex;
+  align-items: flex-start;
+  padding: 9.375rem 20rem;
+  width: 100%;
+}
+
+.vision-leadership__content {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+  flex: 1;
+  min-width: 0;
+}
+
+.vision-leadership__title {
+  font-family: 'Paperlogy', sans-serif;
+  font-weight: 700;
+  font-size: 2.625rem;
+  line-height: 1.3;
+  color: #14483c;
+  text-transform: capitalize;
+  margin: 0;
+}
+
+.vision-leadership__text {
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 600;
+  font-size: 1.375rem;
+  line-height: 1.4;
+  letter-spacing: -0.0275rem;
+  color: #14483c;
+  text-transform: capitalize;
+}
+
+.vision-leadership__text p {
+  margin: 0;
+}
+
+.vision-leadership__text strong {
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 800;
+  font-size: 1.5rem;
+  line-height: 1.4;
+  letter-spacing: -0.03rem;
+}
+
+.vision-leadership__image {
+  width: 100%;
+  aspect-ratio: 671 / 297;
+}
+
+.vision-leadership__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ==========================================================================
+   Part 3: Ethics & Sustainability
+   ========================================================================== */
+
+.vision-ethics {
+  position: relative;
+  width: 100%;
+  height: 47.0625rem;
+  background-color: #71974b;
+  overflow: hidden;
+}
+
+.vision-ethics__bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.vision-ethics__bg-img {
+  position: absolute;
+  top: -7.3125rem;
+  right: -43.5625rem;
+  width: 121.1875rem;
+  height: 80.8125rem;
+  background-image: url('../assets/images/about-nibec-leadership/environmental-technology.jpg');
+  background-size: cover;
+  background-position: center;
+  filter: blur(0.9375rem);
+}
+
+.vision-ethics__gradient-green {
+  position: absolute;
+  top: 0;
+  right: 33.75rem;
+  width: 86.25rem;
+  height: 47.0625rem;
+  background: linear-gradient(269.88deg, rgba(148, 183, 96, 0) 29.565%, rgba(148, 183, 96, 0.6) 70.858%);
+  mix-blend-mode: hard-light;
+}
+
+.vision-ethics__gradient-blue {
+  position: absolute;
+  top: 20.25rem;
+  left: 0;
+  width: 78.9375rem;
+  height: 17.5rem;
+  background: linear-gradient(to right, rgba(42, 82, 128, 0.7) 2.691%, rgba(118, 159, 205, 0.7) 44.533%, rgba(118, 159, 205, 0) 77.81%);
+  filter: blur(3.125rem);
+  mix-blend-mode: multiply;
+}
+
+.vision-ethics__content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+  padding-left: 20rem;
+  padding-top: 9.375rem;
+  width: 80rem;
+}
+
+.vision-ethics__header {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.vision-ethics__title {
+  font-family: 'Paperlogy', sans-serif;
+  font-weight: 700;
+  font-size: 2.625rem;
+  line-height: 1.3;
+  color: #14483c;
+  text-transform: capitalize;
+  margin: 0;
+}
+
+.vision-ethics__subtitle {
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 600;
+  font-size: 1.375rem;
+  line-height: 1.4;
+  letter-spacing: -0.0275rem;
+  color: #14483c;
+  text-transform: capitalize;
+  margin: 0;
+}
+
+.vision-ethics__text {
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 600;
+  font-size: 1.375rem;
+  line-height: 1.4;
+  letter-spacing: -0.0275rem;
+  color: #ffffff;
+  text-transform: capitalize;
+}
+
+.vision-ethics__text p {
+  margin: 0;
+}
+
+/* ==========================================================================
+   Responsive - Tablet
+   ========================================================================== */
+
+@media (max-width: 1024px) {
+  .vision-values {
+    padding: 5rem 2.5rem 3rem;
+  }
+
+  .vision-values__title {
+    font-size: 2rem;
+  }
+
+  .vision-values__subtitle {
+    font-size: 1.125rem;
+  }
+
+  .value-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
+    width: 100%;
+  }
+
+  .value-item__label {
+    width: 100%;
+    flex-direction: row;
+    align-items: baseline;
+    gap: 1rem;
+  }
+
+  .value-item__en {
+    font-size: 1.75rem;
+  }
+
+  .value-item__kr {
+    font-size: 1.25rem;
+  }
+
+  .value-item__icon {
+    width: 8rem;
+    height: 8rem;
+  }
+
+  .value-item__icon img {
+    max-width: 4.5rem;
+  }
+
+  .value-item__desc {
+    font-size: 1rem;
+  }
+
+  .vision-leadership {
+    padding: 5rem 2.5rem;
+  }
+
+  .vision-leadership__title {
+    font-size: 2rem;
+  }
+
+  .vision-leadership__text {
+    font-size: 1.125rem;
+  }
+
+  .vision-leadership__text strong {
+    font-size: 1.25rem;
+  }
+
+  .vision-ethics {
+    height: auto;
+    min-height: 40rem;
+  }
+
+  .vision-ethics__content {
+    padding: 5rem 2.5rem;
+    width: 100%;
+  }
+
+  .vision-ethics__title {
+    font-size: 2rem;
+  }
+
+  .vision-ethics__subtitle,
+  .vision-ethics__text {
+    font-size: 1.125rem;
+  }
+
+  .vision-ethics__bg-img {
+    top: 0;
+    right: -20rem;
+    width: 80rem;
+    height: 100%;
+  }
+
+  .vision-ethics__gradient-green {
+    right: 0;
+    width: 100%;
+  }
+
+  .vision-ethics__gradient-blue {
+    top: 50%;
+    width: 100%;
+  }
+}
+
+/* ==========================================================================
+   Responsive - Mobile
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  .vision-values {
+    padding: 3rem 1.25rem 2rem;
+  }
+
+  .vision-values__content {
+    gap: 1.5rem;
+  }
+
+  .vision-values__title {
+    font-size: 1.5rem;
+  }
+
+  .vision-values__subtitle {
+    font-size: 1rem;
+  }
+
+  .value-item {
+    gap: 1rem;
+  }
+
+  .value-item__label {
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .value-item__en {
+    font-size: 1.5rem;
+  }
+
+  .value-item__kr {
+    font-size: 1.125rem;
+  }
+
+  .value-item__icon {
+    width: 6rem;
+    height: 6rem;
+    align-self: center;
+  }
+
+  .value-item__icon img {
+    max-width: 3.5rem;
+  }
+
+  .value-item__desc {
+    font-size: 0.9375rem;
+  }
+
+  .value-item__desc br {
+    display: none;
+  }
+
+  .vision-leadership {
+    padding: 3rem 1.25rem;
+  }
+
+  .vision-leadership__content {
+    gap: 1.5rem;
+  }
+
+  .vision-leadership__title {
+    font-size: 1.5rem;
+  }
+
+  .vision-leadership__text {
+    font-size: 1rem;
+  }
+
+  .vision-leadership__text strong {
+    font-size: 1.125rem;
+  }
+
+  .vision-ethics {
+    min-height: 35rem;
+  }
+
+  .vision-ethics__content {
+    padding: 3rem 1.25rem;
+    gap: 1.5rem;
+  }
+
+  .vision-ethics__header {
+    gap: 1rem;
+  }
+
+  .vision-ethics__title {
+    font-size: 1.5rem;
+  }
+
+  .vision-ethics__subtitle,
+  .vision-ethics__text {
+    font-size: 1rem;
+  }
+
+  .vision-ethics__bg-img {
+    right: -10rem;
+    width: 50rem;
+  }
+}
+

@@ -1,0 +1,21 @@
+/* ============================================
+   Fonts Configuration
+   ============================================ */
+
+/* CDN Fonts */
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css');
+@import url('https://cdn.jsdelivr.net/gh/niceplugin/paperlogy@1.0.1/dist/css/paperlogy.min.css');
+
+/* Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Roboto:wght@100;400&family=Noto+Sans+KR:wght@400;700&family=Inter:wght@400&family=Work+Sans:wght@400;600&display=swap');
+
+/* CSS Variables */
+:root {
+  --font-pretendard: 'Pretendard Variable', 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif;
+  --font-paperlogy: 'Paperlogy', sans-serif;
+  --font-poppins: 'Poppins', sans-serif;
+  --font-roboto: 'Roboto', sans-serif;
+  --font-noto-sans-kr: 'Noto Sans KR', sans-serif;
+  --font-inter: 'Inter', sans-serif;
+  --font-work-sans: 'Work Sans', sans-serif;
+}

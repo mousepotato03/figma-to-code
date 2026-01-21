@@ -1,0 +1,1814 @@
+/* drug-discovery-core-technology.css - Auto-merged from 6 section files */
+/* Do not edit directly - regenerate with merge_section_css.py */
+
+/* ========== 01-header-section ========== */
+/* Header Section - Drug Discovery Core Technology */
+
+.header-section {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  position: relative;
+}
+
+/* Title Area */
+.header-title-area {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+  width: 100%;
+  height: 25rem;
+  padding: 0 clamp(1.5rem, 16.6vw, 19.9375rem);
+  padding-bottom: 2.5rem;
+  background-color: #ffffff;
+  box-sizing: border-box;
+}
+
+.header-title-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 2.1875rem;
+}
+
+.title-accent-bar {
+  width: 0.625rem;
+  align-self: stretch;
+  background-color: #006241;
+  flex-shrink: 0;
+}
+
+.header-main-title {
+  font-family: 'Paperlogy', sans-serif;
+  font-weight: 700;
+  font-size: clamp(2rem, 3.125vw, 3.75rem);
+  line-height: 1.2;
+  color: #006241;
+  text-transform: capitalize;
+  margin: 0;
+}
+
+/* Visual Area */
+.header-visual-area {
+  position: relative;
+  width: 100%;
+  height: 22.5rem;
+  overflow: hidden;
+  background: linear-gradient(179.4deg, rgba(76, 142, 189, 1) 5.66%, rgba(176, 211, 245, 1) 97.31%);
+}
+
+.visual-background-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.bg-pattern-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.dna-structure-wrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.dna-structure-container {
+  position: relative;
+  width: 130%;
+  height: 130%;
+  transform: rotate(12.85deg);
+}
+
+.dna-image,
+.dna-image-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.blur-effect-layer {
+  position: absolute;
+  left: clamp(1rem, 16.35vw, 19.625rem);
+  top: 8.125rem;
+  width: clamp(20rem, 83.65vw, 100.375rem);
+  height: 16.875rem;
+  background: linear-gradient(to right, rgba(31, 110, 174, 0.5), rgba(31, 110, 174, 0));
+  filter: blur(3.125rem);
+  mix-blend-mode: multiply;
+  border-top-left-radius: 31.25rem;
+}
+
+.gradient-overlay-1 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg,
+    rgba(5, 81, 114, 0.6) 2.69%,
+    rgba(0, 153, 204, 0.6) 33.1%,
+    rgba(119, 255, 255, 0.42) 70.99%,
+    rgba(0, 86, 156, 0.6) 97.19%
+  );
+  mix-blend-mode: multiply;
+}
+
+.gradient-overlay-2 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 63.65%;
+  height: 100%;
+  background: linear-gradient(-44.09deg, rgba(70, 226, 70, 0) 47.38%, rgba(70, 226, 70, 0.5) 90.55%);
+}
+
+.header-description {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: clamp(1.5rem, 17.08vw, 20.5rem);
+  width: clamp(20rem, 45.57vw, 54.6875rem);
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 600;
+  font-size: clamp(1rem, 1.146vw, 1.375rem);
+  line-height: 1.4;
+  letter-spacing: -0.0275rem;
+  color: #ffffff;
+  text-shadow: 0 0 2.5rem #103159;
+  text-transform: capitalize;
+}
+
+.header-description p {
+  margin: 0;
+}
+
+/* Responsive - Tablet */
+@media (max-width: 1024px) {
+  .header-title-area {
+    height: 18.75rem;
+    padding: 0 3rem;
+    padding-bottom: 2rem;
+  }
+
+  .header-title-wrapper {
+    gap: 1.5rem;
+  }
+
+  .title-accent-bar {
+    width: 0.5rem;
+  }
+
+  .header-visual-area {
+    height: 18.75rem;
+  }
+
+  .header-description {
+    left: 3rem;
+    width: calc(100% - 6rem);
+  }
+}
+
+/* Responsive - Mobile */
+@media (max-width: 768px) {
+  .header-title-area {
+    height: auto;
+    min-height: 12.5rem;
+    padding: 2rem 1.5rem;
+    justify-content: center;
+  }
+
+  .header-title-wrapper {
+    gap: 1rem;
+  }
+
+  .title-accent-bar {
+    width: 0.375rem;
+    min-height: 3rem;
+  }
+
+  .header-visual-area {
+    height: 15rem;
+  }
+
+  .blur-effect-layer {
+    left: 1rem;
+    top: 6rem;
+    width: calc(100% - 2rem);
+    height: 10rem;
+    filter: blur(2rem);
+  }
+
+  .header-description {
+    left: 1.5rem;
+    width: calc(100% - 3rem);
+  }
+}
+
+/* Responsive - Small Mobile */
+@media (max-width: 480px) {
+  .header-title-area {
+    padding: 1.5rem 1rem;
+    min-height: 10rem;
+  }
+
+  .header-title-wrapper {
+    gap: 0.75rem;
+  }
+
+  .title-accent-bar {
+    width: 0.25rem;
+  }
+
+  .header-visual-area {
+    height: 12.5rem;
+  }
+
+  .header-description {
+    left: 1rem;
+    width: calc(100% - 2rem);
+  }
+}
+
+/* ========== 03-peptide-discovery-section ========== */
+/* ============================================
+   Peptide Discovery Section
+   drug-discovery-core-technology/03-peptide-discovery-section
+   ============================================ */
+
+.peptide-discovery-section {
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
+  width: 100%;
+  padding: 80px 0;
+  background-color: #ffffff;
+}
+
+.peptide-discovery-container {
+  max-width: 1280px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* ============================================
+   Header Styles
+   ============================================ */
+
+.peptide-header {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  width: 100%;
+}
+
+.peptide-title {
+  font-family: 'Paperlogy', sans-serif;
+  font-weight: 700;
+  font-size: clamp(1.75rem, 1.29vw + 1.44rem, 2.625rem);
+  line-height: 1.3;
+  color: #14483c;
+  text-transform: capitalize;
+  margin: 0;
+}
+
+.peptide-description {
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 400;
+  font-size: clamp(1rem, 0.26vw + 0.94rem, 1.25rem);
+  line-height: 1.6;
+  letter-spacing: -0.4px;
+  color: #14483c;
+  margin: 0;
+}
+
+.peptide-description br {
+  display: block;
+}
+
+/* ============================================
+   Tabs Component
+   ============================================ */
+
+.peptide-tabs-component {
+  display: flex;
+  gap: 80px;
+  align-items: center;
+  width: 100%;
+  min-height: 584px;
+}
+
+/* ============================================
+   Tabs Menu
+   ============================================ */
+
+.peptide-tabs-menu {
+  flex: 0 0 616px;
+  width: 616px;
+  display: flex;
+  flex-direction: column;
+}
+
+.peptide-tab-item {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  min-height: 90px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 24px 0;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.peptide-tab-item.active {
+  min-height: auto;
+  padding-bottom: 24px;
+}
+
+.tab-title {
+  font-family: 'Paperlogy', sans-serif;
+  font-weight: 700;
+  font-size: clamp(1.5rem, 0.65vw + 1.34rem, 2.125rem);
+  line-height: 1.3;
+  color: #283c36;
+  margin: 0;
+  transition: color 0.3s ease;
+}
+
+.tab-title.active {
+  color: #006241;
+}
+
+.tab-content {
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 400;
+  font-size: clamp(0.9375rem, 0.19vw + 0.89rem, 1.0625rem);
+  line-height: 1.6;
+  color: #000000;
+  margin: 16px 0 0 0;
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.3s ease, opacity 0.3s ease, margin 0.3s ease;
+}
+
+.peptide-tab-item.active .tab-content {
+  max-height: 300px;
+  opacity: 1;
+}
+
+/* ============================================
+   Tabs Content (Image)
+   ============================================ */
+
+.peptide-tabs-content {
+  flex: 1;
+  min-width: 0;
+  aspect-ratio: 1 / 1;
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.tabs-image-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.tabs-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.tabs-image-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 60.328%, rgba(0, 0, 0, 0.29) 100%);
+  pointer-events: none;
+}
+
+/* ============================================
+   Responsive - Tablet (1024px)
+   ============================================ */
+
+@media (max-width: 1024px) {
+  .peptide-discovery-section {
+    gap: 60px;
+    padding: 60px 0;
+  }
+
+  .peptide-tabs-component {
+    flex-direction: column;
+    gap: 40px;
+    min-height: auto;
+  }
+
+  .peptide-tabs-menu {
+    flex: none;
+    width: 100%;
+  }
+
+  .peptide-tabs-content {
+    width: 100%;
+    max-width: 600px;
+  }
+
+  .peptide-header {
+    gap: 24px;
+  }
+
+  .peptide-description br {
+    display: none;
+  }
+}
+
+/* ============================================
+   Responsive - Mobile (768px)
+   ============================================ */
+
+@media (max-width: 768px) {
+  .peptide-discovery-section {
+    gap: 40px;
+    padding: 40px 0;
+  }
+
+  .peptide-discovery-container {
+    padding: 0 16px;
+  }
+
+  .peptide-header {
+    gap: 20px;
+  }
+
+  .peptide-tabs-component {
+    gap: 32px;
+  }
+
+  .peptide-tab-item {
+    min-height: 70px;
+    padding: 16px 0;
+  }
+
+  .peptide-tab-item.active {
+    padding-bottom: 16px;
+  }
+
+  .peptide-tabs-content {
+    max-width: 100%;
+  }
+}
+
+/* ============================================
+   Responsive - Small Mobile (480px)
+   ============================================ */
+
+@media (max-width: 480px) {
+  .peptide-discovery-section {
+    gap: 32px;
+    padding: 32px 0;
+  }
+
+  .peptide-header {
+    gap: 16px;
+  }
+
+  .peptide-tab-item {
+    min-height: 60px;
+    padding: 12px 0;
+  }
+}
+
+/* ========== 04-peptardel-platform-section ========== */
+/* ==============================================
+   PEPTARDEL Platform Section
+   drug-discovery-core-technology/04-peptardel-platform-section
+   ============================================== */
+
+.peptardel-platform-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 80px;
+  padding: 150px 0;
+  width: 100%;
+  background-color: #f6f5f2;
+}
+
+/* Header Area */
+.peptardel-platform-header {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  width: 100%;
+  padding: 0 320px;
+  box-sizing: border-box;
+}
+
+.peptardel-platform-title {
+  font-family: 'Paperlogy', sans-serif;
+  font-weight: 700;
+  font-size: 42px;
+  line-height: 1.3;
+  color: #14483c;
+  text-transform: capitalize;
+  margin: 0;
+}
+
+.peptardel-platform-description {
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 1.6;
+  letter-spacing: -0.4px;
+  color: #14483c;
+  text-transform: capitalize;
+}
+
+.peptardel-platform-description p {
+  margin: 0;
+}
+
+/* Cards Row */
+.peptardel-cards-row {
+  display: flex;
+  gap: 42px;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 0 110px;
+  box-sizing: border-box;
+}
+
+/* Individual Card */
+.peptardel-card {
+  display: flex;
+  flex-direction: column;
+  width: 500px;
+  background-color: #006241;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+/* Card Image Container */
+.peptardel-card-image {
+  position: relative;
+  width: 100%;
+  height: 378px;
+  overflow: hidden;
+}
+
+.peptardel-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.peptardel-card-image--rotated img {
+  transform: rotate(180deg) scaleY(-1);
+}
+
+.peptardel-card-image--capsules {
+  position: relative;
+}
+
+.peptardel-card-image--capsules .device-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.peptardel-card-image--capsules .capsules-image {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Card Content */
+.peptardel-card-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 40px 42px;
+  text-align: center;
+  min-height: 192px;
+}
+
+.peptardel-card-title {
+  font-family: 'Paperlogy', sans-serif;
+  font-weight: 700;
+  font-size: 34px;
+  line-height: 1.3;
+  color: #ffffff;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 78px;
+}
+
+.peptardel-card-description {
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 600;
+  font-size: 22px;
+  line-height: 1.4;
+  letter-spacing: -0.44px;
+  color: #f9f3e2;
+  text-transform: capitalize;
+  margin: 0;
+}
+
+/* ==============================================
+   Responsive Styles
+   ============================================== */
+
+/* Tablet */
+@media (max-width: 1400px) {
+  .peptardel-platform-header {
+    padding: 0 80px;
+  }
+
+  .peptardel-cards-row {
+    padding: 0 40px;
+    gap: 24px;
+  }
+
+  .peptardel-card {
+    width: calc((100% - 48px) / 3);
+    min-width: 300px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .peptardel-platform-section {
+    gap: 60px;
+    padding: 100px 0;
+  }
+
+  .peptardel-platform-header {
+    padding: 0 60px;
+  }
+
+  .peptardel-platform-title {
+    font-size: clamp(1.75rem, 2vw + 1rem, 2.625rem);
+  }
+
+  .peptardel-platform-description {
+    font-size: 18px;
+  }
+
+  .peptardel-cards-row {
+    flex-wrap: wrap;
+    padding: 0 40px;
+  }
+
+  .peptardel-card {
+    width: calc(50% - 12px);
+    min-width: 280px;
+  }
+
+  .peptardel-card-image {
+    height: 300px;
+  }
+
+  .peptardel-card-title {
+    font-size: 28px;
+    height: auto;
+  }
+
+  .peptardel-card-description {
+    font-size: 18px;
+  }
+
+  .peptardel-card-content {
+    padding: 30px 24px;
+    min-height: auto;
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .peptardel-platform-section {
+    gap: 40px;
+    padding: 60px 0;
+  }
+
+  .peptardel-platform-header {
+    padding: 0 20px;
+    gap: 24px;
+  }
+
+  .peptardel-platform-title {
+    font-size: 24px;
+  }
+
+  .peptardel-platform-description {
+    font-size: 16px;
+  }
+
+  .peptardel-cards-row {
+    flex-direction: column;
+    padding: 0 20px;
+    gap: 24px;
+  }
+
+  .peptardel-card {
+    width: 100%;
+    min-width: unset;
+  }
+
+  .peptardel-card-image {
+    height: 250px;
+  }
+
+  .peptardel-card-title {
+    font-size: 24px;
+  }
+
+  .peptardel-card-description {
+    font-size: 16px;
+  }
+
+  .peptardel-card-content {
+    padding: 24px 20px;
+  }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+  .peptardel-platform-section {
+    padding: 40px 0;
+  }
+
+  .peptardel-platform-header {
+    padding: 0 16px;
+  }
+
+  .peptardel-platform-title {
+    font-size: 20px;
+  }
+
+  .peptardel-platform-description {
+    font-size: 14px;
+  }
+
+  .peptardel-cards-row {
+    padding: 0 16px;
+    gap: 20px;
+  }
+
+  .peptardel-card-image {
+    height: 200px;
+  }
+
+  .peptardel-card-title {
+    font-size: 20px;
+  }
+
+  .peptardel-card-description {
+    font-size: 14px;
+  }
+
+  .peptardel-card-content {
+    padding: 20px 16px;
+  }
+}
+
+/* ========== 05-peptardel-t-section ========== */
+/* PEPTARDEL-T Section */
+.peptardel-t-section {
+  width: 100%;
+  min-height: 60.9375rem; /* 975px */
+  background-color: #fff;
+  display: flex;
+  justify-content: center;
+  padding: 0;
+}
+
+.peptardel-t-container {
+  width: 100%;
+  max-width: 120rem; /* 1920px */
+  padding: 0 20rem; /* 320px side padding */
+  display: flex;
+  flex-direction: column;
+  gap: 5rem; /* 80px */
+}
+
+/* Header */
+.peptardel-t-header {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem; /* 40px */
+}
+
+.peptardel-t-title {
+  font-family: 'Pretendard', sans-serif;
+  font-size: clamp(1.75rem, 1.03vw + 1.5rem, 2.5rem);
+  font-weight: 700;
+  line-height: 1.5;
+  color: #1a1a1a;
+  margin: 0;
+}
+
+.peptardel-t-description {
+  font-family: 'Pretendard', sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.625;
+  color: #333;
+  margin: 0;
+  max-width: 80rem; /* 1280px */
+}
+
+/* Cards Row */
+.peptardel-t-cards {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+}
+
+.peptardel-t-card {
+  width: 26.625rem; /* 426px */
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.peptardel-t-card-image {
+  width: 100%;
+  height: 21.25rem; /* 340px */
+  background-color: #f5f5f5;
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.peptardel-t-illustration {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.peptardel-t-card-content {
+  padding: 2.5rem 2.625rem 0; /* 40px 42px 0 */
+  display: flex;
+  flex-direction: column;
+  gap: 3.375rem; /* 54px between heading and text */
+}
+
+.peptardel-t-card:last-of-type .peptardel-t-card-content {
+  padding: 2.5rem 1.875rem 0; /* 40px 30px 0 for third column */
+}
+
+.peptardel-t-card-heading {
+  font-family: 'Pretendard', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1.4;
+  color: #1a1a1a;
+  margin: 0;
+}
+
+.peptardel-t-card-text {
+  font-family: 'Pretendard', sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #666;
+  margin: 0;
+}
+
+/* Arrow */
+.peptardel-t-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #0066cc;
+  flex-shrink: 0;
+  margin: 0 -0.5rem;
+  margin-top: -6rem; /* Position at card image level */
+}
+
+.peptardel-t-arrow svg {
+  width: 2.1875rem; /* 35px */
+  height: 2.1875rem; /* 35px */
+}
+
+/* Bottom Section */
+.peptardel-t-bottom {
+  width: 100%;
+  max-width: 80rem; /* 1280px */
+  min-height: 16rem; /* 256px */
+  position: relative;
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.peptardel-t-bottom-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 25.5rem; /* 408px - extends beyond visible area */
+  background-color: #e8f4fc;
+  z-index: 0;
+}
+
+.peptardel-t-bottom-text {
+  position: relative;
+  z-index: 1;
+  padding: 5rem 3.75rem; /* 80px 60px */
+  font-family: 'Pretendard', sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #333;
+  margin: 0;
+  max-width: 72.5rem; /* 1160px */
+}
+
+/* Responsive - Tablet */
+@media (max-width: 1280px) {
+  .peptardel-t-container {
+    padding: 0 5rem;
+  }
+
+  .peptardel-t-cards {
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+  }
+
+  .peptardel-t-card {
+    width: calc(50% - 2rem);
+    min-width: 20rem;
+  }
+
+  .peptardel-t-arrow {
+    display: none;
+  }
+}
+
+/* Responsive - Mobile */
+@media (max-width: 768px) {
+  .peptardel-t-section {
+    min-height: auto;
+    padding: 3rem 0;
+  }
+
+  .peptardel-t-container {
+    padding: 0 1.5rem;
+    gap: 2.5rem;
+  }
+
+  .peptardel-t-title {
+    font-size: 1.5rem;
+  }
+
+  .peptardel-t-description {
+    font-size: 0.875rem;
+    line-height: 1.6;
+  }
+
+  .peptardel-t-cards {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .peptardel-t-card {
+    width: 100%;
+    min-width: auto;
+  }
+
+  .peptardel-t-card-image {
+    height: 15rem;
+  }
+
+  .peptardel-t-card-content {
+    padding: 1.5rem 1rem 0;
+    gap: 1rem;
+  }
+
+  .peptardel-t-card:last-of-type .peptardel-t-card-content {
+    padding: 1.5rem 1rem 0;
+  }
+
+  .peptardel-t-card-heading {
+    font-size: 1.25rem;
+  }
+
+  .peptardel-t-card-text {
+    font-size: 0.875rem;
+  }
+
+  .peptardel-t-bottom {
+    min-height: auto;
+    border-radius: 0.25rem;
+  }
+
+  .peptardel-t-bottom-image {
+    height: 100%;
+  }
+
+  .peptardel-t-bottom-text {
+    padding: 2rem 1.5rem;
+    font-size: 0.875rem;
+    line-height: 1.6;
+  }
+}
+
+/* ========== 06-peptardel-s-section ========== */
+/* PEPTARDEL-S Section */
+.peptardel-s-section {
+  display: flex;
+  flex-direction: column;
+  gap: 5rem;
+  padding: 9.375rem 20rem;
+  background-color: #f6f5f2;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Header */
+.peptardel-s-header {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+  width: 100%;
+}
+
+.peptardel-s-title {
+  font-family: 'Paperlogy', sans-serif;
+  font-weight: 700;
+  font-size: clamp(1.75rem, 1.03vw + 1.25rem, 2.5rem);
+  line-height: 1.3;
+  letter-spacing: -0.05rem;
+  color: #14483c;
+  margin: 0;
+}
+
+.peptardel-s-description {
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 400;
+  font-size: 1.25rem;
+  line-height: 1.6;
+  letter-spacing: -0.025rem;
+  color: #14483c;
+}
+
+.peptardel-s-description p {
+  margin: 0;
+}
+
+.peptardel-s-description-bold {
+  font-weight: 700;
+}
+
+.peptardel-s-highlight {
+  font-weight: 700;
+  font-size: 1.375rem;
+  letter-spacing: -0.0275rem;
+  line-height: 1.4;
+}
+
+/* Row - Diagram and Chart */
+.peptardel-s-row {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  gap: 2rem;
+}
+
+/* Diagram */
+.peptardel-s-diagram {
+  position: relative;
+  width: 39.125rem;
+  height: 25.5rem;
+  background-color: #f6f5f2;
+  flex-shrink: 0;
+}
+
+.diagram-main-image {
+  position: absolute;
+  width: 14.125rem;
+  height: 6.125rem;
+  left: 11.875rem;
+  top: 5.625rem;
+  object-fit: contain;
+}
+
+.diagram-label {
+  position: absolute;
+  font-family: 'Pretendard Variable', 'Pretendard', sans-serif;
+  font-weight: 600;
+  font-size: 0.9375rem;
+  line-height: 1.25rem;
+  color: #283c36;
+  text-align: center;
+}
+
+.diagram-label p {
+  margin: 0;
+}
+
+.peptide-label {
+  left: 3.3125rem;
+  top: 0.375rem;
+  transform: translateX(-50%);
+  font-size: 0.9375rem;
+  line-height: 0.625rem;
+}
+
+.peptide-label p:first-child {
+  line-height: 0.625rem;
+}
+
+.peptide-label p:nth-child(2) {
+  line-height: 0.9375rem;
+}
+
+.peptide-label p:last-child {
+  line-height: 0.9375rem;
+}
+
+.polymer-label {
+  left: 11.5rem;
+  top: 1.125rem;
+  transform: translateX(-50%);
+}
+
+.fluidized-label {
+  left: 3.47rem;
+  top: 23rem;
+  transform: translateX(-50%);
+  white-space: nowrap;
+}
+
+.microsphere-label {
+  left: 16rem;
+  top: 23rem;
+  transform: translateX(-50%);
+  white-space: nowrap;
+}
+
+.release-label {
+  left: 19.6rem;
+  top: 12.94rem;
+  transform: translateX(-50%);
+}
+
+.peptardel-label {
+  left: 30.16rem;
+  top: 23rem;
+  transform: translateX(-50%);
+  white-space: nowrap;
+}
+
+/* Chart */
+.peptardel-s-chart {
+  position: relative;
+  width: 36.875rem;
+  height: 25.125rem;
+  background-color: #f6f5f2;
+  flex-shrink: 0;
+}
+
+.chart-y-label {
+  position: absolute;
+  left: 0.0625rem;
+  top: 0;
+  font-family: 'Paperlogy', sans-serif;
+  font-weight: 700;
+  font-size: 0.9375rem;
+  line-height: 1.2;
+  color: #283c36;
+  white-space: nowrap;
+}
+
+.chart-y-label p {
+  margin: 0;
+}
+
+.chart-container {
+  position: absolute;
+  left: 1.125rem;
+  top: calc(50% + 1.5735rem);
+  transform: translateY(-50%);
+  width: 35.75rem;
+  height: 21.4rem;
+  border-radius: 2.066rem;
+}
+
+.chart-title {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+  font-family: 'Pretendard Variable', 'Pretendard', sans-serif;
+  font-weight: 600;
+  font-size: 1.133rem;
+  line-height: 1.208rem;
+  color: #283c36;
+  text-align: center;
+  margin: 0;
+}
+
+.chart-logo {
+  position: absolute;
+  left: 13.534rem;
+  top: 1.613rem;
+  width: 6.5225rem;
+  height: 3.2525rem;
+  overflow: hidden;
+}
+
+.chart-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.chart-graph {
+  position: absolute;
+  left: 1.875rem;
+  top: 4rem;
+  width: 31.25rem;
+  height: 14rem;
+}
+
+.chart-y-axis {
+  position: absolute;
+  left: -1.0625rem;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2.1045rem;
+  font-family: 'Paperlogy', sans-serif;
+  font-weight: 700;
+  font-size: 0.7554rem;
+  color: #283c36;
+  text-align: right;
+  width: 2.8779rem;
+}
+
+.chart-y-axis span {
+  text-align: right;
+}
+
+.chart-grid {
+  position: absolute;
+  left: 2rem;
+  top: 0;
+  width: 29.25rem;
+  height: 13rem;
+}
+
+.grid-line-1 {
+  position: absolute;
+  left: 0;
+  top: 1rem;
+  width: 27.75rem;
+  height: 9.5rem;
+}
+
+.grid-line-2 {
+  position: absolute;
+  left: 0;
+  top: 0.625rem;
+  width: 27.75rem;
+  height: 9.5rem;
+}
+
+.chart-axis {
+  position: absolute;
+  left: -0.25rem;
+  top: -0.375rem;
+  width: 28.5rem;
+  height: 12.5rem;
+}
+
+.chart-line-1 {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 27.75rem;
+  height: 9.5rem;
+}
+
+.chart-line-2 {
+  position: absolute;
+  left: 0;
+  top: 0.5rem;
+  width: 28rem;
+  height: 10rem;
+}
+
+.chart-x-axis {
+  position: absolute;
+  left: 2rem;
+  bottom: -1.5rem;
+  display: flex;
+  gap: 1.625rem;
+  font-family: 'Paperlogy', sans-serif;
+  font-weight: 700;
+  font-size: 0.7554rem;
+  color: #283c36;
+}
+
+.chart-x-label {
+  position: absolute;
+  left: 14.8125rem;
+  bottom: -2.5rem;
+  font-family: 'Paperlogy', sans-serif;
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: #283c36;
+  margin: 0;
+}
+
+.chart-legend {
+  position: absolute;
+  right: 0;
+  top: 9.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3963rem;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.7076rem;
+}
+
+.legend-item img {
+  width: 1.38rem;
+  height: auto;
+}
+
+.legend-item span {
+  font-family: 'Paperlogy', sans-serif;
+  font-weight: 700;
+  font-size: 0.7554rem;
+  color: #283c36;
+}
+
+.chart-logo-small {
+  position: absolute;
+  right: 0;
+  top: 0.677rem;
+  width: 4.74rem;
+  height: 3.2525rem;
+  overflow: hidden;
+}
+
+.chart-logo-small img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Footer */
+.peptardel-s-footer {
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 400;
+  font-size: 1.25rem;
+  line-height: 1.6;
+  letter-spacing: -0.025rem;
+  color: #14483c;
+  width: 100%;
+}
+
+.peptardel-s-footer p {
+  margin: 0;
+}
+
+/* Responsive - Tablet */
+@media (max-width: 1280px) {
+  .peptardel-s-section {
+    padding: 6rem 3rem;
+    gap: 3rem;
+  }
+
+  .peptardel-s-row {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .peptardel-s-diagram,
+  .peptardel-s-chart {
+    width: 100%;
+    max-width: 39.125rem;
+  }
+}
+
+/* Responsive - Mobile */
+@media (max-width: 768px) {
+  .peptardel-s-section {
+    padding: 4rem 1.5rem;
+    gap: 2.5rem;
+  }
+
+  .peptardel-s-header {
+    gap: 1.5rem;
+  }
+
+  .peptardel-s-title {
+    font-size: 1.5rem;
+  }
+
+  .peptardel-s-description {
+    font-size: 1rem;
+  }
+
+  .peptardel-s-highlight {
+    font-size: 1.125rem;
+  }
+
+  .peptardel-s-diagram {
+    height: auto;
+    min-height: 20rem;
+    overflow-x: auto;
+  }
+
+  .peptardel-s-chart {
+    height: auto;
+    min-height: 20rem;
+    overflow-x: auto;
+  }
+
+  .peptardel-s-footer {
+    font-size: 1rem;
+  }
+
+  .diagram-label {
+    font-size: 0.75rem;
+    line-height: 1rem;
+  }
+
+  .chart-y-label {
+    font-size: 0.75rem;
+  }
+}
+
+/* ========== 07-peptardel-o-section ========== */
+/* PEPTARDEL-O Section */
+.peptardel-o-section {
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
+  padding-bottom: 150px;
+  width: 100%;
+}
+
+/* Header */
+.peptardel-o-header {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  padding: 0 320px;
+}
+
+.peptardel-o-title {
+  font-family: 'Paperlogy', sans-serif;
+  font-weight: 700;
+  font-size: 40px;
+  line-height: 1.3;
+  letter-spacing: -0.8px;
+  color: #14483c;
+  margin: 0;
+}
+
+.peptardel-o-description {
+  color: #14483c;
+}
+
+.peptardel-o-description p {
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 1.6;
+  letter-spacing: -0.4px;
+  margin: 0;
+}
+
+.peptardel-o-description strong {
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 1.4;
+  letter-spacing: -0.44px;
+}
+
+/* Content */
+.peptardel-o-content {
+  display: flex;
+  padding: 0 320px;
+}
+
+.peptardel-o-column {
+  position: relative;
+  display: flex;
+  width: 406px;
+  height: 700px;
+  background-color: #ffffff;
+  flex-shrink: 0;
+}
+
+.process-sidebar {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 10px;
+  height: 100%;
+  background-color: #006241;
+}
+
+.process-steps {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 55px 113px;
+  width: 100%;
+}
+
+.process-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 13px;
+}
+
+.step-title {
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 600;
+  font-size: 22px;
+  line-height: 1.4;
+  letter-spacing: -0.44px;
+  color: #283c36;
+  text-align: center;
+  margin: 0;
+}
+
+.step-subtitle {
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 1.5;
+  color: #283c36;
+  text-align: center;
+  margin: 0;
+}
+
+.step-image img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+.capsule-images {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.capsule-top {
+  width: 172px;
+}
+
+.capsule-shadow {
+  width: 153px;
+}
+
+.final-capsule-images {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.final-capsule {
+  width: 132px;
+}
+
+.final-shadow {
+  width: 147px;
+}
+
+/* Process Arrow */
+.process-arrow {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 25px 0;
+}
+
+.arrow-icon {
+  width: 26px;
+  height: 29px;
+  transform: rotate(90deg);
+}
+
+.arrow-label {
+  font-family: 'Paperlogy', sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  color: #283c36;
+}
+
+.arrow-label-multi {
+  display: flex;
+  flex-direction: column;
+  font-family: 'Paperlogy', sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  color: #283c36;
+}
+
+/* Info Section */
+.peptardel-o-info {
+  position: relative;
+  width: 874px;
+  height: 700px;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.info-gradient-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(89.46deg, rgba(187, 191, 195, 1) 27.07%, rgba(190, 197, 208, 1) 72.52%);
+}
+
+.info-image {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 874px;
+  height: 751px;
+  object-fit: cover;
+}
+
+.info-text {
+  position: absolute;
+  top: 198px;
+  left: 60px;
+  transform: translateY(-50%);
+  width: 754px;
+  color: #283c36;
+}
+
+.info-text p {
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 1.6;
+  letter-spacing: -0.4px;
+  margin: 0;
+}
+
+.info-text strong {
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 1.4;
+  letter-spacing: -0.44px;
+}
+
+/* Responsive - Tablet */
+@media (max-width: 1440px) {
+  .peptardel-o-header {
+    padding: 0 80px;
+  }
+
+  .peptardel-o-content {
+    padding: 0 80px;
+    flex-wrap: wrap;
+  }
+
+  .peptardel-o-column {
+    width: 350px;
+  }
+
+  .peptardel-o-info {
+    width: calc(100% - 350px);
+    min-width: 500px;
+  }
+
+  .info-text {
+    width: 90%;
+    left: 40px;
+  }
+}
+
+/* Responsive - Mobile */
+@media (max-width: 768px) {
+  .peptardel-o-section {
+    gap: 40px;
+    padding-bottom: 80px;
+  }
+
+  .peptardel-o-header {
+    padding: 0 20px;
+    gap: 24px;
+  }
+
+  .peptardel-o-title {
+    font-size: clamp(1.5rem, 4vw + 1rem, 2.5rem);
+  }
+
+  .peptardel-o-description p {
+    font-size: 16px;
+  }
+
+  .peptardel-o-description strong {
+    font-size: 18px;
+  }
+
+  .peptardel-o-content {
+    flex-direction: column;
+    padding: 0 20px;
+  }
+
+  .peptardel-o-column {
+    width: 100%;
+    height: auto;
+    min-height: 600px;
+  }
+
+  .process-steps {
+    padding: 40px 20px;
+  }
+
+  .peptardel-o-info {
+    width: 100%;
+    height: auto;
+    min-height: 400px;
+  }
+
+  .info-text {
+    position: relative;
+    top: auto;
+    left: auto;
+    transform: none;
+    width: 100%;
+    padding: 30px 20px;
+    background: linear-gradient(89.46deg, rgba(187, 191, 195, 0.95) 27.07%, rgba(190, 197, 208, 0.95) 72.52%);
+  }
+
+  .info-text p {
+    font-size: 16px;
+  }
+
+  .info-text strong {
+    font-size: 18px;
+  }
+
+  .info-gradient-bg {
+    position: relative;
+    height: 300px;
+  }
+
+  .info-image {
+    width: 100%;
+    height: 100%;
+  }
+}
+

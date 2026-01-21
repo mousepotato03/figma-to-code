@@ -1,0 +1,586 @@
+/* ir-news-analyst-report.css - Auto-merged from 3 section files */
+/* Do not edit directly - regenerate with merge_section_css.py */
+
+/* ========== 01-header-section ========== */
+/* Header Section - ir-news-analyst-report */
+.header-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-end;
+  width: 100%;
+  min-height: 1080px;
+  padding: 0 319px 60px 319px;
+  background-color: #ffffff;
+  box-sizing: border-box;
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  gap: 35px;
+}
+
+.header-indicator {
+  display: flex;
+  align-items: center;
+  align-self: stretch;
+}
+
+.indicator-bar {
+  width: 10px;
+  height: 100%;
+  background-color: #006241;
+}
+
+.header-title {
+  font-family: 'Paperlogy', sans-serif;
+  font-weight: 700;
+  font-size: 48px;
+  line-height: 1.4;
+  letter-spacing: -0.96px;
+  color: #006241;
+  text-transform: capitalize;
+  margin: 0;
+  max-width: 961px;
+}
+
+/* Tablet (1024px) */
+@media (max-width: 1024px) {
+  .header-section {
+    min-height: auto;
+    padding: 60px 60px 40px 60px;
+  }
+
+  .header-content {
+    gap: 24px;
+  }
+
+  .header-title {
+    font-size: clamp(2rem, 4vw + 1rem, 3rem);
+    max-width: 100%;
+  }
+}
+
+/* Mobile (768px) */
+@media (max-width: 768px) {
+  .header-section {
+    padding: 40px 24px 32px 24px;
+  }
+
+  .header-content {
+    gap: 16px;
+  }
+
+  .indicator-bar {
+    width: 6px;
+  }
+
+  .header-title {
+    font-size: clamp(1.5rem, 5vw + 0.5rem, 2rem);
+    letter-spacing: -0.48px;
+  }
+}
+
+/* Small Mobile (480px) */
+@media (max-width: 480px) {
+  .header-section {
+    padding: 32px 16px 24px 16px;
+  }
+
+  .header-content {
+    gap: 12px;
+  }
+
+  .indicator-bar {
+    width: 4px;
+  }
+
+  .header-title {
+    font-size: 1.25rem;
+    letter-spacing: -0.24px;
+  }
+}
+
+/* ========== 02-sub-navigation-section ========== */
+/* Sub Navigation Section */
+.sub-navigation-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 100%;
+}
+
+/* Intro Area */
+.sub-navigation-intro {
+  display: flex;
+  flex-direction: column;
+  flex: 1 0 0;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding-left: 320px;
+  padding-right: 320px;
+}
+
+.intro-text {
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 600;
+  font-size: 22px;
+  line-height: 1.4;
+  letter-spacing: -0.44px;
+  color: #ffffff;
+  text-transform: capitalize;
+  margin: 0;
+  width: 100%;
+  max-width: 1280px;
+}
+
+/* Sub Navigation Navbar */
+.sub-navigation-navbar {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 90px;
+  padding: 0 320px;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.nav-link {
+  display: flex;
+  flex: 1 0 0;
+  min-width: 0;
+  min-height: 0;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  padding: 0 50px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.nav-link span {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 1;
+  color: #f6f5f2;
+  white-space: nowrap;
+}
+
+.nav-link.active {
+  background-color: #ffffff;
+  cursor: default;
+}
+
+.nav-link.active span {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 1;
+  letter-spacing: -0.44px;
+  color: #283c36;
+}
+
+.nav-link:not(.active):hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Tablet Responsive */
+@media (max-width: 1024px) {
+  .sub-navigation-intro {
+    padding-left: 60px;
+    padding-right: 60px;
+  }
+
+  .intro-text {
+    font-size: 18px;
+    max-width: 100%;
+  }
+
+  .sub-navigation-navbar {
+    padding: 0 60px;
+    height: 80px;
+  }
+
+  .nav-link {
+    padding: 0 20px;
+  }
+
+  .nav-link span {
+    font-size: 16px;
+  }
+
+  .nav-link.active span {
+    font-size: 18px;
+  }
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .sub-navigation-intro {
+    padding: 40px 20px;
+  }
+
+  .intro-text {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  .sub-navigation-navbar {
+    flex-wrap: wrap;
+    height: auto;
+    padding: 0;
+  }
+
+  .nav-link {
+    flex: 1 0 50%;
+    height: 60px;
+    padding: 0 15px;
+  }
+
+  .nav-link span {
+    font-size: 14px;
+  }
+
+  .nav-link.active span {
+    font-size: 15px;
+  }
+}
+
+/* Small Mobile Responsive */
+@media (max-width: 480px) {
+  .sub-navigation-intro {
+    padding: 30px 16px;
+  }
+
+  .intro-text {
+    font-size: 14px;
+  }
+
+  .nav-link {
+    flex: 1 0 100%;
+    height: 50px;
+    justify-content: flex-start;
+    padding: 0 20px;
+  }
+
+  .nav-link span {
+    font-size: 14px;
+  }
+
+  .nav-link.active span {
+    font-size: 14px;
+  }
+}
+
+/* ========== 03-analyst-report-list-section ========== */
+/* ==========================================================================
+   Analyst Report List Section
+   ========================================================================== */
+
+.analyst-report-list-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 9.375rem 20rem 15.625rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.analyst-report-list-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 80rem;
+}
+
+/* Header */
+.analyst-report-list-header {
+  display: flex;
+  gap: 3.75rem;
+  align-items: flex-end;
+  padding-bottom: 2.5rem;
+  width: 100%;
+  max-width: 80rem;
+}
+
+.analyst-report-list-title-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 18.75rem;
+}
+
+.analyst-report-list-title {
+  font-family: 'Paperlogy', sans-serif;
+  font-weight: 700;
+  font-size: 2.625rem;
+  line-height: 1.3;
+  color: #006241;
+  text-transform: capitalize;
+  margin: 0;
+}
+
+/* Report List */
+.analyst-report-list {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+/* Report Item */
+.analyst-report-item {
+  display: flex;
+  gap: 5rem;
+  align-items: center;
+  padding: 1.5rem 0;
+  width: 100%;
+  border-top: 1px solid #e0e0e0;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.analyst-report-item + .analyst-report-item {
+  border-top: none;
+}
+
+.analyst-report-content {
+  display: flex;
+  flex: 1;
+  gap: 3.75rem;
+  align-items: center;
+  min-width: 0;
+}
+
+.analyst-report-item-title {
+  flex: 1;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 600;
+  font-size: 1.375rem;
+  line-height: 1.4;
+  letter-spacing: -0.0275rem;
+  color: #14483c;
+  text-transform: capitalize;
+  margin: 0;
+  min-width: 0;
+}
+
+.analyst-report-date {
+  flex-shrink: 0;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 400;
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  color: rgba(0, 0, 0, 0.5);
+}
+
+/* Download Button */
+.analyst-report-download-btn {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: center;
+  height: 3rem;
+  padding: 0.375rem 0;
+  border-bottom: 1px solid #283c36;
+  flex-shrink: 0;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.analyst-report-download-btn:hover {
+  opacity: 0.7;
+}
+
+.analyst-report-download-text {
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 400;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: #283c36;
+}
+
+.analyst-report-download-icon {
+  width: 2rem;
+  height: 2rem;
+  flex-shrink: 0;
+}
+
+/* Pagination */
+.analyst-report-pagination {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  padding: 2.5rem 0;
+}
+
+.analyst-report-page-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 3.25rem;
+  height: 3.25rem;
+  border-radius: 0.25rem;
+  background-color: #fff;
+  border: 1px solid #e0e0e0;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 400;
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  color: #283c36;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.analyst-report-page-btn:hover {
+  background-color: #f5f5f5;
+}
+
+.analyst-report-page-btn.active {
+  background-color: #006241;
+  border-color: #006241;
+  font-weight: 700;
+  font-size: 1.125rem;
+  color: #fff;
+}
+
+/* ==========================================================================
+   Responsive Styles
+   ========================================================================== */
+
+/* Tablet */
+@media (max-width: 1280px) {
+  .analyst-report-list-section {
+    padding: 6rem 3rem 10rem;
+  }
+
+  .analyst-report-list-header {
+    gap: 2rem;
+  }
+
+  .analyst-report-item {
+    gap: 2rem;
+  }
+
+  .analyst-report-content {
+    gap: 2rem;
+  }
+}
+
+/* Mobile Landscape */
+@media (max-width: 1024px) {
+  .analyst-report-list-section {
+    padding: 4rem 2rem 6rem;
+  }
+
+  .analyst-report-list-title {
+    font-size: 2rem;
+  }
+
+  .analyst-report-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1.25rem 0;
+  }
+
+  .analyst-report-content {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+    width: 100%;
+  }
+
+  .analyst-report-item-title {
+    font-size: 1.125rem;
+  }
+
+  .analyst-report-date {
+    font-size: 0.9375rem;
+  }
+}
+
+/* Mobile Portrait */
+@media (max-width: 768px) {
+  .analyst-report-list-section {
+    padding: 3rem 1.25rem 4rem;
+  }
+
+  .analyst-report-list-header {
+    padding-bottom: 1.5rem;
+  }
+
+  .analyst-report-list-title-wrap {
+    width: 100%;
+  }
+
+  .analyst-report-list-title {
+    font-size: 1.75rem;
+  }
+
+  .analyst-report-item-title {
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+
+  .analyst-report-download-btn {
+    height: 2.5rem;
+  }
+
+  .analyst-report-download-text {
+    font-size: 0.875rem;
+  }
+
+  .analyst-report-download-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  .analyst-report-pagination {
+    padding: 1.5rem 0;
+  }
+
+  .analyst-report-page-btn {
+    width: 2.75rem;
+    height: 2.75rem;
+    font-size: 0.9375rem;
+  }
+
+  .analyst-report-page-btn.active {
+    font-size: 1rem;
+  }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+  .analyst-report-list-section {
+    padding: 2.5rem 1rem 3rem;
+  }
+
+  .analyst-report-list-title {
+    font-size: 1.5rem;
+  }
+
+  .analyst-report-item-title {
+    font-size: 0.9375rem;
+  }
+
+  .analyst-report-date {
+    font-size: 0.875rem;
+  }
+
+  .analyst-report-pagination {
+    gap: 0.5rem;
+  }
+
+  .analyst-report-page-btn {
+    width: 2.5rem;
+    height: 2.5rem;
+    font-size: 0.875rem;
+  }
+}
+

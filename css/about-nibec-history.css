@@ -1,0 +1,632 @@
+/* about-nibec-history.css - Auto-merged from 3 section files */
+/* Do not edit directly - regenerate with merge_section_css.py */
+
+/* ========== 01-header-section ========== */
+/* Header Section - about-nibec-history */
+
+.header-section {
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding: 0 319px 40px 319px;
+  width: 100%;
+  min-height: 1080px;
+  box-sizing: border-box;
+}
+
+.header-content {
+  width: 100%;
+}
+
+.title-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 35px;
+  padding: 6px 0;
+}
+
+.title-accent {
+  background-color: #006241;
+  width: 10px;
+  height: 100%;
+  min-height: 72px;
+  flex-shrink: 0;
+  align-self: stretch;
+}
+
+.title-link {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  flex-shrink: 0;
+}
+
+.header-title {
+  font-family: 'Paperlogy', sans-serif;
+  font-weight: 700;
+  font-size: 60px;
+  line-height: 1.2;
+  color: #006241;
+  text-transform: capitalize;
+  margin: 0;
+  max-width: 961px;
+}
+
+/* Tablet (768px - 1024px) */
+@media (max-width: 1024px) {
+  .header-section {
+    padding: 0 80px 32px 80px;
+    min-height: auto;
+    padding-top: 200px;
+  }
+
+  .title-wrapper {
+    gap: 24px;
+  }
+
+  .title-accent {
+    width: 8px;
+    min-height: 56px;
+  }
+
+  .header-title {
+    font-size: clamp(2rem, 5vw + 1rem, 3.75rem);
+    max-width: 100%;
+  }
+}
+
+/* Mobile (max-width: 767px) */
+@media (max-width: 767px) {
+  .header-section {
+    padding: 0 20px 24px 20px;
+    padding-top: 120px;
+  }
+
+  .title-wrapper {
+    gap: 16px;
+  }
+
+  .title-accent {
+    width: 6px;
+    min-height: 48px;
+  }
+
+  .header-title {
+    font-size: clamp(1.5rem, 6vw + 0.5rem, 2.5rem);
+  }
+}
+
+/* ========== 02-hero-banner ========== */
+/* Hero Banner Section */
+.hero-banner {
+  position: relative;
+  width: 100%;
+  height: 1080px;
+  background-color: #006241;
+  overflow: hidden;
+}
+
+/* Background Image - Using object-fit instead of cropped coordinates */
+.hero-banner__bg-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.hero-banner__bg-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* Gradient Overlay */
+.hero-banner__gradient-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 400px;
+  background: linear-gradient(
+    to right,
+    rgba(25, 49, 21, 0.7) 2.691%,
+    rgba(35, 172, 100, 0.7) 33.1%,
+    rgba(212, 212, 212, 0.42) 70.994%
+  );
+  mix-blend-mode: multiply;
+  filter: blur(50px);
+}
+
+/* Blur Overlay */
+.hero-banner__blur-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 78.18%;
+  height: 400px;
+  background-image: linear-gradient(
+    -81.45deg,
+    rgba(22, 190, 76, 0) 42.304%,
+    rgba(1, 142, 68, 0.4) 87.844%
+  );
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* Content Text */
+.hero-banner__content {
+  position: absolute;
+  top: 50%;
+  left: 328px;
+  transform: translateY(-50%);
+  max-width: 822px;
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 600;
+  font-size: 1.375rem;
+  line-height: 1.4;
+  letter-spacing: -0.44px;
+  color: #ffffff;
+  text-transform: capitalize;
+}
+
+.hero-banner__content p {
+  margin: 0;
+}
+
+/* Responsive - Tablet */
+@media (max-width: 1024px) {
+  .hero-banner {
+    height: auto;
+    min-height: 600px;
+  }
+
+  .hero-banner__content {
+    left: 60px;
+    right: 60px;
+    max-width: none;
+    font-size: 1.25rem;
+  }
+
+  .hero-banner__blur-overlay {
+    width: 100%;
+  }
+
+  .hero-banner__gradient-overlay {
+    height: 300px;
+  }
+
+  .hero-banner__blur-overlay {
+    height: 300px;
+  }
+}
+
+/* Responsive - Mobile */
+@media (max-width: 768px) {
+  .hero-banner {
+    min-height: 500px;
+  }
+
+  .hero-banner__content {
+    left: 24px;
+    right: 24px;
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+
+  .hero-banner__gradient-overlay {
+    height: 250px;
+  }
+
+  .hero-banner__blur-overlay {
+    height: 250px;
+  }
+}
+
+/* Responsive - Small Mobile */
+@media (max-width: 480px) {
+  .hero-banner {
+    min-height: 400px;
+  }
+
+  .hero-banner__content {
+    left: 16px;
+    right: 16px;
+    font-size: 0.9375rem;
+  }
+}
+
+/* ========== 04-history-timeline ========== */
+/* ==========================================================================
+   History Timeline Section
+   ========================================================================== */
+
+.history-timeline {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 150px 320px;
+  background-color: #fff;
+  width: 100%;
+}
+
+.timeline-container {
+  display: flex;
+  gap: 60px;
+  align-items: flex-start;
+  width: 100%;
+  max-width: 1280px;
+}
+
+/* Timeline Content (Left Side)
+   ========================================================================== */
+
+.timeline-content {
+  display: flex;
+  flex-direction: column;
+  gap: 100px;
+  width: 858px;
+  flex-shrink: 0;
+}
+
+/* Timeline Year Block
+   ========================================================================== */
+
+.timeline-year-block {
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+  width: 100%;
+  background-color: #fff;
+}
+
+.timeline-year {
+  font-family: 'Paperlogy', sans-serif;
+  font-weight: 700;
+  font-size: 48px;
+  line-height: 1.4;
+  letter-spacing: -0.96px;
+  color: #14483c;
+  flex-shrink: 0;
+  text-transform: capitalize;
+}
+
+/* Timeline Marker (Dot + Line)
+   ========================================================================== */
+
+.timeline-marker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 15px;
+  width: 20px;
+  flex-shrink: 0;
+  align-self: stretch;
+  position: relative;
+}
+
+.timeline-dot {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: #14483c;
+  flex-shrink: 0;
+  z-index: 1;
+}
+
+.timeline-line {
+  width: 1px;
+  flex: 1;
+  background-color: #14483c;
+  margin-top: -10px;
+}
+
+/* Timeline Events
+   ========================================================================== */
+
+.timeline-events {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  padding-top: 10px;
+  flex: 1;
+  min-width: 0;
+}
+
+.timeline-event {
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 1.6;
+  letter-spacing: -0.4px;
+  color: #14483c;
+  margin: 0;
+  text-transform: capitalize;
+}
+
+.timeline-event--highlight {
+  font-family: 'Pretendard', sans-serif;
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 1.4;
+  letter-spacing: -0.44px;
+}
+
+.timeline-event strong {
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 1.4;
+  letter-spacing: -0.44px;
+}
+
+/* 2018년 블록 - 갭 조정 */
+.timeline-year-block:nth-child(8) .timeline-events {
+  gap: 20px;
+}
+
+/* Timeline Gallery (Right Side)
+   ========================================================================== */
+
+.timeline-gallery {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  align-items: flex-end;
+  flex: 1;
+  min-width: 0;
+  align-self: stretch;
+}
+
+.timeline-gallery__image {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.timeline-gallery__image img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  display: block;
+}
+
+.timeline-gallery__spacer {
+  width: 89px;
+  flex-shrink: 0;
+  align-self: flex-end;
+}
+
+.timeline-gallery__images-pair {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+/* ==========================================================================
+   Responsive Styles
+   ========================================================================== */
+
+/* Tablet */
+@media (max-width: 1440px) {
+  .history-timeline {
+    padding: 100px 80px;
+  }
+
+  .timeline-container {
+    gap: 40px;
+  }
+
+  .timeline-content {
+    width: 600px;
+    gap: 80px;
+  }
+
+  .timeline-year-block {
+    gap: 30px;
+  }
+
+  .timeline-year {
+    font-size: 40px;
+  }
+
+  .timeline-event {
+    font-size: 18px;
+  }
+
+  .timeline-event--highlight,
+  .timeline-event strong {
+    font-size: 20px;
+  }
+}
+
+/* Small Tablet */
+@media (max-width: 1024px) {
+  .history-timeline {
+    padding: 80px 40px;
+  }
+
+  .timeline-container {
+    flex-direction: column;
+    gap: 60px;
+  }
+
+  .timeline-content {
+    width: 100%;
+    gap: 60px;
+  }
+
+  .timeline-year-block {
+    gap: 24px;
+  }
+
+  .timeline-year {
+    font-size: 36px;
+    min-width: 80px;
+  }
+
+  .timeline-marker {
+    width: 16px;
+  }
+
+  .timeline-dot {
+    width: 16px;
+    height: 16px;
+  }
+
+  .timeline-events {
+    gap: 24px;
+  }
+
+  .timeline-event {
+    font-size: 16px;
+  }
+
+  .timeline-event--highlight,
+  .timeline-event strong {
+    font-size: 18px;
+  }
+
+  /* 갤러리 그리드 레이아웃 */
+  .timeline-gallery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    width: 100%;
+  }
+
+  .timeline-gallery__spacer {
+    display: none;
+  }
+
+  .timeline-gallery__images-pair {
+    display: contents;
+  }
+
+  .timeline-gallery__image {
+    aspect-ratio: 16 / 10;
+  }
+
+  .timeline-gallery__image img {
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .history-timeline {
+    padding: 60px 20px;
+  }
+
+  .timeline-container {
+    gap: 40px;
+  }
+
+  .timeline-content {
+    gap: 48px;
+  }
+
+  .timeline-year-block {
+    gap: 16px;
+  }
+
+  .timeline-year {
+    font-size: 28px;
+    min-width: 60px;
+  }
+
+  .timeline-marker {
+    width: 12px;
+    padding-top: 10px;
+  }
+
+  .timeline-dot {
+    width: 12px;
+    height: 12px;
+  }
+
+  .timeline-line {
+    margin-top: -6px;
+  }
+
+  .timeline-events {
+    gap: 16px;
+    padding-top: 6px;
+  }
+
+  .timeline-event {
+    font-size: 14px;
+    line-height: 1.5;
+    letter-spacing: -0.28px;
+  }
+
+  .timeline-event--highlight,
+  .timeline-event strong {
+    font-size: 15px;
+  }
+
+  /* 갤러리 2열 레이아웃 */
+  .timeline-gallery {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+  .history-timeline {
+    padding: 40px 16px;
+  }
+
+  .timeline-content {
+    gap: 40px;
+  }
+
+  .timeline-year-block {
+    gap: 12px;
+  }
+
+  .timeline-year {
+    font-size: 24px;
+    min-width: 50px;
+  }
+
+  .timeline-marker {
+    width: 10px;
+    padding-top: 8px;
+  }
+
+  .timeline-dot {
+    width: 10px;
+    height: 10px;
+  }
+
+  .timeline-events {
+    gap: 12px;
+    padding-top: 4px;
+  }
+
+  .timeline-event {
+    font-size: 13px;
+  }
+
+  .timeline-event--highlight,
+  .timeline-event strong {
+    font-size: 14px;
+  }
+
+  /* 갤러리 1열 레이아웃 */
+  .timeline-gallery {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .timeline-gallery__image {
+    aspect-ratio: 16 / 9;
+  }
+}
+
