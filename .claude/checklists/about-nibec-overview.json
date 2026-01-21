@@ -2,10 +2,10 @@
   "$schema": "checklist-v6",
   "metadata": {
     "pageName": "about-nibec-overview",
-    "figmaUrl": "https://www.figma.com/design/YOUR_FILE_KEY/NIBEC_%EB%B3%B8%EC%9E%91%EC%97%85?node-id=2413-12132&m=dev",
+    "figmaUrl": "https://www.figma.com/design/YOUR_FILE_KEY/NIBEC_%EB%B3%B8%EC%9E%91%EC%97%85?node-id=2413-12132",
     "fileKey": "YOUR_FILE_KEY",
     "nodeId": "2413:12132",
-    "analyzedAt": "2026-01-20T00:00:00Z"
+    "analyzedAt": "2026-01-21T00:00:00Z"
   },
   "nodes": [
     {
@@ -18,42 +18,42 @@
     {
       "id": "header-section",
       "type": "section",
-      "name": "Header",
+      "name": "Header (Hero Banner)",
       "nodeId": "2413:12134",
       "position": "flow-1"
     },
     {
       "id": "navbar-index",
-      "type": "section",
-      "name": "Navbar Index (Sub Navigation)",
+      "type": "common",
+      "name": "Navbar_index (서브 네비게이션)",
       "nodeId": "2413:12144",
       "position": "flow-2"
     },
     {
       "id": "vision-section",
       "type": "section",
-      "name": "Vision",
+      "name": "Vision (비전 섹션 - Our Vision/Mission)",
       "nodeId": "2413:12145",
       "position": "flow-3"
     },
     {
       "id": "core-values-section",
       "type": "section",
-      "name": "Our Core Values",
+      "name": "Our Core Values (핵심 가치 4개 카드)",
       "nodeId": "2413:12173",
       "position": "flow-4"
     },
     {
       "id": "innovation-pillars-section",
       "type": "section",
-      "name": "Innovation Pillars (3 Columns)",
+      "name": "Innovation Pillars (세 가지 혁신 기반 3-column)",
       "nodeId": "2413:12257",
       "position": "flow-5"
     },
     {
       "id": "video-section",
       "type": "section",
-      "name": "Video Section",
+      "name": "Video Section (지속가능한 내일을 향한 과학)",
       "nodeId": "2413:12281",
       "position": "flow-6"
     },

@@ -1,11 +1,1 @@
-{
-  "fonts": {
-    "Paperlogy": { "weights": ["300", "500", "700", "800", "900"] },
-    "Pretendard": { "weights": ["400", "600", "700", "800"] },
-    "Poppins": { "weights": ["400", "500", "600", "700"] },
-    "Roboto": { "weights": ["100", "400"] },
-    "Noto Sans KR": { "weights": ["400", "700"] },
-    "Inter": { "weights": ["400"] },
-    "Work Sans": { "weights": ["400", "600"] }
-  }
-}
+{"fonts":{"Poppins":{"weights":["400","500","600"]},"Paperlogy":{"weights":["500","700","800","900"]},"Pretendard":{"weights":["400","600"]}}}

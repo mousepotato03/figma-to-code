@@ -1,36 +1,18 @@
 {
   "$schema": "common-components-v3",
   "metadata": {
-    "totalPages": 18,
-    "generatedAt": "2026-01-20T22:59:18.740403"
+    "totalPages": 3,
+    "generatedAt": "2026-01-21T17:27:46.794914"
   },
   "components": [
     {
       "name": "Navbar",
-      "nodeId": "2413:12857",
+      "nodeId": "2413:12669",
       "position": "fixed-top",
       "occurrences": [
         {
-          "page": "about-nibec-certifications-compliance",
-          "nodeId": "2413:12857",
-          "fileKey": "YOUR_FILE_KEY",
-          "position": "fixed-top"
-        },
-        {
-          "page": "about-nibec-global-network",
-          "nodeId": "2413:12962",
-          "fileKey": "YOUR_FILE_KEY",
-          "position": "fixed-top"
-        },
-        {
           "page": "about-nibec-history",
           "nodeId": "2413:12669",
-          "fileKey": "YOUR_FILE_KEY",
-          "position": "fixed-top"
-        },
-        {
-          "page": "about-nibec-leadership",
-          "nodeId": "2508:10492",
           "fileKey": "YOUR_FILE_KEY",
           "position": "fixed-top"
         },
@@ -41,221 +23,15 @@
           "position": "fixed-top"
         },
         {
-          "page": "contact",
-          "nodeId": "2413:18608",
-          "fileKey": "YOUR_FILE_KEY",
-          "position": "fixed-top"
-        },
-        {
-          "page": "drug-discovery-core-technology",
-          "nodeId": "2776:8527",
-          "fileKey": "YOUR_FILE_KEY",
-          "position": "fixed-top"
-        },
-        {
-          "page": "drug-discovery-division-pipeline",
-          "nodeId": "2413:18059",
-          "fileKey": "YOUR_FILE_KEY",
-          "position": "fixed-top"
-        },
-        {
           "page": "home",
           "nodeId": "2413:13984",
           "fileKey": "YOUR_FILE_KEY",
           "position": "fixed-top"
-        },
-        {
-          "page": "ir-new-notice",
-          "nodeId": "2413:18520",
-          "fileKey": "YOUR_FILE_KEY",
-          "position": "fixed-top"
-        },
-        {
-          "page": "ir-news-analyst-report",
-          "nodeId": "2413:18476",
-          "fileKey": "YOUR_FILE_KEY",
-          "position": "fixed-top"
-        },
-        {
-          "page": "ir-news-notice-detail",
-          "nodeId": "2413:18564",
-          "fileKey": "YOUR_FILE_KEY",
-          "position": "fixed-top"
-        },
-        {
-          "page": "ir-news-press-releases",
-          "nodeId": "2413:18344",
-          "fileKey": "YOUR_FILE_KEY",
-          "position": "fixed-top"
-        },
-        {
-          "page": "ir-news-pressreleases-detail",
-          "nodeId": "2413:18388",
-          "fileKey": "YOUR_FILE_KEY",
-          "position": "fixed-top"
-        },
-        {
-          "page": "locations",
-          "nodeId": "2543:12537",
-          "fileKey": "YOUR_FILE_KEY",
-          "position": "fixed-top"
-        },
-        {
-          "page": "medical-device-division-core-technology",
-          "nodeId": "2413:11898",
-          "fileKey": "YOUR_FILE_KEY",
-          "position": "fixed-top"
-        },
-        {
-          "page": "medical-device-division-product",
-          "nodeId": "2413:11660",
-          "fileKey": "YOUR_FILE_KEY",
-          "position": "fixed-top"
-        },
-        {
-          "page": "medical-device-pipeline",
-          "nodeId": "2413:12131",
-          "fileKey": "YOUR_FILE_KEY",
-          "position": "fixed-top"
         }
       ]
     },
     {
-      "name": "Navbar_index",
-      "nodeId": "2413:12782",
-      "position": "flow-2",
-      "occurrences": [
-        {
-          "page": "about-nibec-certifications-compliance",
-          "nodeId": "2413:12782",
-          "fileKey": "YOUR_FILE_KEY",
-          "position": "flow-2"
-        },
-        {
-          "page": "medical-device-division-core-technology",
-          "nodeId": "2413:11673",
-          "fileKey": "YOUR_FILE_KEY",
-          "position": "flow-2"
-        }
-      ]
-    },
-    {
-      "name": "Footer",
-      "nodeId": "2508:10932",
-      "position": "flow-6",
-      "occurrences": [
-        {
-          "page": "about-nibec-certifications-compliance",
-          "nodeId": "2508:10932",
-          "fileKey": "YOUR_FILE_KEY",
-          "position": "flow-6"
-        },
-        {
-          "page": "about-nibec-global-network",
-          "nodeId": "2508:11019",
-          "fileKey": "YOUR_FILE_KEY",
-          "position": "flow-6"
-        },
-        {
-          "page": "about-nibec-history",
-          "nodeId": "2508:10758",
-          "fileKey": "YOUR_FILE_KEY",
-          "position": "flow-5"
-        },
-        {
-          "page": "about-nibec-leadership",
-          "nodeId": "2508:10845",
-          "fileKey": "YOUR_FILE_KEY",
-          "position": "flow-5"
-        },
-        {
-          "page": "about-nibec-overview",
-          "nodeId": "2508:10671",
-          "fileKey": "YOUR_FILE_KEY",
-          "position": "flow-7"
-        },
-        {
-          "page": "contact",
-          "nodeId": "2543:12585",
-          "fileKey": "YOUR_FILE_KEY",
-          "position": "flow-5"
-        },
-        {
-          "page": "drug-discovery-core-technology",
-          "nodeId": "2776:8526",
-          "fileKey": "YOUR_FILE_KEY",
-          "position": "flow-8"
-        },
-        {
-          "page": "drug-discovery-division-pipeline",
-          "nodeId": "2508:11367",
-          "fileKey": "YOUR_FILE_KEY",
-          "position": "flow-5"
-        },
-        {
-          "page": "home",
-          "nodeId": "2489:7702",
-          "fileKey": "YOUR_FILE_KEY",
-          "position": "flow-10"
-        },
-        {
-          "page": "ir-new-notice",
-          "nodeId": "2508:11889",
-          "fileKey": "YOUR_FILE_KEY",
-          "position": "flow-4"
-        },
-        {
-          "page": "ir-news-analyst-report",
-          "nodeId": "2508:11802",
-          "fileKey": "YOUR_FILE_KEY",
-          "position": "flow-4"
-        },
-        {
-          "page": "ir-news-notice-detail",
-          "nodeId": "2508:11976",
-          "fileKey": "YOUR_FILE_KEY",
-          "position": "flow-4"
-        },
-        {
-          "page": "ir-news-press-releases",
-          "nodeId": "2508:11541",
-          "fileKey": "YOUR_FILE_KEY",
-          "position": "flow-3"
-        },
-        {
-          "page": "ir-news-pressreleases-detail",
-          "nodeId": "2508:11628",
-          "fileKey": "YOUR_FILE_KEY",
-          "position": "flow-3"
-        },
-        {
-          "page": "locations",
-          "nodeId": "2543:13311",
-          "fileKey": "YOUR_FILE_KEY",
-          "position": "flow-5"
-        },
-        {
-          "page": "medical-device-division-core-technology",
-          "nodeId": "2508:11106",
-          "fileKey": "YOUR_FILE_KEY",
-          "position": "flow-8"
-        },
-        {
-          "page": "medical-device-division-product",
-          "nodeId": "2508:11280",
-          "fileKey": "YOUR_FILE_KEY",
-          "position": "flow-5"
-        },
-        {
-          "page": "medical-device-pipeline",
-          "nodeId": "2508:11193",
-          "fileKey": "YOUR_FILE_KEY",
-          "position": "flow-5"
-        }
-      ]
-    },
-    {
-      "name": "Navbar Index",
+      "name": "Navbar_index (서브 네비게이션)",
       "nodeId": "2413:12348",
       "position": "flow-3",
       "occurrences": [
@@ -266,16 +42,35 @@
           "position": "flow-3"
         },
         {
-          "page": "drug-discovery-core-technology",
-          "nodeId": "2776:7318",
+          "page": "about-nibec-overview",
+          "nodeId": "2413:12144",
           "fileKey": "YOUR_FILE_KEY",
           "position": "flow-2"
+        }
+      ]
+    },
+    {
+      "name": "Footer",
+      "nodeId": "2508:10758",
+      "position": "flow-5",
+      "occurrences": [
+        {
+          "page": "about-nibec-history",
+          "nodeId": "2508:10758",
+          "fileKey": "YOUR_FILE_KEY",
+          "position": "flow-5"
         },
         {
-          "page": "drug-discovery-division-pipeline",
-          "nodeId": "2413:15321",
+          "page": "about-nibec-overview",
+          "nodeId": "2508:10671",
           "fileKey": "YOUR_FILE_KEY",
-          "position": "flow-2"
+          "position": "flow-7"
+        },
+        {
+          "page": "home",
+          "nodeId": "2489:7702",
+          "fileKey": "YOUR_FILE_KEY",
+          "position": "flow-10"
         }
       ]
     }
