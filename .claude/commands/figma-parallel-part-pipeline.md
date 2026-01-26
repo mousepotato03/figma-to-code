@@ -1,5 +1,5 @@
 ---
-description: Figma 구현 병렬 파이프라인 실행 /figma-parallel-part-pipeline {url1} {url2} {페이지 url 최대 5개 등록}
+description: Figma 구현 병렬 파이프라인 실행 /figma-parallel-part-pipeline {url1} {url2} {url3} (url 3개 권장)
 arguments:
   - name: urls
     description: Figma Page URLs (공백 구분)
@@ -9,6 +9,8 @@ arguments:
 다음 작업을 순차적으로 수행해줘:
 
 ---
+
+**중요: TaskOutput 호출 금지**
 
 # 0단계: URL 파라미터 검증
 
@@ -86,28 +88,6 @@ python .claude/scripts/merge_common_components.py
 # 2-4. 공통 컴포넌트 중복 정리
 Task(subagent_type="common-component-merger")
 ```
-
-**중요: TaskOutput 호출 금지**
-
-## 세부 단계 설명
-
-### 2-1. URL 데이터 사용
-- 소스: 파라미터로 전달된 URL 배열
-- 0단계에서 검증 완료된 URL 사용 (최대 5개)
-
-### 2-2. 페이지 분석
-- Task: `figma-page-analyzer`
-- 출력: `.claude/checklists/{pageName}.json`
-
-### 2-3. 공통 컴포넌트 1차 병합
-- 각 체크리스트의 `type: "common"` 노드 추출
-- 출력: `_common_component.json`
-
-### 2-4. 공통 컴포넌트 중복 정리
-- 유사 이름 컴포넌트 통합 (예: `Navbar`, `Navbar (상단 네비게이션)`, `Navbar [Instance]` → 하나로)
-- 사용 페이지 목록과 출처별 메타데이터 병합
-
----
 
 # 3단계: 구현
 

@@ -57,7 +57,7 @@ You are an expert Figma design analyst specializing in component architecture an
 
 **공통 컴포넌트 (type: "common")** - 오직 다음 4가지만 해당:
 
-1. Navigation bars (navbar, top navigation)
+1. Navigation bar (top navigation bar)
 2. Footers
 3. Sidebars
 4. Modal/Dialog templates
@@ -76,12 +76,12 @@ You are an expert Figma design analyst specializing in component architecture an
 - Form sections
 - 기타 모든 페이지 고유 콘텐츠
 
-### 3. nodeId 추출 규칙 (필수)
+### 3. nodeId 및 size 추출 규칙 (필수)
 
-`get_metadata` 응답은 XML 형식으로 각 요소의 `id` 속성을 포함합니다:
+`get_metadata` 응답은 XML 형식으로 각 요소의 `id`, `width`, `height` 속성을 포함합니다:
 
 ```xml
-<frame id="2413:13476" name="Header" x="0" y="0" width="1920" height="1080">
+<frame id="2413:13476" name="Header" x="0" y="0" width="1920" height="400">
   ...
 </frame>
 <instance id="2413:13984" name="Navbar" x="0" y="0" width="1920" height="130" />
@@ -90,18 +90,47 @@ You are an expert Figma design analyst specializing in component architecture an
 **규칙:**
 - 각 섹션/컴포넌트의 `id` 속성 값을 `nodeId` 필드에 저장
 - 예: `id="2413:13476"` → `"nodeId": "2413:13476"`
-- 구현 서브에이전트가 이 nodeId로 `get_design_context`를 섹션별로 호출할 수 있음
+- **모든 flow-* 및 fixed-* 노드에 `size` 필드 필수 포함**
+
+### 4. size 추출 규칙 (필수)
+
+`get_metadata` 응답의 XML에서 각 노드의 **width, height 속성을 반드시 추출**:
+
+```xml
+<frame id="2413:12338" name="Header" width="1920" height="400">
+```
+
+위 응답에서:
+- `width="1920"` → `size.width: 1920`
+- `height="400"` → `size.height: 400`
+
+**중요**:
+- 이 값은 구현 서브에이전트가 CSS height/width를 설정할 때 사용됨
+- `get_design_context`는 `size-full` 등 상대값만 반환하여 실제 픽셀값 확인 불가
+- **metadata의 절대 픽셀값이 유일한 진실의 원천(source of truth)**
+
+**출력 예시:**
+```json
+{
+  "id": "header-section",
+  "type": "section",
+  "name": "Header",
+  "nodeId": "2413:12338",
+  "position": "flow-1",
+  "size": { "width": 1920, "height": 400 }
+}
+```
 
 ---
 
-## 4. JSON Output Schema (v6)
+## 5. JSON Output Schema (v6)
 
 상세 스키마 정의: `.claude/docs/checklist-schema.md` 필수 참조
 출력 위치: `.claude/checklists/[page-name].json`
 
 ---
 
-## 5. Workflow
+## 6. Workflow
 
 1. Receive the Figma URL from the user
 2. Call `get_metadata` with the provided URL
@@ -122,9 +151,9 @@ You are an expert Figma design analyst specializing in component architecture an
 
 ---
 
-## 6. Error Handling
+## 7. Error Handling
 
-### 6-1. Figma API Rate Limit (429 에러)
+### 7-1. Figma API Rate Limit (429 에러)
 
 `get_metadata` 호출 시 429 에러 응답을 받으면:
 
@@ -140,7 +169,7 @@ You are an expert Figma design analyst specializing in component architecture an
 2. 재시도 (최대 3회)
 3. 3회 실패 시 에러 보고 후 해당 URL 건너뛰기
 
-### 6-2. 기타 에러
+### 7-2. 기타 에러
 
 다음 에러 발생 시 **AskUserQuestion**으로 사용자 선택 요청:
 
@@ -152,7 +181,7 @@ You are an expert Figma design analyst specializing in component architecture an
 | 네트워크 오류 | 재시도 / 건너뛰기 / 중단 |
 | 알 수 없는 에러 | 재시도 / 건너뛰기 / 중단 |
 
-### 6-3. 기존 규칙 유지
+### 7-3. 기존 규칙 유지
 
 - If the page structure is unclear, document what you can analyze and note the limitations
 - If the page name cannot be determined, use a sanitized version of the URL or ask for clarification

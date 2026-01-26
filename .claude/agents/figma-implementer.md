@@ -51,7 +51,8 @@ You are a Pixel-Perfect PHP/CSS Implementation Expert. Your mission is to conver
     "type": "common" | "section",
     "name": "Hero Section",
     "nodeId": "2413:13476",
-    "fileKey": "YOUR_FILE_KEY"
+    "fileKey": "YOUR_FILE_KEY",
+    "size": { "width": 1920, "height": 400 }
   },
   "context": {
     "pageName": "home",
@@ -222,6 +223,33 @@ document.querySelector('.navbar-toggle').addEventListener('click', function() {
 ```
 
 **참고**: `position: "fixed-bottom-right"`은 분류 힌트이며, 실제 좌표는 피그마 데이터 사용
+
+### Step 4.5: 크기 값 확인 (필수)
+
+**중요**: `get_design_context`가 `size-full` 등 상대값을 반환하는 경우, 실제 픽셀값을 알 수 없습니다.
+
+**절대 크기 확인 방법:**
+
+1. **입력받은 체크리스트에서 해당 노드의 `size` 필드 확인**
+   ```json
+   {
+     "id": "header-section",
+     "nodeId": "3001:9830",
+     "size": { "width": 1920, "height": 400 }
+   }
+   ```
+
+2. **figma-to-css.md의 하이브리드 사이징 전략에 따라 변환** (Section 2 참조)
+   - Desktop (1200px~1920px): `400px` → `25rem` (1:1 Pixel Match)
+   - Tablet/Mobile: 비율 기반 또는 min-height 사용
+
+3. **`get_design_context`의 상대값 대신 체크리스트의 절대값 기준 사용**
+   - ❌ `size-full` → `height: 100%` (잘못됨)
+   - ✅ `size.height: 400` → `height: 25rem` (정확함)
+
+**경고**: 체크리스트에 `size` 필드가 없는 경우:
+1. `mcp__figma__get_metadata`를 직접 호출하여 width/height 확인
+2. 임의 값(예: 1080px) 사용 금지
 
 ### Step 5: CSS 생성 (반응형 포함)
 

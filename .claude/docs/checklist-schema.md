@@ -33,6 +33,21 @@
 | `name`     | string                  | 이름 (한글 가능)                |
 | `nodeId`   | string                  | Figma 노드 ID                   |
 | `position` | string                  | 배치 위치 (flow-N 또는 fixed-*) |
+| `size`     | object (optional)       | `{ width: number, height: number }` (px 단위) |
+
+### size 필드
+
+`get_metadata` 응답의 XML에서 추출한 **절대 크기 값** (px 단위):
+
+```xml
+<frame id="2413:12338" name="Header" width="1920" height="400">
+```
+
+위 응답에서:
+- `width="1920"` → `size.width: 1920`
+- `height="400"` → `size.height: 400`
+
+**중요**: `get_design_context`의 `size-full` 등 상대값이 아닌, **metadata의 절대 픽셀값**을 사용해야 합니다.
 
 ### position 값
 - `flow-1`, `flow-2`, ... → 스크롤 콘텐츠 (순서대로 배치)
@@ -89,11 +104,11 @@ Navbar는 첫 번째 섹션 위에 **overlay**로 배치:
     "analyzedAt": "2026-01-19T00:00:00Z"
   },
   "nodes": [
-    { "id": "navbar", "type": "common", "name": "Navbar", "nodeId": "2413:18106", "position": "fixed-top" },
-    { "id": "hero-section", "type": "section", "name": "Hero Section", "nodeId": "2413:12134", "position": "flow-1" },
-    { "id": "rooms-section", "type": "section", "name": "Rooms Section", "nodeId": "2413:12145", "position": "flow-2" },
-    { "id": "footer", "type": "common", "name": "Footer", "nodeId": "2508:10671", "position": "flow-3" },
-    { "id": "booking-fab", "type": "common", "name": "Booking FAB", "nodeId": "2413:12300", "position": "fixed-bottom-right" }
+    { "id": "navbar", "type": "common", "name": "Navbar", "nodeId": "2413:18106", "position": "fixed-top", "size": { "width": 1920, "height": 130 } },
+    { "id": "hero-section", "type": "section", "name": "Hero Section", "nodeId": "2413:12134", "position": "flow-1", "size": { "width": 1920, "height": 400 } },
+    { "id": "rooms-section", "type": "section", "name": "Rooms Section", "nodeId": "2413:12145", "position": "flow-2", "size": { "width": 1920, "height": 600 } },
+    { "id": "footer", "type": "common", "name": "Footer", "nodeId": "2508:10671", "position": "flow-3", "size": { "width": 1920, "height": 300 } },
+    { "id": "booking-fab", "type": "common", "name": "Booking FAB", "nodeId": "2413:12300", "position": "fixed-bottom-right", "size": { "width": 60, "height": 60 } }
   ]
 }
 ```

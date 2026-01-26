@@ -21,6 +21,10 @@
   python wait_files.py --path .claude/markers/home --file merged.done
   python wait_files.py --path .claude/checklistss --file home.json
 
+  # 특정 파일 목록 대기 (모든 파일이 존재해야 성공)
+  python wait_files.py --path .claude/markers/home --files "01-header.done,02-hero.done,03-about.done"
+  python wait_files.py --path .claude/markers --files "home/01-header.done,about/02-hero.done"
+
   # 옵션
   --timeout: 최대 대기 시간 (초, 기본값: 600)
   --recursive: 재귀 검색 (마커 모드에서 사용)
@@ -161,6 +165,47 @@ def wait_for_markers(path: Path, count: int, timeout: int, recursive: bool = Fal
             return 0
 
 
+def wait_for_files_list(path: Path, filenames: list, timeout: int) -> int:
+    """특정 파일 목록 전체 대기
+
+    Args:
+        path: 검색 대상 디렉토리
+        filenames: 대기할 파일명 목록 (상대 경로 포함 가능)
+        timeout: 최대 대기 시간 (초)
+
+    Returns:
+        0: 모든 파일 존재, 1: 타임아웃
+    """
+    start_time = time.time()
+
+    # 즉시 체크 (이미 모든 파일이 존재하는 경우)
+    missing = [f for f in filenames if not (path / f).exists()]
+    if not missing:
+        print(f"SUCCESS|found:{len(filenames)}|elapsed:0")
+        return 0
+
+    while True:
+        elapsed = int(time.time() - start_time)
+
+        # 각 파일 존재 여부 체크
+        missing = [f for f in filenames if not (path / f).exists()]
+
+        if not missing:
+            print(f"SUCCESS|found:{len(filenames)}|elapsed:{elapsed}")
+            return 0
+
+        if elapsed >= timeout:
+            found = len(filenames) - len(missing)
+            # 최대 5개까지만 missing 파일 출력
+            missing_preview = ','.join(missing[:5])
+            if len(missing) > 5:
+                missing_preview += f"...+{len(missing)-5}"
+            print(f"TIMEOUT|found:{found}|expected:{len(filenames)}|missing:{missing_preview}|elapsed:{elapsed}")
+            return 1
+
+        time.sleep(POLL_INTERVAL)
+
+
 def main():
     parser = argparse.ArgumentParser(
         description='범용 파일 폴링 대기',
@@ -178,6 +223,9 @@ def main():
 
   # 특정 파일 대기
   python wait_files.py --path .claude/markers/home --file merged.done
+
+  # 특정 파일 목록 대기
+  python wait_files.py --path .claude/markers/home --files "01-header.done,02-hero.done"
         '''
     )
 
@@ -185,6 +233,7 @@ def main():
     parser.add_argument('--glob', help='glob 패턴 (예: *.json, *.done, **/*.done)')
     parser.add_argument('--mode', choices=['marker'], help='marker: *.done + *.failed 자동 카운팅')
     parser.add_argument('--file', help='특정 파일명 대기')
+    parser.add_argument('--files', help='대기할 파일명 목록 (콤마 구분)')
     parser.add_argument('--count', type=int, help='필요한 파일 개수')
     parser.add_argument('--recursive', action='store_true', help='마커 모드에서 하위 디렉토리 재귀 검색')
     parser.add_argument('--timeout', type=int, default=600, help='최대 대기 시간 (초, 기본값: 600)')
@@ -196,18 +245,24 @@ def main():
     modes_specified = sum([
         bool(args.glob),
         bool(args.mode),
-        bool(args.file)
+        bool(args.file),
+        bool(args.files)
     ])
 
     if modes_specified == 0:
-        parser.error('--glob, --mode, --file 중 하나는 필수입니다')
+        parser.error('--glob, --mode, --file, --files 중 하나는 필수입니다')
 
     if modes_specified > 1:
-        parser.error('--glob, --mode, --file 중 하나만 사용 가능합니다')
+        parser.error('--glob, --mode, --file, --files 중 하나만 사용 가능합니다')
 
-    # --file 모드
+    # --file 모드 (단일 파일)
     if args.file:
         exit_code = wait_for_file(path, args.file, args.timeout)
+
+    # --files 모드 (파일 목록)
+    elif args.files:
+        filenames = [f.strip() for f in args.files.split(',')]
+        exit_code = wait_for_files_list(path, filenames, args.timeout)
 
     # --glob 모드
     elif args.glob:

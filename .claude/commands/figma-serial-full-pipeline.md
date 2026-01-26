@@ -1,5 +1,5 @@
 ---
-description: Figma 구현 직렬 파이프라인 실행 /figma-serial-full-pipeline {url1} {url2} {모든 페이지 url 전부 등록}
+description: Figma 구현 직렬 파이프라인 실행 /figma-serial-full-pipeline {url1} {url2} (모든 페이지 url 전부 등록)
 arguments:
   - name: urls
     description: Figma Page URLs (공백 구분)
