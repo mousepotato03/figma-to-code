@@ -6,42 +6,44 @@
       "path": "docs/images/before-after/after-current-hero.png",
       "source": "https://dev.bitlworks.co.kr/nibec/c1/",
       "viewport": {
-        "width": 928,
-        "height": 916
+        "width": 1920,
+        "height": 1080
       },
       "deviceScaleFactor": 1,
       "scrollX": 0,
       "scrollY": 0,
       "dimensions": {
-        "width": 928,
-        "height": 916
+        "width": 1920,
+        "height": 1080
       },
       "anchor": {
         "selector": ".hero",
         "targetTop": 0,
         "actualTop": 0
-      }
+      },
+      "capturedAt": "2026-11-20T17:59:58.380Z"
     },
     {
       "name": "research-domains",
       "path": "docs/images/before-after/after-current-research-domains.png",
       "source": "https://dev.bitlworks.co.kr/nibec/c1/",
       "viewport": {
-        "width": 928,
-        "height": 916
+        "width": 1920,
+        "height": 1080
       },
       "deviceScaleFactor": 1,
       "scrollX": 0,
       "scrollY": 1870,
       "dimensions": {
-        "width": 928,
-        "height": 916
+        "width": 1920,
+        "height": 1080
       },
       "anchor": {
         "selector": ".section-scientific",
         "targetTop": 290,
         "actualTop": 290
-      }
+      },
+      "capturedAt": "2026-11-20T18:08:00.000Z"
     },
     {
       "name": "product-cards",

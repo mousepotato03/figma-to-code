@@ -3,15 +3,15 @@
 기존 Figma MCP 도구를 개선한 Claude Code 하네스
 
 
-| 문제                   | 원인                                                                                                       |
-| -------------------- | -------------------------------------------------------------------------------------------------------- |
-| **Sparse 데이터 (가장 큰 문제)** | Figma MCP 도구가 한 번에 내보낼 수 있는 토큰 크기가 작음. 큰 페이지를 통째로 불러오면 디자인 정보가 다 담기지 않은 sparse 데이터만 돌아와서 결과물 품질이 크게 떨어짐 |
-| **모델 성능과 컨텍스트 윈도우** | 프로젝트를 시작한 2025년 12월 당시 모델(Claude Opus 4.5·Sonnet 4.5)은 지금보다 성능이 낮았고 컨텍스트 윈도우도 200K 토큰이라, 페이지 전체를 한 세션에서 다루기 어려웠음 |
-| **레이아웃 붕괴**          | 시안이 Auto Layout(Flexbox에 해당) 없이 그려져 있으면 MCP 출력이 절대좌표와 고정 px로 채워짐. 화면 폭이 바뀌거나 폰트 렌더링이 조금만 달라도 요소가 어긋나고 겹침 |
-| **계층 구조 노이즈**        | 이미지 밑에 이미지를 여러 장 깔아 둔 구성은 `get_metadata`/`get_design_context`의 계층 정보에 그대로 노이즈로 섞여 들어옴                    |
-| **조각난 아이콘**          | 여러 벡터를 조합한 아이콘은 통이미지 한 장으로 받으면 되는데, MCP는 조각을 하나씩 가져옴                                                     |
-| **크기 정보 유실**         | `get_design_context`는 `size-full` 같은 상대값을 돌려줘서 실제 픽셀 크기를 알 수 없음                                          |
-| **Rate Limit**       | 요청을 병렬로 몰아서 보내면 Figma API 429 응답에 걸림                                                   |
+| 문제                       | 원인                                                                                                               |
+| ------------------------ | ---------------------------------------------------------------------------------------------------------------- |
+| **Sparse 데이터 (가장 큰 문제)** | Figma MCP 도구가 한 번에 내보낼 수 있는 토큰 크기가 작음. 큰 페이지를 통째로 불러오면 디자인 정보가 다 담기지 않은 sparse 데이터만 돌아와서 결과물 품질이 크게 떨어짐          |
+| **모델 성능과 컨텍스트 윈도우**      | 프로젝트를 시작한 2025년 12월 당시 모델(Claude Opus 4.5·Sonnet 4.5)은 지금보다 성능이 낮았고 컨텍스트 윈도우도 200K 토큰이라, 페이지 전체를 한 세션에서 다루기 어려웠음 |
+| **레이아웃 붕괴**              | 시안이 Auto Layout(Flexbox에 해당) 없이 그려져 있으면 MCP 출력이 절대좌표와 고정 px로 채워짐. 화면 폭이 바뀌거나 폰트 렌더링이 조금만 달라도 요소가 어긋나고 겹침         |
+| **계층 구조 노이즈**            | 이미지 밑에 이미지를 여러 장 깔아 둔 구성은 `get_metadata`/`get_design_context`의 계층 정보에 그대로 노이즈로 섞여 들어옴                            |
+| **조각난 아이콘**              | 여러 벡터를 조합한 아이콘은 통이미지 한 장으로 받으면 되는데, MCP는 조각을 하나씩 가져옴                                                             |
+| **크기 정보 유실**             | `get_design_context`는 `size-full` 같은 상대값을 돌려줘서 실제 픽셀 크기를 알 수 없음                                                  |
+| **Rate Limit**           | 요청을 병렬로 몰아서 보내면 Figma API 429 응답에 걸림                                                                             |
 
 
 ---
@@ -24,36 +24,37 @@
 
 ## Before / After
 
-대상: NIBEC 홈페이지의 Hero, Research Domains, Business Cards 영역
+대상: NIBEC 홈페이지의 Hero, Research Domains 영역
 
 - **Before**: 기존 비교 캡처를 유지했습니다.
-- **After**: [개발 사이트](https://dev.bitlworks.co.kr/nibec/c1/)의 현재 화면을 928×916px 뷰포트, 배율 100%로 새로 촬영했습니다. Before와 같은 섹션 위치를 기준으로 맞췄으며, 촬영 후 확대·축소하거나 잘라내지 않았습니다.
+- **After**: [개발 사이트](https://dev.bitlworks.co.kr/nibec/c1/)의 현재 화면을 일반 데스크톱 화면(1920×1080px, 배율 100%) 그대로 새로 촬영했습니다. Before와 같은 섹션 위치를 기준으로 맞췄으며, 촬영 후 확대·축소하거나 잘라내지 않았습니다.
 - 캡처 출처와 실제 화면 크기·스크롤 위치: [촬영 기록](docs/images/before-after/current-capture.json)
 
 ### Hero
 
-| Before | After |
-| :---: | :---: |
-| <img src="docs/images/before-after/after-hero.png" width="400" alt="Before: Hero"> | <img src="docs/images/before-after/after-current-hero.png" width="400" alt="After: Hero"> |
+**Before**
+
+<img src="docs/images/before-after/after-hero.png" alt="Before: Hero">
+
+**After**
+
+<img src="docs/images/before-after/after-current-hero.png" alt="After: Hero">
+
 
 ### Research Domains
 
-| Before | After |
-| :---: | :---: |
-| <img src="docs/images/before-after/after-research-domains.png" width="400" alt="Before: Research Domains"> | <img src="docs/images/before-after/after-current-research-domains.png" width="400" alt="After: Research Domains"> |
+**Before**
 
-<details>
-<summary>기존 데스크톱(1920px) 캡처</summary>
+<img src="docs/images/before-after/after-research-domains.png" alt="Before: Research Domains">
 
-<img src="docs/images/before-after/after-hero-1920.png" width="800">
-<img src="docs/images/before-after/after-research-domains-1920.png" width="800">
-<img src="docs/images/before-after/after-product-cards-1920.png" width="800">
+**After**
 
-</details>
+<img src="docs/images/before-after/after-current-research-domains.png" alt="After: Research Domains">
 
-> 현재 사이트의 실제 화면을 담은 자료이며, 특정 하네스 커밋만으로 생성한 결과를 재현한 비교는 아닙니다.
 
 ---
+
+
 
 ## 동작 방식
 
