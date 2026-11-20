@@ -1,0 +1,64 @@
+name: Capture matching NIBEC comparison screenshots
+on:
+  push:
+    branches: ["docs/nibec-capture-20261121"]
+    paths: [".github/workflows/nibec-capture.yml"]
+permissions:
+  contents: write
+jobs:
+  capture:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: docs/nibec-capture-20261121
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Install screenshot browser
+        run: |
+          npm install --prefix "$RUNNER_TEMP/nibec-capture" playwright@1.56.1
+          node "$RUNNER_TEMP/nibec-capture/node_modules/playwright/cli.js" install --with-deps chromium
+      - name: Capture at matching viewport and section positions
+        shell: bash
+        run: |
+          node <<'NODE'
+          const {chromium}=require(process.env.RUNNER_TEMP+'/nibec-capture/node_modules/playwright');
+          const fs=require('fs');
+          (async()=>{
+           const browser=await chromium.launch({headless:true,ignoreDefaultArgs:['--hide-scrollbars']});
+           const page=await browser.newPage({viewport:{width:928,height:916},deviceScaleFactor:1});
+           const source='https://dev.bitlworks.co.kr/nibec/c1/';
+           await page.goto(source,{waitUntil:'networkidle',timeout:90000});
+           await page.evaluate(()=>document.fonts.ready);
+           await page.waitForFunction(()=>[...document.images].every(i=>i.complete),{timeout:30000});
+           const folder='docs/images/before-after';
+           const records=[];
+           for(const item of [
+            {name:'hero',selector:'.hero',top:0},
+            {name:'research-domains',selector:'.section-scientific',top:290},
+            {name:'product-cards',selector:'.section-biotech h2',top:130}
+           ]){
+            const y=await page.locator(item.selector).evaluate((e,top)=>Math.max(0,e.getBoundingClientRect().top+scrollY-top),item.top);
+            await page.evaluate(y=>window.scrollTo({top:y,left:0,behavior:'instant'}),y);
+            await page.waitForFunction(y=>Math.abs(scrollY-y)<1,y);
+            const path=folder+'/after-current-'+item.name+'.png';
+            await page.screenshot({path,fullPage:false,animations:'disabled',scale:'css'});
+            const actual=await page.evaluate(()=>({viewport:{width:innerWidth,height:innerHeight},deviceScaleFactor:devicePixelRatio,scrollX,scrollY}));
+            const bytes=fs.readFileSync(path);
+            const dimensions={width:bytes.readUInt32BE(16),height:bytes.readUInt32BE(20)};
+            if(actual.viewport.width!==928||actual.viewport.height!==916||actual.deviceScaleFactor!==1||dimensions.width!==928||dimensions.height!==916)throw Error('Unexpected capture geometry');
+            records.push({name:item.name,path,source,...actual,dimensions,anchor:{selector:item.selector,targetTop:item.top,actualTop:await page.locator(item.selector).evaluate(e=>e.getBoundingClientRect().top)}});
+           }
+           fs.writeFileSync(folder+'/current-capture.json',JSON.stringify({capturedAt:new Date().toISOString(),records},null,2)+'\n');
+           await browser.close();
+          })().catch(e=>{console.error(e);process.exit(1)});
+          NODE
+      - name: Save screenshots on capture branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/images/before-after/after-current-*.png docs/images/before-after/current-capture.json
+          git commit -m "docs: capture current NIBEC site at 928x916"
+          git push origin HEAD:docs/nibec-capture-20261121
