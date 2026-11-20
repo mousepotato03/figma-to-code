@@ -24,24 +24,32 @@
 
 ## Before / After
 
-대상: NIBEC 홈페이지 시안 (`Home` 페이지)
+대상: NIBEC 홈페이지의 Hero, Research Domains, Business Cards 영역
 
-- **Before**: 2026-01-07, 초기 하네스(`c7848e0`)로 만든 결과를 개발 중에 찍어 둔 **실제 캡처**입니다. 당시 구현 규칙은 "`get_design_context` 값을 그대로 사용"이었습니다.
-- **After**: 2026-01-21, `8c96286`의 결과물을 Before와 **같은 뷰포트(928×916)와 같은 섹션 위치**로 다시 캡처했습니다.
+- **Before**: 기존 비교 캡처를 유지했습니다.
+- **After**: [개발 사이트](https://dev.bitlworks.co.kr/nibec/c1/)의 현재 화면을 928×916px 뷰포트, 배율 100%로 새로 촬영했습니다. Before와 같은 섹션 위치를 기준으로 맞췄으며, 촬영 후 확대·축소하거나 잘라내지 않았습니다.
+- 캡처 출처와 실제 화면 크기·스크롤 위치: [촬영 기록](docs/images/before-after/current-capture.json)
 
+### Hero
 
-|                      | Before                                                                       | After                                                                       |
-| -------------------- | ---------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
-| **Hero**             | <img src="docs/images/before-after/after-hero.png" width="400">             | <img src="docs/images/before-after/before-hero.png" width="400">             |
-|                      | 가로 스크롤이 생기고 네비 메뉴가 두 줄로 꺾이며, `Contact`는 화면 밖으로 잘림                            | 가로 넘침 없음                                                                    |
-| **Research Domains** | <img src="docs/images/before-after/after-research-domains.png" width="400"> | <img src="docs/images/before-after/before-research-domains.png" width="400"> |
-|                      | 원형 카드 묶음이 `position: absolute; left: 440px; top: -26px`로 박혀 섹션 제목 위로 겹침      | 제목 → 카드 순서로 배치돼 겹침 없음 (원 안 설명 글 아랫줄은 일부 잘림)                                 |
-| **Business Cards**   | <img src="docs/images/before-after/after-product-cards.png" width="400">    | <img src="docs/images/before-after/before-product-cards.png" width="400">    |
-|                      | 카드가 좁게 눌려 제목이 잘리고, 헤드라인이 네비 밑으로 파고듦                                          | 카드와 텍스트가 폭에 맞게 배치                                                           |
+| Before | After |
+| :---: | :---: |
+| <img src="docs/images/before-after/after-hero.png" width="400" alt="Before: Hero"> | <img src="docs/images/before-after/after-current-hero.png" width="400" alt="After: Hero"> |
 
+### Research Domains
+
+| Before | After |
+| :---: | :---: |
+| <img src="docs/images/before-after/after-research-domains.png" width="400" alt="Before: Research Domains"> | <img src="docs/images/before-after/after-current-research-domains.png" width="400" alt="After: Research Domains"> |
+
+### Business Cards
+
+| Before | After |
+| :---: | :---: |
+| <img src="docs/images/before-after/after-product-cards.png" width="400" alt="Before: Business Cards"> | <img src="docs/images/before-after/after-current-product-cards.png" width="400" alt="After: Business Cards"> |
 
 <details>
-<summary>After: 데스크톱(1920px) 화면</summary>
+<summary>기존 데스크톱(1920px) 캡처</summary>
 
 <img src="docs/images/before-after/after-hero-1920.png" width="800">
 <img src="docs/images/before-after/after-research-domains-1920.png" width="800">
@@ -49,7 +57,7 @@
 
 </details>
 
-> After에도 로고 글자 깨짐, hero 배경 경계선 같은 결함이 일부 남아 있습니다. 그래서 결과물 검수가 필요합니다. ([알려진 한계](#알려진-한계) 참고)
+> 현재 사이트의 실제 화면을 담은 자료이며, 특정 하네스 커밋만으로 생성한 결과를 재현한 비교는 아닙니다.
 
 ---
 
