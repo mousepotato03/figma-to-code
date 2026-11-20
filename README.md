@@ -42,12 +42,6 @@
 | :---: | :---: |
 | <img src="docs/images/before-after/after-research-domains.png" width="400" alt="Before: Research Domains"> | <img src="docs/images/before-after/after-current-research-domains.png" width="400" alt="After: Research Domains"> |
 
-### Business Cards
-
-| Before | After |
-| :---: | :---: |
-| <img src="docs/images/before-after/after-product-cards.png" width="400" alt="Before: Business Cards"> | <img src="docs/images/before-after/after-current-product-cards.png" width="400" alt="After: Business Cards"> |
-
 <details>
 <summary>기존 데스크톱(1920px) 캡처</summary>
 
@@ -58,23 +52,6 @@
 </details>
 
 > 현재 사이트의 실제 화면을 담은 자료이며, 특정 하네스 커밋만으로 생성한 결과를 재현한 비교는 아닙니다.
-
----
-
-## Before → After: 무엇이 바뀌었나
-
-
-| 항목      | Before (`c7848e0`)                                          | 현재 하네스                                                                                    |
-| ------- | ----------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
-| 수치 해석   | `get_design_context` 값을 그대로 사용 (캔버스 폭 `1920px`만 `100%`로 변환) | 크기는 `get_metadata`의 절대 px가 기준. 1200\~1920px은 `rem` 1:1 Pixel Match, 1199px 이하는 Fluid      |
-| 레이아웃    | 별도 규칙 없음                                                    | Auto Layout → Flexbox 매핑 표, 시안 없는 모바일을 위한 4단계 Stacking 규칙                                 |
-| 마스킹용 좌표 | 그대로 사용                                                      | 비정상 좌표(`top: -50px` 등)는 무시하고 flex/grid 중앙 배치 + `object-fit: cover`                        |
-| 이미지     | 다운로드 금지, placeholder로 대체                                    | `get_design_context`의 다운로드 URL로 받아 `assets/`에 저장. 절대경로(`/assets/...`) 금지                  |
-| 배치 판별   | —                                                           | `get_screenshot` + `get_metadata`로 `fixed-top`/`fixed-bottom`/`flow-N` 분류, Navbar 오버레이 규칙 |
-| 실행 구조   | 단일 `figma-implement` 명령                                     | 직렬/병렬 파이프라인 분리, 배치 단위 실행, 마커 기반 상태 관리                                                     |
-
-
-변환 규칙 전체: [`.claude/docs/figma-to-css.md`](.claude/docs/figma-to-css.md)
 
 ---
 
