@@ -1,0 +1,68 @@
+{
+  "capturedAt": "2026-11-20T17:45:29.629Z",
+  "records": [
+    {
+      "name": "hero",
+      "path": "docs/images/before-after/after-current-hero.png",
+      "source": "https://dev.bitlworks.co.kr/nibec/c1/",
+      "viewport": {
+        "width": 928,
+        "height": 916
+      },
+      "deviceScaleFactor": 1,
+      "scrollX": 0,
+      "scrollY": 0,
+      "dimensions": {
+        "width": 928,
+        "height": 916
+      },
+      "anchor": {
+        "selector": ".hero",
+        "targetTop": 0,
+        "actualTop": 0
+      }
+    },
+    {
+      "name": "research-domains",
+      "path": "docs/images/before-after/after-current-research-domains.png",
+      "source": "https://dev.bitlworks.co.kr/nibec/c1/",
+      "viewport": {
+        "width": 928,
+        "height": 916
+      },
+      "deviceScaleFactor": 1,
+      "scrollX": 0,
+      "scrollY": 1870,
+      "dimensions": {
+        "width": 928,
+        "height": 916
+      },
+      "anchor": {
+        "selector": ".section-scientific",
+        "targetTop": 290,
+        "actualTop": 290
+      }
+    },
+    {
+      "name": "product-cards",
+      "path": "docs/images/before-after/after-current-product-cards.png",
+      "source": "https://dev.bitlworks.co.kr/nibec/c1/",
+      "viewport": {
+        "width": 928,
+        "height": 916
+      },
+      "deviceScaleFactor": 1,
+      "scrollX": 0,
+      "scrollY": 5603,
+      "dimensions": {
+        "width": 928,
+        "height": 916
+      },
+      "anchor": {
+        "selector": ".section-biotech h2",
+        "targetTop": 130,
+        "actualTop": 129.9375
+      }
+    }
+  ]
+}
