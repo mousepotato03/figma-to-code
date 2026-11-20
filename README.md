@@ -11,7 +11,6 @@
 | **계층 구조 노이즈**            | 이미지 밑에 이미지를 여러 장 깔아 둔 구성은 `get_metadata`/`get_design_context`의 계층 정보에 그대로 노이즈로 섞여 들어옴                            |
 | **조각난 아이콘**              | 여러 벡터를 조합한 아이콘은 통이미지 한 장으로 받으면 되는데, MCP는 조각을 하나씩 가져옴                                                             |
 | **크기 정보 유실**             | `get_design_context`는 `size-full` 같은 상대값을 돌려줘서 실제 픽셀 크기를 알 수 없음                                                  |
-| **Rate Limit**           | 요청을 병렬로 몰아서 보내면 Figma API 429 응답에 걸림                                                                             |
 
 
 ---
@@ -23,12 +22,6 @@
 ---
 
 ## Before / After
-
-대상: NIBEC 홈페이지의 Hero, Research Domains 영역
-
-- **Before**: 기존 비교 캡처를 유지했습니다.
-- **After**: [개발 사이트](https://dev.bitlworks.co.kr/nibec/c1/)의 현재 화면을 일반 데스크톱 화면(1920×1080px, 배율 100%) 그대로 새로 촬영했습니다. Before와 같은 섹션 위치를 기준으로 맞췄으며, 촬영 후 확대·축소하거나 잘라내지 않았습니다.
-- 캡처 출처와 실제 화면 크기·스크롤 위치: [촬영 기록](docs/images/before-after/current-capture.json)
 
 ### Hero
 
