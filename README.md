@@ -32,11 +32,11 @@
 
 |                      | Before                                                                       | After                                                                       |
 | -------------------- | ---------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
-| **Hero**             | <img src="docs/images/before-after/before-hero.png" width="400">             | <img src="docs/images/before-after/after-hero.png" width="400">             |
+| **Hero**             | <img src="docs/images/before-after/after-hero.png" width="400">             | <img src="docs/images/before-after/before-hero.png" width="400">             |
 |                      | 가로 스크롤이 생기고 네비 메뉴가 두 줄로 꺾이며, `Contact`는 화면 밖으로 잘림                            | 가로 넘침 없음                                                                    |
-| **Research Domains** | <img src="docs/images/before-after/before-research-domains.png" width="400"> | <img src="docs/images/before-after/after-research-domains.png" width="400"> |
+| **Research Domains** | <img src="docs/images/before-after/after-research-domains.png" width="400"> | <img src="docs/images/before-after/before-research-domains.png" width="400"> |
 |                      | 원형 카드 묶음이 `position: absolute; left: 440px; top: -26px`로 박혀 섹션 제목 위로 겹침      | 제목 → 카드 순서로 배치돼 겹침 없음 (원 안 설명 글 아랫줄은 일부 잘림)                                 |
-| **Business Cards**   | <img src="docs/images/before-after/before-product-cards.png" width="400">    | <img src="docs/images/before-after/after-product-cards.png" width="400">    |
+| **Business Cards**   | <img src="docs/images/before-after/after-product-cards.png" width="400">    | <img src="docs/images/before-after/before-product-cards.png" width="400">    |
 |                      | 카드가 좁게 눌려 제목이 잘리고, 헤드라인이 네비 밑으로 파고듦                                          | 카드와 텍스트가 폭에 맞게 배치                                                           |
 
 
